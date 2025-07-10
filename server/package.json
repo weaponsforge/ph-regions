@@ -1,0 +1,15 @@
+{
+  "name": "philippines",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Regions, provinces and municipalities of the Philippines",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
