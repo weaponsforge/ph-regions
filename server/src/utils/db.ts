@@ -1,16 +1,48 @@
+import { Connection } from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 
 import mongoose from 'mongoose'
-const db = mongoose.connection
+const db: Connection = mongoose.connection
 
-if (db.readyState !== 1) {
-  mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
+const connectDb = async () => {
+  try {
+    if (!process.env.MONGO_URI) {
+      throw new Error('MONGO_URI is undefined')
+    }
 
-  db.on('error', console.error.bind(console, 'connection error: '))
-  db.once('open', () => {
-    console.log('connected to mongodb')
-  })
+    await mongoose.connect(process.env.MONGO_URI, {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      bufferCommands: false
+    })
+
+    db
+      .on('connected', () => console.log('✅ Mongoose connected to MongoDB'))
+      .on('error', (err) => console.error('❌ Mongoose connection error:', err))
+      .on('disconnected', () => console.log('⚠️  Mongoose disconnected from MongoDB'))
+
+    process.on('SIGINT', async () => {
+      await db.close()
+      console.log('MongoDB connection closed through app termination')
+      process.exit(0)
+    })
+
+    console.log('✅ MongoDB connected')
+  } catch (err) {
+    console.error('❌ MongoDB connection error', err)
+    throw new Error(err)
+  }
 }
 
-export default db
+const disconnectDb = () => {
+  mongoose.connection.removeAllListeners()
+  mongoose.connection.close()
+}
+
+export {
+  db,
+  connectDb,
+  disconnectDb
+}
