@@ -1,13 +1,11 @@
 import { type ExpressFnParams } from "@/types/types.js";
-import ProvinceClass from "@/classes/province.class.js";
-
-const Province = new ProvinceClass()
+import ProvinceClass from "@/classes/province.instance.js";
 
 export const createProvince: ExpressFnParams = async (req, res, next) => {
   const { name, provinceId, regionId } = req.body
 
   try {
-    const province = await Province.create({ name, provinceId, regionId })
+    const province = await ProvinceClass.create({ name, provinceId, regionId })
 
     return res.status(201).json({
       success: true,
@@ -20,7 +18,7 @@ export const createProvince: ExpressFnParams = async (req, res, next) => {
 
 export const getProvinces: ExpressFnParams = async (req, res, next) => {
   try {
-    const provinces = await Province.getAll()
+    const provinces = await ProvinceClass.list()
 
     return res.status(200).json({
       success: true,

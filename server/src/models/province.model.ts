@@ -1,6 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose'
-import Municipality, { type IMunicipality } from './municipality.model.js'
-
+import mongoose, { Schema } from 'mongoose'
+import Municipality from './municipality.model.js'
+import { type TProvinceData } from './schemas.js';
+/*
 export interface IProvince extends Document {
   id?: string;
   regionId: number;
@@ -8,14 +9,14 @@ export interface IProvince extends Document {
   name: string;
   municipalities?: IMunicipality[];
 }
-
-const ProvinceSchema = new Schema<IProvince>({
+*/
+export const ProvinceSchema = new Schema<TProvinceData>({
   regionId: {
-    type: Number,
+    type: String,
     required: true
   },
   provinceId: {
-    type: Number,
+    type: String,
     required: true,
     unique: true
   },
@@ -28,11 +29,14 @@ const ProvinceSchema = new Schema<IProvince>({
   timestamps: true
 })
 
+// Create a unique index on provinceId
+ProvinceSchema.index({ provinceId: 1 }, { unique: true })
+
 ProvinceSchema.virtual('municipalities', {
   ref: Municipality.modelName,
   localField: 'provinceId',
   foreignField: 'provinceId'
 })
 
-const Province = mongoose.model<IProvince>('Province', ProvinceSchema)
+const Province = mongoose.model<TProvinceData>('Province', ProvinceSchema)
 export default Province

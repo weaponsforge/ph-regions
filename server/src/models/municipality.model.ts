@@ -1,5 +1,6 @@
-import mongoose, { Document, Schema } from 'mongoose'
-
+import mongoose, { Schema } from 'mongoose'
+import { type TMunicipality } from './schemas.js';
+/*
 export interface IMunicipality extends Document {
   id?: string;
   regionId: number;
@@ -8,8 +9,8 @@ export interface IMunicipality extends Document {
   name: string;
   numDocs: number;
 }
-
-const MunicipalitySchema = new Schema<IMunicipality>({
+*/
+const MunicipalitySchema = new Schema<TMunicipality>({
   regionId: {
     type: Number,
     required: true
@@ -37,5 +38,5 @@ const MunicipalitySchema = new Schema<IMunicipality>({
   timestamps: true
 })
 
-const Municipality = mongoose.model<IMunicipality>('Municipality', MunicipalitySchema)
+const Municipality = mongoose.model<TMunicipality>('Municipality', MunicipalitySchema)
 export default Municipality

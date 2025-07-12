@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+// Zod schemas that mirror Mongoose models
+
 export const MunicipalityDataSchema = z.object({
   id: z.string().optional(),
   regionId: z.number(),
@@ -19,11 +21,11 @@ export const ProvinceDataSchema = z.object({
 
 export const RegionDataSchema = z.object({
   id: z.string().optional(),
-  regionId: z.number(),
+  regionId: z.string(),
   name: z.string(),
   provinces: z.array(ProvinceDataSchema).optional()
 })
 
-export type TRegion = z.infer<typeof RegionDataSchema>
-export type TProvince = z.infer<typeof ProvinceDataSchema>
+export type TRegionData = z.infer<typeof RegionDataSchema>
+export type TProvinceData = z.infer<typeof ProvinceDataSchema>
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>

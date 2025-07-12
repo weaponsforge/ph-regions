@@ -1,11 +1,11 @@
 import RegionClass from "@/classes/region.class.js";
-import { type TRegion } from "@/models/schemas.js";
+import { type TRegionData } from "@/models/schemas.js";
 import { connectDb } from "@/utils/db.js";
 
 const Region = new RegionClass()
 
 const seedRegion = async () => {
-  const data: TRegion[] = [
+  const data: TRegionData[] = [
     { regionId: 1, name: "Bicol" },
     { regionId: 2, name: "Zampen" }
   ]

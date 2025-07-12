@@ -1,13 +1,19 @@
 import { Router } from 'express'
-import { createRegion, getRegions } from '@/controllers/region.js'
-import { validateCreateRegion } from '@/middlewares/region.middleware.js'
+import { RegionDataSchema } from '@/models/schemas.js'
+import { validate } from '@/middlewares/validate.js'
+
+import {
+  createRegion,
+  getRegions
+} from '@/controllers/region.js'
 
 const router = Router()
+const validateRegionParams = validate(RegionDataSchema)
 
 /** Create a region */
-router.post('/region', validateCreateRegion, createRegion)
+router.post('/region', validateRegionParams, createRegion)
 
-// Fetch all regions
+/** Fetch all regions */
 router.get('/regions', getRegions)
 
 export default router

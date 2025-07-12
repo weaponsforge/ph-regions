@@ -1,13 +1,19 @@
 import { Router } from 'express'
-import { createProvince, getProvinces } from '@/controllers/province.js'
-import { validateCreateProvince } from '@/middlewares/province.middleware.js'
+import { ProvinceDataSchema } from '@/models/schemas.js'
+import { validate } from '@/middlewares/validate.js'
+
+import {
+  createProvince,
+  getProvinces
+} from '@/controllers/province.js'
 
 const router = Router()
+const validateProvinceParams = validate(ProvinceDataSchema)
 
 /** Create a province */
-router.post('/province', validateCreateProvince, createProvince)
+router.post('/province', validateProvinceParams, createProvince)
 
-// Fetch all provinces
+/** Fetch all provinces */
 router.get('/provinces', getProvinces)
 
 export default router
