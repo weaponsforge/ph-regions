@@ -1,4 +1,4 @@
-import { HydratedDocument, Model } from 'mongoose'
+import mongoose, { HydratedDocument, Model } from 'mongoose'
 import { AnyZodObject } from 'zod'
 import MongoCRUD from './mongo.abstract.js';
 
@@ -30,8 +30,15 @@ class MongoCrudClass<T extends AnyZodObject> extends MongoCRUD<T> {
     return await this.model.findByIdAndDelete(id)
   }
 
-  async list(): Promise<HydratedDocument<T>[]> {
-    return await this.model.find({});
+  async list(verbose: boolean = true): Promise<HydratedDocument<T>[]> {
+
+    if (verbose) {
+      return await this.model.find({});
+    }
+
+    return await this.model
+      .find({})
+      .select({ __v: 0, createdAt: 0, updatedAt: 0 })
   }
 
   async get(id: string): Promise<HydratedDocument<T> | null> {

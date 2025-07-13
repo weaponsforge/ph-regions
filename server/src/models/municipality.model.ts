@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema, SchemaTypes } from 'mongoose'
 import { type TMunicipality } from './schemas.js';
 /*
 export interface IMunicipality extends Document {
@@ -12,17 +12,14 @@ export interface IMunicipality extends Document {
 */
 const MunicipalitySchema = new Schema<TMunicipality>({
   regionId: {
-    type: Number,
-    required: true
+    type: SchemaTypes.ObjectId,
+    required: true,
+    ref: 'Region'
   },
   provinceId: {
-    type: Number,
-    required: true
-  },
-  municipalityId: {
-    type: Number,
+    type: SchemaTypes.ObjectId,
     required: true,
-    unique: true
+    ref: 'Province'
   },
   name: {
     type: String,

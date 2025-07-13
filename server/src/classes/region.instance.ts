@@ -1,8 +1,7 @@
-import MongoCrudClass from "./mongo.class.js";
-
 import { RegionDataSchema, type TRegionData } from "@/models/schemas.js";
-import Region from "@/models/region.model.js";
+import Region from "@/models/region.model.js"
+import RegionClass from "./region.class.js";
 
 // Class instance
-const RegionClass = new MongoCrudClass<TRegionData>(Region, RegionDataSchema)
-export default RegionClass
+const RegionInstance = new RegionClass<TRegionData>(Region, RegionDataSchema)
+export default RegionInstance

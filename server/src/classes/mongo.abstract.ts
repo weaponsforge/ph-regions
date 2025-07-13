@@ -25,7 +25,7 @@ abstract class MongoCRUD<T extends AnyZodObject> {
   abstract delete(id: string): Promise<void>;
 
   /** This method returns all documents */
-  abstract list(): Promise<HydratedDocument<T>[]>;
+  abstract list(verbose: boolean): Promise<HydratedDocument<T>[]>;
 
   /** This method returns a document by ID */
   abstract get(id: string): Promise<HydratedDocument<T> | null>;

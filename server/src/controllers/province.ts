@@ -18,12 +18,9 @@ export const createProvince: ExpressFnParams = async (req, res, next) => {
 
 export const getProvinces: ExpressFnParams = async (req, res, next) => {
   try {
-    const provinces = await ProvinceClass.list()
+    const provinces = await ProvinceClass.list(false)
 
-    return res.status(200).json({
-      success: true,
-      data: provinces
-    })
+    return res.status(200).json(provinces)
   } catch (err: any) {
     return res.status(500).send(err.message)
   }

@@ -14,6 +14,6 @@ const validateProvinceParams = validate(ProvinceDataSchema)
 router.post('/province', validateProvinceParams, createProvince)
 
 /** Fetch all provinces */
-router.get('/provinces', getProvinces)
+router.get('/province', getProvinces)
 
 export default router
