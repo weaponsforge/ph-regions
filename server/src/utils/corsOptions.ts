@@ -7,7 +7,7 @@ const corsOptions = {
     origin: string | undefined,
     callback: (err: Error | null, allow?: boolean) => void
   ) {
-    if (whitelist.includes(origin || "")) {
+    if (whitelist.includes(origin || '')) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS.'))

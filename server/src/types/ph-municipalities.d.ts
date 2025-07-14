@@ -3,7 +3,7 @@ declare module 'ph-municipalities' {
     prototype: unknown
     constructor();
 
-    listMunicipalities({ provinces: [] }: { provinces: string[] });
+    listMunicipalities({ provinces }: { provinces: string[] });
     listRegions(param: string);
     listProvinces(param: string);
   }

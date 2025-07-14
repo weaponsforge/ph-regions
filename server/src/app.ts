@@ -21,25 +21,37 @@ if (process.env.ALLOW_CORS === '1') {
   app.use(cors(corsOptions))
 }
 
-app.use('/api', apiRoutes)
-
 const defaultRoute: ExpressFnParams = (req, res) => {
   return res.status(200).send('Welcome to the Todo API')
 }
 
+// Not found 404 route handler
+const notFoundHandler: ExpressFnParams = (req, res) => {
+  return res.status(404).json({
+    error: 'Route not found',
+    message: `Cannot ${req.method} ${req.originalUrl}`,
+    status: 404
+  })
+}
+
+// Request error handler
 const errorHandler: ExpressFnParamsFull = (err, req, res) => {
-  const statusCode = errorHasStatus(err)
-    ? err.status
-    : 500
+  const statusCode = errorHasStatus(err) ? err.status : 500
 
   return res
     .status(statusCode)
-    .send(typedCatchError(err))
+    .json({
+      error: 'Internal server error',
+      message: typedCatchError(err),
+      status: statusCode
+    })
 }
 
-app.get('/')
-
 app.get('/', defaultRoute)
+app.use('/api', apiRoutes)
+
+// Register error handlers
+app.use(notFoundHandler)
 app.use(errorHandler)
 
 export default app
