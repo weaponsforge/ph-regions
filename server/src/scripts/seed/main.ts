@@ -1,4 +1,4 @@
-import { ExcelFactory, ExcelFile } from 'ph-municipalities'
+import { ExcelFactory } from 'ph-municipalities'
 import { connectDb, disconnectDb } from '@/utils/db.js'
 
 import Region from '@/models/region.model.js'
@@ -10,7 +10,7 @@ import {
   normalizeProvinces,
   normalizeMunicipalities,
   replaceId,
-  type DMunicipality,
+  type DMunicipality
 } from './lib/normalize.js'
 
 import { seed, type SeedingResult } from './lib/seed.js'
@@ -23,32 +23,27 @@ connectDb().then(async () => {
   let provinces = normalizeProvinces(dataSet, regions)
   let municipalities = normalizeMunicipalities(dataSet, provinces)
 
-  try {
-    // Seed regions collection
-    const regionKeyIDs = await seed(
-      Region,
-      regions,
-      { isReturnMapping: true }
-    ) as SeedingResult
+  // Seed regions collection
+  const regionKeyIDs = await seed(
+    Region,
+    regions,
+    { isReturnMapping: true }
+  ) as SeedingResult
 
-    provinces = replaceId(provinces, regionKeyIDs, 'regionId')
+  provinces = replaceId(provinces, regionKeyIDs, 'regionId')
 
-    // Seed provinces collection
-    const provinceKeyIDs = await seed(
-      Province,
-      provinces,
-      { isReturnMapping: true }
-    ) as SeedingResult
+  // Seed provinces collection
+  const provinceKeyIDs = await seed(
+    Province,
+    provinces,
+    { isReturnMapping: true }
+  ) as SeedingResult
 
-    // Replace placeholder `regionId` and `provinceId` IDs in the local municipalities
-    municipalities = replaceId(municipalities, regionKeyIDs, 'regionId') as DMunicipality[]
-    municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
+  // Replace placeholder `regionId` and `provinceId` IDs in the local municipalities
+  municipalities = replaceId(municipalities, regionKeyIDs, 'regionId') as DMunicipality[]
+  municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
 
-    // Seed municipalities collection
-    await seed(Municipality, municipalities)
-  } catch (error) {
-    throw error
-  }
-
+  // Seed municipalities collection
+  await seed(Municipality, municipalities)
   await disconnectDb()
 })

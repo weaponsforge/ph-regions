@@ -1,8 +1,7 @@
-import MongoCrudClass from "./mongo.class.js";
-
-import { ProvinceDataSchema, type TProvinceData } from "@/models/schemas.js";
-import Province from "@/models/province.model.js";
+import MongoCrudClass from './mongo.class.js'
+import { ProvinceDataSchema } from '@/models/schemas.js'
+import Province from '@/models/province.model.js'
 
 // Class instance
-const ProvinceClass = new MongoCrudClass<TProvinceData>(Province, ProvinceDataSchema)
+const ProvinceClass = new MongoCrudClass(Province, ProvinceDataSchema)
 export default ProvinceClass

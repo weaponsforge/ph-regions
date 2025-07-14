@@ -1,6 +1,5 @@
-import { ExcelFactory } from 'ph-municipalities'
-
 import type { TMunicipality, TProvinceData, TRegionData } from '@/models/schemas.js'
+import type { ExcelFactory } from 'ph-municipalities'
 
 export type removeFields = '_id' | '__v' | 'createdAt' | 'updatedAt'
 export type DRegion = Omit<TRegionData, removeFields | 'provinces'>
@@ -12,7 +11,7 @@ export type DMunicipality = Omit<TMunicipality, removeFields>
  * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` class
  * @returns {DRegion[]} List of `DRegion[]`
  */
-export const normalizeRegions = (dataSet: any): DRegion[] => {
+export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
   const regionNames = dataSet.listRegions('name')
   const regionAbbrevs = dataSet.listRegions('abbrev')
   const regionalNums = dataSet.listRegions('region_num')
@@ -37,21 +36,21 @@ export const normalizeRegions = (dataSet: any): DRegion[] => {
  * @returns {DProvince[]} List of `DProvince[]`
  */
 export const normalizeProvinces = (
-  dataSet: any, regions: DRegion[]
+  dataSet: ExcelFactory, regions: DRegion[]
 ): DProvince[] => {
   return regions.reduce((list: DProvince[], region: DRegion) => {
     const provincesByRegion = dataSet.listProvinces(region.name)
 
     const provinceItems = provincesByRegion.reduce(
       (provinceList: DProvince[], province: string
-    ) => {
-      const provinceObj = {
-        regionId: region.name,
-        name: province
-      }
+      ) => {
+        const provinceObj = {
+          regionId: region.name,
+          name: province
+        }
 
-      return [...provinceList, provinceObj]
-    }, [])
+        return [...provinceList, provinceObj]
+      }, [])
 
     return [...list, ...provinceItems]
   }, [])
@@ -64,7 +63,7 @@ export const normalizeProvinces = (
  * @returns {DMunicipality[]} List of `DMunicipality[]`
  */
 export const normalizeMunicipalities = (
-  dataSet: any, provinces: DProvince[]
+  dataSet: ExcelFactory, provinces: DProvince[]
 ): DMunicipality[] => {
   return provinces.reduce((list: DMunicipality[], province: DProvince) => {
     const { regionId, name } = province
@@ -84,7 +83,7 @@ export const normalizeMunicipalities = (
         }
 
         return [ ...municipalityList, municipalityObj]
-    }, [])
+      }, [])
 
     return [...list, ...municipalityItems]
   }, [])

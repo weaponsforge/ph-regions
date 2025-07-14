@@ -1,9 +1,14 @@
 declare module 'ph-municipalities' {
-  export class ExcelFactory {
-    // Add method signatures as needed
-    prototype: any;
+  class ExcelFactory {
+    prototype: unknown
     constructor();
-    // Add other methods you use
+
     listMunicipalities();
+    listRegions(param: string);
+    listProvinces(param: string);
+  }
+
+  export {
+    ExcelFactory
   }
 }

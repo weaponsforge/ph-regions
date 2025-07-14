@@ -1,9 +1,11 @@
-import type { NextFunction, Request, Response } from "express";
-export { ZodObject } from 'zod'
+import type { NextFunction, Request, Response } from 'express'
 export { type HydratedDocument, Model, Types } from 'mongoose'
+export { ZodObject, type ZodRawShape } from 'zod'
+
+import type ServerError from '@/utils/error.class.js'
 
 export type ExpressFnParamsFull = (
-  err: any, req: Request, res: Response, next: NextFunction
+  err: Error | ServerError, req: Request, res: Response, next: NextFunction
 ) => void;
 
 export type ExpressFnParams = (

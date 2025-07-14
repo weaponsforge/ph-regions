@@ -1,8 +1,8 @@
-import { type ExpressFnParams } from "@/types/types.js";
-import MunicipalityInstance from "@/classes/municipality.instance.js";
+import MunicipalityInstance from '@/classes/municipality.instance.js'
+import { type ExpressFnParams } from '@/types/types.js'
 
 export const createMunicipality: ExpressFnParams = async (req, res, next) => {
-  const { name, provinceId, regionId, municipalityId } = req.body
+  const { name, provinceId, regionId } = req.body
 
   try {
     const municipality = await MunicipalityInstance.create({
@@ -15,8 +15,8 @@ export const createMunicipality: ExpressFnParams = async (req, res, next) => {
       success: true,
       data: municipality
     })
-  } catch (err: any) {
-    return res.status(500).send(err.message)
+  } catch (err) {
+    return next(err)
   }
 }
 
@@ -24,7 +24,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
   try {
     const municipalities = await MunicipalityInstance.list(false)
     return res.status(200).json(municipalities)
-  } catch (err: any) {
-    return res.status(500).send(err.message)
+  } catch (err) {
+    return next(err)
   }
 }

@@ -1,15 +1,7 @@
 import mongoose, { Schema, SchemaTypes } from 'mongoose'
 import Municipality from './municipality.model.js'
-import { type TProvinceData } from './schemas.js';
-/*
-export interface IProvince extends Document {
-  id?: string;
-  regionId: number;
-  provinceId: number;
-  name: string;
-  municipalities?: IMunicipality[];
-}
-*/
+import { type TProvinceData } from './schemas.js'
+
 export const ProvinceSchema = new Schema<TProvinceData>({
   regionId: {
     type: SchemaTypes.ObjectId,
@@ -19,7 +11,7 @@ export const ProvinceSchema = new Schema<TProvinceData>({
   name: {
     type: String,
     required: true
-  },
+  }
 },
 {
   timestamps: true

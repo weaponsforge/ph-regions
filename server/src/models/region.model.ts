@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { type TRegionData } from './schemas.js';
+import { type TRegionData } from './schemas.js'
 
 const RegionSchema = new Schema<TRegionData>({
   name: {
@@ -8,7 +8,7 @@ const RegionSchema = new Schema<TRegionData>({
   },
   abbrev: {
     type: String,
-    default: null,
+    default: null
   },
   regionalName: {
     type: String
@@ -24,10 +24,10 @@ const RegionSchema = new Schema<TRegionData>({
 RegionSchema.virtual('provinces', {
   ref: 'Province',
   localField: '_id',
-  foreignField: 'regionId',
-});
+  foreignField: 'regionId'
+})
 
-RegionSchema.set('toJSON', { virtuals: true });
+RegionSchema.set('toJSON', { virtuals: true })
 
 const Region = mongoose.model<TRegionData>('Region', RegionSchema)
 

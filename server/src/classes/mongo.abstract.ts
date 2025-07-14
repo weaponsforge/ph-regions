@@ -1,17 +1,17 @@
-import { ZodObject } from '@/types/types.js';
-import { Schema } from 'mongoose';
-import { type HydratedDocument, Model } from '@/types/types.js';
+import { ZodObject } from '@/types/types.js'
+import type { HydratedDocument, ZodRawShape } from '@/types/types.js'
+import { Model } from '@/types/types.js'
 
 /**
  * @class MongoCRUD
  * @description This is an abstract class to be implemented by classes that interface with MongoDB
  */
-abstract class MongoCRUD<T, Z extends ZodObject<any>> {
+abstract class MongoCRUD<T, Z extends ZodObject<ZodRawShape>> {
   /** Zod schema for data validation */
-  schema: Z | null;
+  schema: Z | null
 
   /** Mongoose schema (model) */
-  model: Model<T> | null;
+  model: Model<T> | null
 
   constructor (model: Model<T>, schema: Z) {
     if (!model || !schema) {

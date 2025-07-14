@@ -1,7 +1,7 @@
-import type { Model } from "@/types/types.js"
-import type { DMunicipality, DProvince, DRegion } from "./normalize.js"
-import type { TProvinceData, TRegionData, TMunicipality } from "@/models/schemas.js"
-import type { ClientSession } from "mongoose"
+import type { Model } from '@/types/types.js'
+import type { DMunicipality, DProvince, DRegion } from './normalize.js'
+import type { TProvinceData, TRegionData, TMunicipality } from '@/models/schemas.js'
+import type { ClientSession } from 'mongoose'
 
 type MinData = DRegion | DProvince | DMunicipality
 type FullData = TRegionData | TProvinceData | TMunicipality
@@ -33,24 +33,20 @@ export const seed = async <
 ): Promise<SeedingResult | void> => {
   const { isReturnMapping, session } = options
 
-  try {
-    await model.deleteMany({}, { session })
+  await model.deleteMany({}, { session })
 
-    const insertedDocs = await model.insertMany(data, {
-      ordered: false,
-      rawResult: true,
-      session
-    })
+  const insertedDocs = await model.insertMany(data, {
+    ordered: false,
+    rawResult: true,
+    session
+  })
 
-    console.log(`---inserted ${insertedDocs.insertedCount} ${model.modelName} docs`)
+  console.log(`---inserted ${insertedDocs.insertedCount} ${model.modelName} docs`)
 
-    if (isReturnMapping) {
-      return (insertedDocs?.mongoose?.results as TDocument[])?.reduce((list, item) => {
-        if (item._id === undefined) return list
-        return { ...list, [item.name]: item._id.toString() }
-      }, {})
-    }
-  } catch (error) {
-    throw error
+  if (isReturnMapping) {
+    return (insertedDocs?.mongoose?.results as TDocument[])?.reduce((list, item) => {
+      if (item._id === undefined) return list
+      return { ...list, [item.name]: item._id.toString() }
+    }, {})
   }
 }

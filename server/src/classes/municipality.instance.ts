@@ -1,8 +1,7 @@
-import MongoCrudClass from "./mongo.class.js";
-
-import { MunicipalityDataSchema, type TMunicipality } from "@/models/schemas.js";
-import Municipality from "@/models/municipality.model.js";
+import MongoCrudClass from './mongo.class.js'
+import { MunicipalityDataSchema } from '@/models/schemas.js'
+import Municipality from '@/models/municipality.model.js'
 
 // Class instance
-const MunicipalityClass = new MongoCrudClass<TMunicipality>(Municipality, MunicipalityDataSchema)
+const MunicipalityClass = new MongoCrudClass(Municipality, MunicipalityDataSchema)
 export default MunicipalityClass
