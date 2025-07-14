@@ -31,15 +31,15 @@ class MongoCrudClass<T, Z extends ZodObject<ZodRawShape>> extends MongoCRUD<T, Z
     return await this.model!.findByIdAndDelete(id)
   }
 
-  async list(verbose: boolean = true): Promise<HydratedDocument<T>[]> {
+  async list(verbose: boolean = true, params: Partial<T> = {}): Promise<HydratedDocument<T>[]> {
     this.checkInternals()
 
     if (verbose) {
-      return await this.model!.find({})
+      return await this.model!.find(params)
     }
 
     return await this.model!
-      .find({})
+      .find(params)
       .select({ __v: 0, createdAt: 0, updatedAt: 0 })
   }
 

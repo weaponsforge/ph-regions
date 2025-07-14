@@ -11,3 +11,9 @@ export type ExpressFnParamsFull = (
 export type ExpressFnParams = (
   req: Request, res: Response, next: NextFunction
 ) => void;
+
+export enum PARAM_METHODS {
+  BODY = 'body',
+  PARAMS = 'params',
+  QUERY = 'query'
+}

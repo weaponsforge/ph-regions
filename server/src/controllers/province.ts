@@ -24,3 +24,12 @@ export const getProvinces: ExpressFnParams = async (req, res, next) => {
     return next(err)
   }
 }
+
+export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
+  try {
+    const provinces = await ProvinceClass.listAll()
+    return res.status(200).json(provinces)
+  } catch (err) {
+    return next(err)
+  }
+}

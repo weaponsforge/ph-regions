@@ -32,7 +32,7 @@ abstract class MongoCRUD<T, Z extends ZodObject<ZodRawShape>> {
   abstract delete(id: string): Promise<void | null>;
 
   /** This method returns all documents */
-  abstract list(verbose: boolean): Promise<HydratedDocument<T>[]>;
+  abstract list(verbose: boolean, params: Partial<T>): Promise<HydratedDocument<T>[]>;
 
   /** This method returns a document by ID */
   abstract get(id: string): Promise<HydratedDocument<T> | null>;
@@ -54,11 +54,13 @@ abstract class MongoCRUD<T, Z extends ZodObject<ZodRawShape>> {
    */
   safeParse(params: Partial<T>) {
     this.checkInternals()
-    const resutlt = this.schema!.safeParse(params)
+    const result = this.schema!.safeParse(params)
 
-    if (!resutlt.success) {
-      throw new Error('Invalid data format')
+    if (!result.success) {
+      throw new Error('Invalid data format', params)
     }
+
+    return result
   }
 }
 

@@ -7,8 +7,8 @@ export type DProvince = Omit<TProvinceData, removeFields | 'municipalities'>
 export type DMunicipality = Omit<TMunicipality, removeFields>
 
 /**
- * Transforms the regions data of `ExcelFactory` for `Region` model input
- * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` class
+ * Transforms the regions data of `ExcelFactory` for normalized `Region` document input
+ * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` or `ExcelFile` class
  * @returns {DRegion[]} List of `DRegion[]`
  */
 export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
@@ -30,8 +30,8 @@ export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
 }
 
 /**
- * Transforms the provinces data of `ExcelFactory` with placeholder `regionId` for `Province` model input
- * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` class
+ * Transforms the provinces data of `ExcelFactory` with placeholder `regionId` for normalized `Province` document input
+ * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` or `ExcelFile` class
  * @param {DRegion[]} regions list of `DRegion[]` objects
  * @returns {DProvince[]} List of `DProvince[]`
  */
@@ -57,8 +57,8 @@ export const normalizeProvinces = (
 }
 
 /**
- * Transforms the municipalities data of `ExcelFactory` with placeholder `regionId` and `provinceId` for `Municipality` model input
- * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` class
+ * Transforms the municipalities data of `ExcelFactory` with placeholder `regionId` and `provinceId` for normalized `Municipality` document input
+ * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` or `ExcelFile` class
  * @param {DProvince[]} provinces list of `DProvince[]` objects
  * @returns {DMunicipality[]} List of `DMunicipality[]`
  */

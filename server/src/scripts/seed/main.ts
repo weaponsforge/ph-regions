@@ -15,6 +15,7 @@ import {
 
 import { seed, type SeedingResult } from './lib/seed.js'
 
+// TO-DO: seed using transactions and sessions in a replica set
 connectDb().then(async () => {
   const dataSet = new ExcelFactory()
 

@@ -36,6 +36,20 @@ export const RegionDataSchema = z.object({
   provinces: z.array(ProvinceDataSchema).max(40).optional()
 })
 
+export const RegionListParams = z.object({
+  isFormatted: z.string().optional(),
+  _id: z.string().optional(),
+  regionId: z.string().optional(),
+  provinceId: z.string().optional(),
+  municipalityId: z.string().optional(),
+  name: z.string().max(40).optional(),
+  abbrev: z.string().max(20).optional(),
+  regionalName: z.string().optional(),
+  regionalCode: z.string().max(5).optional()
+})
+
 export type TRegionData = z.infer<typeof RegionDataSchema>
 export type TProvinceData = z.infer<typeof ProvinceDataSchema>
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>
+
+export type TRegionListParams = z.infer<typeof RegionListParams>

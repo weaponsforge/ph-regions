@@ -26,5 +26,7 @@ const MunicipalitySchema = new Schema<TMunicipality>({
   timestamps: true
 })
 
+MunicipalitySchema.set('toJSON', { virtuals: true })
+
 const Municipality = mongoose.model<TMunicipality>('Municipality', MunicipalitySchema)
 export default Municipality

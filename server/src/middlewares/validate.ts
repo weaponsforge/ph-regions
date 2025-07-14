@@ -1,14 +1,21 @@
 import { ZodObject } from 'zod'
 import type { Request, Response, NextFunction } from 'express'
+import { PARAM_METHODS } from '@/types/types.js'
 
 export const validate =
-  (schema: ZodObject) =>
+  (schema: ZodObject, method: PARAM_METHODS = PARAM_METHODS.QUERY) =>
     (req: Request, res: Response, next: NextFunction): Response | void => {
-      const result = schema.safeParse({
-        body: req.body,
-        query: req.query,
-        params: req.params
-      })
+      let params: Record<string, unknown> = req.query
+
+      if (method === PARAM_METHODS.BODY) {
+        params = req.body
+      }
+
+      if (method === PARAM_METHODS.PARAMS) {
+        params = req.params
+      }
+
+      const result = schema.safeParse(params)
 
       if (!result.success) {
         return res.status(400).json({
@@ -17,5 +24,7 @@ export const validate =
         })
       }
 
+      req.data = result.data
+      req.data.isFormatted = result.data.isFormatted !== undefined
       next()
     }

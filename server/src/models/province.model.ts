@@ -22,6 +22,12 @@ ProvinceSchema.virtual('municipalities', {
   localField: '_id',
   foreignField: 'provinceId'
 })
+/*
+ProvinceSchema.virtual('provinceId').get(function() {
+  return this._id
+})
+*/
+ProvinceSchema.set('toJSON', { virtuals: true })
 
 const Province = mongoose.model<TProvinceData>('Province', ProvinceSchema)
 export default Province
