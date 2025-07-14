@@ -37,7 +37,7 @@ export const RegionDataSchema = z.object({
 })
 
 export const RegionListParams = z.object({
-  isFormatted: z.string().optional(),
+  isFormat: z.string().optional(),
   _id: z.string().optional(),
   regionId: z.string().optional(),
   provinceId: z.string().optional(),

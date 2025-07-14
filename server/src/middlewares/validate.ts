@@ -25,6 +25,6 @@ export const validate =
       }
 
       req.data = result.data
-      req.data.isFormatted = result.data.isFormatted !== undefined
+      req.data.isFormat = result.data.isFormat !== undefined
       next()
     }

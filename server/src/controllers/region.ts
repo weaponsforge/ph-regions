@@ -18,7 +18,7 @@ export const createRegion: ExpressFnParams = async (req, res, next) => {
 
 export const getRegions: ExpressFnParams = async (req, res, next) => {
   try {
-    delete req.data.isFormatted
+    delete req.data.isFormat
     delete req.data.regionId
     delete req.data.provinceId
     delete req.data.municipalityId
@@ -31,7 +31,7 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
 }
 
 export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
-  const { isFormatted, _id, regionId, provinceId, municipalityId } = req.data
+  const { isFormat, _id, regionId, provinceId, municipalityId } = req.data
   const id = regionId ?? _id
 
   const subQuery: Record<string, string> = {
@@ -43,13 +43,13 @@ export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
     req.data._id = new Types.ObjectId(String(id))
   }
 
-  delete req.data.isFormatted
+  delete req.data.isFormat
   delete req.data.regionId
   delete req.data.provinceId
   delete req.data.municipalityId
 
   try {
-    const regions = isFormatted
+    const regions = isFormat
       ? await RegionInstance.listAllFormatted(req.data, subQuery)
       : await RegionInstance.listAll(req.data)
 
