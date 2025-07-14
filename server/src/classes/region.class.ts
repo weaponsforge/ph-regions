@@ -1,18 +1,20 @@
 import mongoose from 'mongoose'
 
 import MongoCrudClass from "./mongo.class.js";
-import { AnyZodObject, HydratedDocument, Model } from "@/types/types.js";
+import { ZodObject, type HydratedDocument, Model } from "@/types/types.js";
 
 import Municipality from "@/models/municipality.model.js";
 import Province from "@/models/province.model.js";
 
-class RegionClass<T> extends MongoCrudClass<T> {
-  constructor(model: Model, schema: AnyZodObject) {
+class RegionClass<T, Z extends ZodObject<any>> extends MongoCrudClass<T, Z> {
+  constructor(model: Model<T>, schema: Z) {
     super(model, schema)
   }
 
   async listAll(): Promise<HydratedDocument<T>[]> {
-    return await this.model.find({})
+    this.checkInternals()
+
+    return await this.model!.find({})
       .select({ __v: 0, createdAt: 0, updatedAt: 0 })
       .populate('provinces')
   }

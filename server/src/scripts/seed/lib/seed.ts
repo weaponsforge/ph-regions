@@ -1,72 +1,55 @@
-import type { TProvinceData, TRegionData } from '@/models/schemas.js'
+import type { Model } from "@/types/types.js"
+import type { DMunicipality, DProvince, DRegion } from "./normalize.js"
+import type { TProvinceData, TRegionData, TMunicipality } from "@/models/schemas.js"
+import type { ClientSession } from "mongoose"
 
-import Region from '@/models/region.model.js'
-import Province from '@/models/province.model.js'
-import Municipality from '@/models/municipality.model.js'
+type MinData = DRegion | DProvince | DMunicipality
+type FullData = TRegionData | TProvinceData | TMunicipality
 
-import type { DMunicipality, DRegion, DProvince } from './normalize.js'
+// Type alias for the return type
+export type SeedingResult = Record<string, string>
 
-/**
- * Inserts normalized `Region[]` data into the `regions` collection.
- * @returns {Promise<Record<string, string>>} Object with inserted region names as keys and `TRegionData._id` as values
- */
-export const seedRegions = async (regions: DRegion[]): Promise<Record<string, string>> => {
-  try {
-    await Region.deleteMany({})
-
-    const result = await Region.insertMany(regions, {
-      ordered: false,
-      rawResult: true
-    })
-
-    console.log(`---inserted ${result.insertedCount} regions`)
-
-    return (result?.mongoose?.results as TRegionData[])?.reduce((list, item) => {
-      if (item._id === undefined) return list
-      return { ...list, [item.name]: item._id.toString() }
-    }, {})
-  } catch (error) {
-    throw error
-  }
+export type SeedOptions = {
+  isReturnMapping?: boolean;
+  session?: ClientSession
 }
 
 /**
- * Inserts normalized `Province[]` data into the `provinces` collection.
- * @returns {Promise<Record<string, string>>} Object with inserted province names as keys and `TProvinceData._id` as values
+ * Inserts normalized data into the `regions`, `provinces` or `municipalities` collection.
+ * @param {Model<TDocument>} model - Mongoose model for the collection
+ * @param {TInput[]} data - Array of objects for creating documents from the model
+ * @param {SeedOptions} options - (Optional) Object containing custom options for seeding data
+ * @param {boolean} [options.isReturnMapping=false] - (Optional) Flag to return a mapping of document `name` values to IDs. Defaults to `false`
+ * @param {ClientSession} [options.session] - (Optional) MongoDB session - if provided, requires session setup from the calling method
+ * @returns {Promise<SeedingResult | void>} Promise that resolves to a mapping object with document names as keys and document IDs as values, or void if `isReturnMapping` is false
  */
-export const seedProvinces = async (provinces: DProvince[]): Promise<Record<string, string>> => {
-  try {
-    await Province.deleteMany({})
+export const seed = async <
+  TInput extends MinData,
+  TDocument extends FullData
+>(
+  model: Model<TDocument>,
+  data: TInput[],
+  options: SeedOptions = {}
+): Promise<SeedingResult | void> => {
+  const { isReturnMapping, session } = options
 
-    const result = await Province.insertMany(provinces, {
+  try {
+    await model.deleteMany({}, { session })
+
+    const insertedDocs = await model.insertMany(data, {
       ordered: false,
-      rawResult: true
+      rawResult: true,
+      session
     })
 
-    console.log(`---inserted ${result.insertedCount} provinces`)
+    console.log(`---inserted ${insertedDocs.insertedCount} ${model.modelName} docs`)
 
-    return (result?.mongoose?.results as TProvinceData[])?.reduce((list, item) => {
-      if (item._id === undefined) return list
-      return { ...list, [item.name]: item._id.toString() }
-    }, {})
-  } catch (error) {
-    throw error
-  }
-}
-
-/**
- * Inserts normalized `Municipality[]` data into the `municipalities` collection.
- */
-export const seedMunicipalities = async (municipalities: DMunicipality[]) => {
-  try {
-    await Municipality.deleteMany({})
-
-    const result = await Municipality.insertMany(municipalities, {
-      ordered: false,
-      rawResult: true
-    })
-
-    console.log(`---inserted ${result.insertedCount} municipalities`)
+    if (isReturnMapping) {
+      return (insertedDocs?.mongoose?.results as TDocument[])?.reduce((list, item) => {
+        if (item._id === undefined) return list
+        return { ...list, [item.name]: item._id.toString() }
+      }, {})
+    }
   } catch (error) {
     throw error
   }

@@ -3,7 +3,10 @@ const whitelist = process.env.ALLOWED_ORIGINS
   : ['http://localhost:3000']
 
 const corsOptions = {
-  origin: function (origin, callback) {
+  origin: function (
+    origin: string,
+    callback: (err: Error | null, allow?: boolean) => void
+  ) {
     if (whitelist.includes(origin)) {
       callback(null, true)
     } else {

@@ -8,8 +8,7 @@ export const createMunicipality: ExpressFnParams = async (req, res, next) => {
     const municipality = await MunicipalityInstance.create({
       name,
       provinceId,
-      regionId,
-      municipalityId
+      regionId
     })
 
     return res.status(201).json({

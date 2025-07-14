@@ -1,16 +1,23 @@
-import { HydratedDocument, Model } from 'mongoose'
-import { AnyZodObject } from 'zod'
+import { ZodObject } from '@/types/types.js';
+import { Schema } from 'mongoose';
+import { type HydratedDocument, Model } from '@/types/types.js';
 
 /**
  * @class MongoCRUD
  * @description This is an abstract class to be implemented by classes that interface with MongoDB
  */
-abstract class MongoCRUD<T extends AnyZodObject> {
+abstract class MongoCRUD<T, Z extends ZodObject<any>> {
   /** Zod schema for data validation */
-  schema: AnyZodObject | null;
+  schema: Z | null;
+
+  /** Mongoose schema (model) */
   model: Model<T> | null;
 
-  constructor (model: Model, schema: AnyZodObject) {
+  constructor (model: Model<T>, schema: Z) {
+    if (!model || !schema) {
+      throw new Error('Model and schema are required')
+    }
+
     this.model = model
     this.schema = schema
   }
@@ -22,7 +29,7 @@ abstract class MongoCRUD<T extends AnyZodObject> {
   abstract update(id: string, params: Partial<T>): Promise<HydratedDocument<T> | null>;
 
   /** This method deletes a document by ID */
-  abstract delete(id: string): Promise<void>;
+  abstract delete(id: string): Promise<void | null>;
 
   /** This method returns all documents */
   abstract list(verbose: boolean): Promise<HydratedDocument<T>[]>;
@@ -31,12 +38,23 @@ abstract class MongoCRUD<T extends AnyZodObject> {
   abstract get(id: string): Promise<HydratedDocument<T> | null>;
 
   /**
+   * Checks if `this.schema` and `this.model` are present.
+   * @throws {Error} Throws an error if `this.schema` or `this.model` is missing.
+   */
+  checkInternals () {
+    if (!this.schema || !this.model) {
+      throw new Error('Missing or schema are required')
+    }
+  }
+
+  /**
    * Parses input parameters for valid type-checks and required input parameters
    * @param params Key-value pairs properties of `T`
    * @throws Zod validation and parsing errors
    */
   safeParse(params: Partial<T>) {
-    const resutlt = this.schema.safeParse(params)
+    this.checkInternals()
+    const resutlt = this.schema!.safeParse(params)
 
     if (!resutlt.success) {
       throw new Error('Invalid data format')

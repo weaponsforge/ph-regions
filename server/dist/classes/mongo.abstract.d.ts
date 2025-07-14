@@ -1,0 +1,35 @@
+import { ZodObject } from '@/types/types.js';
+import { type HydratedDocument, Model } from '@/types/types.js';
+/**
+ * @class MongoCRUD
+ * @description This is an abstract class to be implemented by classes that interface with MongoDB
+ */
+declare abstract class MongoCRUD<T, Z extends ZodObject<any>> {
+    /** Zod schema for data validation */
+    schema: Z | null;
+    /** Mongoose schema (model) */
+    model: Model<T> | null;
+    constructor(model: Model<T>, schema: Z);
+    /** This method creates a new document */
+    abstract create(params: T): Promise<HydratedDocument<T>>;
+    /** This method updates a document by ID */
+    abstract update(id: string, params: Partial<T>): Promise<HydratedDocument<T> | null>;
+    /** This method deletes a document by ID */
+    abstract delete(id: string): Promise<void | null>;
+    /** This method returns all documents */
+    abstract list(verbose: boolean): Promise<HydratedDocument<T>[]>;
+    /** This method returns a document by ID */
+    abstract get(id: string): Promise<HydratedDocument<T> | null>;
+    /**
+     * Checks if `this.schema` and `this.model` are present.
+     * @throws {Error} Throws an error if `this.schema` or `this.model` is missing.
+     */
+    checkInternals(): void;
+    /**
+     * Parses input parameters for valid type-checks and required input parameters
+     * @param params Key-value pairs properties of `T`
+     * @throws Zod validation and parsing errors
+     */
+    safeParse(params: Partial<T>): void;
+}
+export default MongoCRUD;

@@ -1,9 +1,9 @@
-import { AnyZodObject } from 'zod'
-import { Request, Response, NextFunction } from 'express'
+import { ZodObject } from 'zod'
+import type { Request, Response, NextFunction } from 'express'
 
 export const validate =
-  (schema: AnyZodObject) =>
-  (req: Request, res: Response, next: NextFunction) => {
+  (schema: ZodObject) =>
+  (req: Request, res: Response, next: NextFunction): Response | void => {
     const result = schema.safeParse({
       body: req.body,
       query: req.query,
@@ -13,7 +13,7 @@ export const validate =
     if (!result.success) {
       return res.status(400).json({
         message: 'Validation Error',
-        issues: result.error.errors
+        issues: result?.error?.issues
       })
     }
 

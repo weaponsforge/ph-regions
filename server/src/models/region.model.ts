@@ -1,5 +1,4 @@
-import mongoose, { Schema, SchemaTypes } from 'mongoose'
-import Province from './province.model.js'
+import mongoose, { Schema } from 'mongoose'
 import { type TRegionData } from './schemas.js';
 
 const RegionSchema = new Schema<TRegionData>({
@@ -23,15 +22,14 @@ const RegionSchema = new Schema<TRegionData>({
 })
 
 RegionSchema.virtual('provinces', {
-  ref: 'Province',           // The model to use
-  localField: '_id',         // Find provinces where `regionId` matches this region's `_id`
-  foreignField: 'regionId',  // The field in Province
+  ref: 'Province',
+  localField: '_id',
+  foreignField: 'regionId',
 });
 
 RegionSchema.set('toJSON', { virtuals: true });
 
 const Region = mongoose.model<TRegionData>('Region', RegionSchema)
 
-// Ensure the index is created
-// Region.createIndexes().catch(console.error)
+export type TRegionModel = typeof Region
 export default Region

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { Types } from '@/types/types.js'
 
 // Zod schemas that mirror Mongoose models
 
@@ -7,8 +8,8 @@ export const MunicipalityDataSchema = z.object({
   __v: z.number().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
-  regionId: z.string(),
-  provinceId: z.string(),
+  regionId: z.instanceof(Types.ObjectId).or(z.string()),
+  provinceId: z.instanceof(Types.ObjectId).or(z.string()),
   name: z.string().max(40),
   numDocs: z.number()
 })
@@ -18,7 +19,7 @@ export const ProvinceDataSchema = z.object({
   __v: z.number().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
-  regionId: z.string(),
+  regionId: z.instanceof(Types.ObjectId).or(z.string()),
   name: z.string().max(40),
   municipalities: z.array(MunicipalityDataSchema).optional()
 })

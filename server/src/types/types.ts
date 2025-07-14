@@ -1,9 +1,9 @@
-import { Error, NextFunction, Request, Response } from "express";
-export { AnyZodObject } from 'zod'
-export { HydratedDocument, Model } from 'mongoose'
+import type { NextFunction, Request, Response } from "express";
+export { ZodObject } from 'zod'
+export { type HydratedDocument, Model, Types } from 'mongoose'
 
 export type ExpressFnParamsFull = (
-  err: Error, req: Request, res: Response, next: NextFunction
+  err: any, req: Request, res: Response, next: NextFunction
 ) => void;
 
 export type ExpressFnParams = (

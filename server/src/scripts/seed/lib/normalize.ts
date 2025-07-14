@@ -12,7 +12,7 @@ export type DMunicipality = Omit<TMunicipality, removeFields>
  * @param {ExcelFactory} dataSet - Instance of an `ExcelFactory` class
  * @returns {DRegion[]} List of `DRegion[]`
  */
-export const normalizeRegions = (dataSet: typeof ExcelFactory): DRegion[] => {
+export const normalizeRegions = (dataSet: any): DRegion[] => {
   const regionNames = dataSet.listRegions('name')
   const regionAbbrevs = dataSet.listRegions('abbrev')
   const regionalNums = dataSet.listRegions('region_num')
@@ -37,7 +37,7 @@ export const normalizeRegions = (dataSet: typeof ExcelFactory): DRegion[] => {
  * @returns {DProvince[]} List of `DProvince[]`
  */
 export const normalizeProvinces = (
-  dataSet: typeof ExcelFactory, regions: DRegion[]
+  dataSet: any, regions: DRegion[]
 ): DProvince[] => {
   return regions.reduce((list: DProvince[], region: DRegion) => {
     const provincesByRegion = dataSet.listProvinces(region.name)
@@ -64,7 +64,7 @@ export const normalizeProvinces = (
  * @returns {DMunicipality[]} List of `DMunicipality[]`
  */
 export const normalizeMunicipalities = (
-  dataSet: typeof ExcelFactory, provinces: DProvince[]
+  dataSet: any, provinces: DProvince[]
 ): DMunicipality[] => {
   return provinces.reduce((list: DMunicipality[], province: DProvince) => {
     const { regionId, name } = province
@@ -103,10 +103,12 @@ export const replaceId = (
   key: 'regionId' | 'provinceId'
 ) => {
   return data.map(item => {
+    const regionIdStr = ({ regionId: keyValues[item.regionId.toString()] })
+
     return {
       ...item,
-      ...(key === 'regionId' && ({ regionId: keyValues[item.regionId] })),
-      ...(key === 'provinceId' && 'provinceId' in item && ({ provinceId: keyValues[item.provinceId] }))
+      ...(key === 'regionId' && regionIdStr),
+      ...(key === 'provinceId' && 'provinceId' in item && ({ provinceId: keyValues[item.provinceId.toString()] }))
     }
   })
 }

@@ -4,7 +4,7 @@ import provinceRouter from './province.js'
 import regionRouter from './region.js'
 
 
-const router = new Router()
+const router = Router()
 
 router.use(municipalityRouter)
 router.use(provinceRouter)
