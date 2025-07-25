@@ -36,6 +36,15 @@ export const RegionDataSchema = z.object({
   provinces: z.array(ProvinceDataSchema).max(40).optional()
 })
 
+export const StatsDataSchema = z.object({
+  _id: z.string().optional(),
+  __v: z.number().optional(),
+  municipalityId: z.instanceof(Types.ObjectId).or(z.string()),
+  numBrgy: z.number()
+})
+
+// Zod schemas for query parameters
+
 export const RegionListParams = z.object({
   isFormat: z.string().optional(),
   _id: z.string().optional(),
@@ -48,8 +57,15 @@ export const RegionListParams = z.object({
   regionalCode: z.string().max(5).optional()
 })
 
+export const StatsFindId = z.object({
+  _id: z.string().optional(),
+  __v: z.number().optional(),
+  municipalityId: z.string().optional()
+})
+
 export type TRegionData = z.infer<typeof RegionDataSchema>
 export type TProvinceData = z.infer<typeof ProvinceDataSchema>
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>
 
 export type TRegionListParams = z.infer<typeof RegionListParams>
+export type TStatsData = z.infer<typeof StatsDataSchema>

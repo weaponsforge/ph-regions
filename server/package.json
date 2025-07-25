@@ -15,7 +15,9 @@
     "watch": "tsc -p tsconfig.json --watch",
     "lint": "eslint \"src/**/*.ts\" *.mjs *.ts",
     "lint:fix": "eslint \"src/**/*.ts\" *.mjs *.ts --fix",
-    "seed": "vite-node ./src/scripts/seed/main.ts"
+    "debug": "nodemon --inspect=0.0.0.0:9229",
+    "seed": "vite-node ./src/scripts/seed/main.ts",
+    "seed:debug": "export IS_DOCKER=true && node --inspect=0.0.0.0:9229 ./node_modules/.bin/vite-node ./src/scripts/seed/main.ts"
   },
   "author": "",
   "license": "ISC",

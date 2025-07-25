@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": "ts",
   "ignore": ["dist", "node_modules"],
-  "exec": "vite-node src/server.ts"
+  "exec": "node --inspect=0.0.0.0:9229 ./node_modules/.bin/vite-node src/server.ts"
 }

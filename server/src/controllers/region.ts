@@ -1,11 +1,12 @@
 import RegionInstance from '@/classes/region.instance.js'
+import Region from '@/models/region.model.js'
 import { Types, type ExpressFnParams } from '@/types/types.js'
 
 export const createRegion: ExpressFnParams = async (req, res, next) => {
   const { name } = req.body
 
   try {
-    const region = await RegionInstance.create({ name })
+    const region = await Region.create({ name })
 
     return res.status(201).json({
       success: true,

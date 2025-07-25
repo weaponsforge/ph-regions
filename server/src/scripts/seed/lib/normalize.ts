@@ -1,10 +1,11 @@
-import type { TMunicipality, TProvinceData, TRegionData } from '@/models/schemas.js'
+import type { TMunicipality, TProvinceData, TRegionData, TStatsData } from '@/models/schemas.js'
 import type { ExcelFactory } from 'ph-municipalities'
 
 export type removeFields = '_id' | '__v' | 'createdAt' | 'updatedAt'
 export type DRegion = Omit<TRegionData, removeFields | 'provinces'>
 export type DProvince = Omit<TProvinceData, removeFields | 'municipalities'>
 export type DMunicipality = Omit<TMunicipality, removeFields>
+export type DStats = Omit<TStatsData, removeFields>
 
 /**
  * Transforms the regions data of `ExcelFactory` for normalized `Region` document input
@@ -92,7 +93,7 @@ export const normalizeMunicipalities = (
 /**
  * Replaces the value of `data[].regionId` or `data[].provinceId` with real Document `_id` value from the `keyValues` object.
  * @param {DProvince[] | DMunicipality[]} data `DProvince[] | DMunicipality[]` normalized data to insert into a collection.
- * @param {Record<string, string>} keyValues On Object with `data.name` as key and Document `_id` as value.
+ * @param {Record<string, string>} keyValues On Object with `data.name` as keys and Document `_id` as values.
  * @param {string} key `regionId` or `provinceId` Document `_id` to put into the `keyValues` value.
  * @returns {DProvince[] | DMunicipality[]} `data` with real values of `regionId` or `provinceId`
  */
@@ -102,7 +103,8 @@ export const replaceId = (
   key: 'regionId' | 'provinceId'
 ) => {
   return data.map(item => {
-    const regionIdStr = ({ regionId: keyValues[item.regionId.toString()] })
+    const regionIdKey = item.regionId.toString()
+    const regionIdStr = ({ regionId: keyValues[regionIdKey] })
 
     return {
       ...item,
