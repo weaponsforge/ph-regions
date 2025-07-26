@@ -18,19 +18,19 @@ services:
       - "3001:3001"
       - "9229:9229"
     depends_on:
-      - mongodb-wph-regions
+      - db-ph-regions
     links:
-      - mongodb-wph-regions
+      - db-ph-regions
 
   # MongoDB service
-  mongodb-wph-regions:
+  db-ph-regions:
     container_name: mongodb-ph-regions
     image: mongo:4.4.6
     restart: always
     networks:
       - weaponsforge-ph-regions
     volumes:
-      - mongodb-wph-regions:/data/db
+      - db-ph-regions:/data/db
       - ./data/dump:/data/dump
     command: mongod
     environment:
@@ -47,5 +47,5 @@ networks:
 
 # Named volumes for persisting data
 volumes:
-  mongodb-wph-regions:
+  db-ph-regions:
     driver: local
