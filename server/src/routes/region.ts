@@ -1,25 +1,27 @@
 import { Router } from 'express'
-import { RegionDataSchema, RegionListParams } from '@/models/schemas.js'
-import { PARAM_METHODS } from '@/types/types.js'
+import { RegionApiSchema } from '@/schemas/region.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
-  createRegion,
   getRegions,
-  getRegionsFull
+  getRegionById,
+  getRegionsFull,
+  getRegionProvinces
 } from '@/controllers/region.js'
 
 const router = Router()
-const validateRegionParams = validate(RegionDataSchema)
-const validateRegionListParams = validate(RegionListParams, PARAM_METHODS.QUERY)
-
-/** Create a region */
-router.post('/region', validateRegionParams, createRegion)
+const validateRegionListParams = validate(RegionApiSchema)
 
 /** Fetch all regions */
-router.get('/region', validateRegionListParams, getRegions)
+router.get('/regions', validateRegionListParams, getRegions)
 
-/** Fetch all regions with complete with provinces and municipalities */
-router.get('/region/full', validateRegionListParams, getRegionsFull)
+/** Fetches all regions including their provinces[] and municipalities[] */
+router.get('/regions/full', validateRegionListParams, getRegionsFull)
+
+/** Fetch a region by ID */
+router.get('/regions/:id', validateRegionListParams, getRegionById)
+
+/** Fetch a region by ID including its provinces[] with municipalities[] */
+router.get('/regions/:id/provinces', validateRegionListParams, getRegionProvinces)
 
 export default router

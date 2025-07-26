@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { type TRegionData } from './schemas.js'
+import type { TRegionData } from '@/schemas/region.schema.js'
 
 const RegionSchema = new Schema<TRegionData>({
   name: {

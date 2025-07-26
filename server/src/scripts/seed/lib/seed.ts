@@ -1,10 +1,13 @@
-import type { Model } from '@/types/types.js'
-import type { DMunicipality, DProvince, DRegion } from './normalize.js'
-import type { TProvinceData, TRegionData, TMunicipality } from '@/models/schemas.js'
+import type { Model, Document } from '@/types/types.js'
 import type { ClientSession } from 'mongoose'
+import type { DMunicipality, DProvince, DRegion, DStats } from './normalize.js'
+import type { TProvinceData } from '@/schemas/province.schema.js'
+import type { TRegionData } from '@/schemas/region.schema.js'
+import type { TMunicipality } from '@/schemas/municipality.schema.js'
+import type { TStatsData } from '@/schemas/stats.schema.js'
 
-type MinData = DRegion | DProvince | DMunicipality
-type FullData = TRegionData | TProvinceData | TMunicipality
+type MinData = DRegion | DProvince | DMunicipality | DStats
+type FullData = TRegionData | TProvinceData | TMunicipality | TStatsData
 
 // Type alias for the return type
 export type SeedingRecord = Record<string, string>
@@ -47,16 +50,19 @@ export const seed = async <
   console.log(`---inserted ${insertedDocs.insertedCount} ${model.modelName} docs`)
 
   if (isReturnRaw) {
-    return insertedDocs.mongoose.results.map((doc: TDocument) =>
-      typeof doc.toObject === 'function'
+    return insertedDocs.mongoose.results.map((doc: any) => {
+      if (!('toObject' in doc)) return doc
+      return typeof doc.toObject === 'function'
         ? doc.toObject()
         : doc
+    }
     )
   }
 
   if (isReturnMapping) {
     return (insertedDocs?.mongoose?.results as TDocument[])?.reduce((list, item) => {
       if (item._id === undefined) return list
+      if (!('name' in item)) return list
       return { ...list, [item.name]: item._id.toString() }
     }, {})
   }

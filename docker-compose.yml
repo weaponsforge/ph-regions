@@ -25,7 +25,7 @@ services:
   # MongoDB service
   db-ph-regions:
     container_name: mongodb-ph-regions
-    image: mongo:4.4.6
+    image: mongo:7.0.9
     restart: always
     networks:
       - weaponsforge-ph-regions

@@ -1,5 +1,10 @@
-import type { TMunicipality, TProvinceData, TRegionData, TStatsData } from '@/models/schemas.js'
 import type { ExcelFactory } from 'ph-municipalities'
+
+import type { TMunicipality } from '@/schemas/municipality.schema.js'
+import type { TProvinceData } from '@/schemas/province.schema.js'
+import type { TRegionData } from '@/schemas/region.schema.js'
+import type { TStatsData } from '@/schemas/stats.schema.js'
+import type { SeedingResult } from './seed.js'
 
 export type removeFields = '_id' | '__v' | 'createdAt' | 'updatedAt'
 export type DRegion = Omit<TRegionData, removeFields | 'provinces'>
@@ -99,7 +104,7 @@ export const normalizeMunicipalities = (
  */
 export const replaceId = (
   data: DProvince[] | DMunicipality[],
-  keyValues: Record<string, string>,
+  keyValues: SeedingResult,
   key: 'regionId' | 'provinceId'
 ) => {
   return data.map(item => {

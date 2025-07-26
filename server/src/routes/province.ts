@@ -1,23 +1,28 @@
 import { Router } from 'express'
-import { ProvinceDataSchema } from '@/models/schemas.js'
+import { ProvinceApiSchema, ProvinceApiFullSchema } from '@/schemas/province.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
-  createProvince,
   getProvinces,
-  getProvincesFull
+  getProvinceById,
+  getProvincesFull,
+  getProvinceMunicipalities
 } from '@/controllers/province.js'
 
 const router = Router()
-const validateProvinceParams = validate(ProvinceDataSchema)
-
-/** Create a province */
-router.post('/province', validateProvinceParams, createProvince)
+const validateProvinceParams = validate(ProvinceApiSchema)
+const validateProvinceParamsFull = validate(ProvinceApiFullSchema)
 
 /** Fetch all provinces */
-router.get('/province', getProvinces)
+router.get('/provinces', validateProvinceParams, getProvinces)
 
-/** Fetch all provinces complete municipalities */
-router.get('/province/full', getProvincesFull)
+/** Fetches provinces by region including their municipalities[] */
+router.get('/provinces/full', validateProvinceParamsFull, getProvincesFull)
+
+/** Fetch a region by ID */
+router.get('/provinces/:id', validateProvinceParams, getProvinceById)
+
+/** Fetch a region by ID */
+router.get('/provinces/:id/municipalities', validateProvinceParams, getProvinceMunicipalities)
 
 export default router

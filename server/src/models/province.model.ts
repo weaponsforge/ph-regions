@@ -1,6 +1,6 @@
 import mongoose, { Schema, SchemaTypes } from 'mongoose'
 import Municipality from './municipality.model.js'
-import { type TProvinceData } from './schemas.js'
+import type { TProvinceData } from '@/schemas/province.schema.js'
 
 export const ProvinceSchema = new Schema<TProvinceData>({
   regionId: {

@@ -15,7 +15,7 @@ import {
   type DStats
 } from './lib/normalize.js'
 
-import { seed, type SeedingResult } from './lib/seed.js'
+import { seed, type SeedingRecord, type SeedingResult } from './lib/seed.js'
 import { generateBarangayCounts } from './lib/generateCounts.js'
 
 // TO-DO: seed using transactions and sessions in a replica set
@@ -49,7 +49,7 @@ connectDb().then(async () => {
   municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
 
   // Seed municipalities collection
-  const municipalityKeyIds = await seed(Municipality, municipalities, { isReturnRaw: true }) as SeedingResult
+  const municipalityKeyIds = await seed(Municipality, municipalities, { isReturnRaw: true }) as SeedingRecord
 
   // Seed the random barangay counts per municipality
   statsBarangays = generateBarangayCounts(municipalityKeyIds)

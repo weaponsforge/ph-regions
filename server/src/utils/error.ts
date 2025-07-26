@@ -23,9 +23,9 @@ function errorHasStatus(e: any): e is { status: number } {
  * Class that appends a `status` code to the Error object
  */
 class ServerError extends Error {
-  status: string
+  status: number
 
-  constructor(message: string, code: string) {
+  constructor(message: string, code: number) {
     super(message)
 
     this.name = this.constructor.name

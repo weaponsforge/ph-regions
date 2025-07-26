@@ -1,5 +1,5 @@
 import mongoose, { Schema, SchemaTypes } from 'mongoose'
-import { type TMunicipality } from './schemas.js'
+import type { TMunicipality } from '@/schemas/municipality.schema.js'
 
 const MunicipalitySchema = new Schema<TMunicipality>({
   regionId: {

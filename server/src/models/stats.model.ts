@@ -1,5 +1,5 @@
 import mongoose, { Schema, SchemaTypes } from 'mongoose'
-import { type TStatsData } from './schemas.js'
+import type { TStatsData } from '@/schemas/stats.schema.js'
 
 const StatsSchema = new Schema<TStatsData>({
   municipalityId: {
