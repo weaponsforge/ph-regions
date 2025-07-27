@@ -103,8 +103,8 @@ The main app is inside the `📂 server/src` folder.
    ```sh
    docker compose up
    ```
-   - > **INFO:** Windows OS users may need to uncomment the `CHOKIDAR_USEPOLLING` and `CHOKIDAR_INTERVAL` environment variables to enable hot reload.
-   - > 🔄 **Alternate Run Command**
+   - > 💡 **INFO:** Windows OS users may need to uncomment the `CHOKIDAR_USEPOLLING` and `CHOKIDAR_INTERVAL` environment variables to enable hot reload.
+   - > 🔄 **Alternate Run Command**<br>
      > Run this command instead of the first one to enable debugging with breakpoints in VS Code.
 
         ```sh
@@ -123,7 +123,8 @@ The main app is inside the `📂 server/src` folder.
    ```sh
    http://localhost:3001
    ```
-   - > **INFO:** Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
+   - > 💡 **INFO:**<br>
+     > Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 5. Stop the containers to exit.<br>
    ```sh
@@ -155,7 +156,8 @@ The main app is inside the `📂 server/src` folder.
    ```sh
    http://localhost:3001
    ```
-   - > **INFO:** Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
+   - > 💡 **INFO:**<br>
+     > Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 </details>
 <br>
