@@ -31,7 +31,6 @@ export const validate = (schema: ZodObject) =>
 
         if (result.data[keyValue]) {
           req.options[keyValue] = result.data[keyValue]
-          delete req.query[keyValue]
         }
       }
 
