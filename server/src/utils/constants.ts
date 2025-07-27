@@ -8,3 +8,8 @@ export const buildExcludedMetaFields = (isIncludeMeta: boolean): string => {
     ? '-__v'
     : '-__v -createdAt -updatedAt'
 }
+
+export const fullApiMetaData = {
+  description: 'List of hierarchical (regions, provinces municipalities) location data of the Philippines',
+  source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
+}

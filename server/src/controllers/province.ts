@@ -4,8 +4,10 @@ import { buildExcludedMetaFields } from '@/utils/constants.js'
 import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
+import { fullApiMetaData } from '@/utils/constants.js'
 
 const ProvinceInstance = new MongoCrudClass(Province)
+const description = 'List of Philippine provinces and their municipalities'
 
 /** Returns a collection of provinces across all regions */
 export const getProvinces: ExpressFnParams = async (req, res, next) => {
@@ -19,10 +21,7 @@ export const getProvinces: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: {
-        description: 'List of Philippine provinces',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces)'
-      },
+      metadata: { ...fullApiMetaData, description },
       data
     })
   } catch (err) {
@@ -51,10 +50,7 @@ export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: {
-        description: 'List of Philippine provinces and their municipalities',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
-      },
+      metadata: { ...fullApiMetaData, description },
       data
     })
   } catch (err) {
@@ -76,10 +72,7 @@ export const getProvinceById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: {
-        description: 'Philippine province information',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
-      },
+      metadata: { ...fullApiMetaData, description },
       data
     })
   } catch (err: unknown) {
@@ -110,10 +103,7 @@ export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next)
 
     return res.status(200).json({
       success: true,
-      metadata: {
-        description: 'Philippine province and municipalities information',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
-      },
+      metadata: { ...fullApiMetaData, description },
       data
     })
   } catch (err) {

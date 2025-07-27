@@ -4,13 +4,9 @@ import { buildExcludedMetaFields } from '@/utils/constants.js'
 import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
+import { fullApiMetaData } from '@/utils/constants.js'
 
 const RegionInstance = new MongoCrudClass(Region)
-
-const fullMetaData = {
-  description: 'List of Philippine regions and their municipalities and provinces',
-  source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
-}
 
 /** Returns a collection of regions (multiple regions) */
 export const getRegions: ExpressFnParams = async (req, res, next) => {
@@ -24,10 +20,7 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: {
-        description: 'List of Philippine regions',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces)'
-      },
+      metadata: fullApiMetaData,
       data
     })
   } catch (err) {
@@ -60,7 +53,7 @@ export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: fullMetaData,
+      metadata: fullApiMetaData,
       data
     })
   } catch (err) {
@@ -120,7 +113,7 @@ export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: fullMetaData,
+      metadata: fullApiMetaData,
       data
     })
   } catch (err) {

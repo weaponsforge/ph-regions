@@ -3,8 +3,10 @@ import Municipality from '@/models/municipality.model.js'
 import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
+import { fullApiMetaData } from '@/utils/constants.js'
 
 const MunicipalityInstance = new MongoCrudClass(Municipality)
+const description = 'List of Philippine municipalities'
 
 /** Returns a collection of municipalities */
 export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
@@ -28,10 +30,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: {
-        description: 'List of Philippine municipalities',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
-      },
+      metadata: { ...fullApiMetaData, description },
       data
     })
   } catch (err) {
@@ -53,10 +52,7 @@ export const getMunicipalityById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: {
-        description: 'Philippine municipality information',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
-      },
+      metadata: { ...fullApiMetaData, description },
       data
     })
   } catch (err: unknown) {

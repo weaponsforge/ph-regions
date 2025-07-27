@@ -8,6 +8,6 @@ const router = Router()
 const validateStatsParams = validate(StatsApiSchema)
 
 /** Finds the number of Barangays of a Municipality by ID */
-router.get('/barangays/:id', validateStatsParams, getStatsById)
+router.get('/stats/:id', validateStatsParams, getStatsById)
 
 export default router
