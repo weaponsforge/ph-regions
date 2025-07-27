@@ -25,17 +25,13 @@ export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
   const regionalNums = dataSet.listRegions('region_num')
   const regionalNames = dataSet.listRegions('region_name')
 
-  return regionNames.reduce((list: DRegion[], item: string, index: number) => {
-    const region = {
-      islandId: item,
-      name: item,
-      abbrev: regionAbbrevs[index],
-      regionalName: regionalNames[index],
-      regionalCode: regionalNums[index]
-    }
-
-    return [...list, region]
-  }, [])
+  return regionNames.map((name: string, index: number) => ({
+    islandId: name,
+    name,
+    abbrev: regionAbbrevs[index] || null,
+    regionalName: regionalNames[index],
+    regionalCode: regionalNums[index] || null
+  }))
 }
 
 /**
@@ -47,22 +43,20 @@ export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
 export const normalizeProvinces = (
   dataSet: ExcelFactory, regions: DRegion[]
 ): DProvince[] => {
-  return regions.reduce((list: DProvince[], region: DRegion) => {
+  const provinces: DProvince[] = []
+
+  regions.forEach((region: DRegion) => {
     const provincesByRegion = dataSet.listProvinces(region.name)
 
-    const provinceItems = provincesByRegion.reduce(
-      (provinceList: DProvince[], province: string
-      ) => {
-        const provinceObj = {
-          regionId: region.name,
-          name: province
-        }
+    provincesByRegion.forEach((province: string) => {
+      provinces.push({
+        regionId: region.name,
+        name: province
+      })
+    })
+  })
 
-        return [...provinceList, provinceObj]
-      }, [])
-
-    return [...list, ...provinceItems]
-  }, [])
+  return provinces
 }
 
 /**
@@ -74,28 +68,25 @@ export const normalizeProvinces = (
 export const normalizeMunicipalities = (
   dataSet: ExcelFactory, provinces: DProvince[]
 ): DMunicipality[] => {
-  return provinces.reduce((list: DMunicipality[], province: DProvince) => {
+  const municipalities: DMunicipality[] = []
+
+  provinces.forEach((province: DProvince) => {
     const { regionId, name } = province
     const municipalityList = dataSet.listMunicipalities({ provinces: [name] })
 
-    if (municipalityList[name] === undefined) {
-      return list
-    }
+    if (municipalityList[name] === undefined) return
 
-    const municipalityItems = municipalityList?.[name].reduce(
-      (municipalityList: DMunicipality[], municipality: string) => {
-        const municipalityObj = {
-          regionId,
-          provinceId: name,
-          name: municipality,
-          numDocs: 0
-        }
+    municipalityList[name].forEach((municipality: string) => {
+      municipalities.push({
+        regionId,
+        provinceId: name,
+        name: municipality,
+        numDocs: 0
+      })
+    })
+  })
 
-        return [ ...municipalityList, municipalityObj]
-      }, [])
-
-    return [...list, ...municipalityItems]
-  }, [])
+  return municipalities
 }
 
 /**

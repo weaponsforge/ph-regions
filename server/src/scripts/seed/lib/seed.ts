@@ -59,9 +59,9 @@ export const seed = async <
 
   if (isReturnMapping) {
     return (insertedDocs?.mongoose?.results as TDocument[])?.reduce((list, item) => {
-      if (item._id === undefined) return list
-      if (!('name' in item)) return list
+      if (!item?._id) return list
+      if (!('name' in item) || typeof item.name !== 'string') return list
       return { ...list, [item.name]: item._id.toString() }
-    }, {})
+    }, {} as SeedingResult)
   }
 }

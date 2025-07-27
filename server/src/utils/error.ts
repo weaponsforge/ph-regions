@@ -4,9 +4,15 @@
  * @returns `string` message parsed from the Error object
  */
 const typedCatchError = (error: unknown) => {
-  return error instanceof Error
-    ? error.message
-    : 'Unknown error' + error
+  if (error instanceof Error) {
+    return error.message
+  }
+
+  if (typeof error === 'string') {
+    return error
+  }
+
+  return `Unknown error: ${JSON.stringify(error)}`
 }
 
 /**
