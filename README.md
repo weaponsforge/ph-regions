@@ -19,12 +19,52 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 <br>
 
-### Requirements
+### 📋 Requirements
 
 1. NodeJS LTS >= v20
 2. Docker
 
-## Installation
+### 📦 Core Libraries/Frameworks
+
+<details>
+<summary>This server app uses the following libraries and frameworks.</summary>
+<br>
+
+**Core Libraries**
+
+| Library | Version | Description |
+| --- | --- | --- |
+| express | `v5.1.0` |  Node.js web framework for building APIs and web servers. |
+| mongoose | `v8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| zod | `v4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
+| nodemon | `v3.1.10` | Development tool that automatically restarts the server on file changes. |
+| tsx | `v4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
+| tsc-alias | `v1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
+| eslint | `v9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
+
+</details>
+
+
+
+## 📚 Project Folder Structure
+
+The main app is inside the `📂 server/src` folder.
+
+- 📂 **dist** - Contains the compiled JavaScript output from TypeScript.
+- 🧩 **classes** - Contains reusable class-based logic and services.
+- ⚙️ **controllers** - Contains scripts for handling incoming HTTP requests and responses.
+- 🔗 **middlewares** - Contains functions that process HTTP requests before controllers.
+- 🧊 **models** - Contains MongoDB database models and schema definitions using Mongoose.
+- 🪧 **routes** - Contains API endpoint definitions and route bindings.
+- 📐 **schemas** - Contains Zod validation schemas.
+- 📜 **scripts** - Contains utility scripts for setup and maintenance tasks.
+- 🧾 **types** - Contains shared TypeScript types and interfaces
+- 🛠️ **utils** - Contains general-purpose helper functions.
+- 📱 `app.ts` - Sets up the Express app and middleware.
+- 🖥️ `server.ts` - Starts the server and listens for requests
+
+
+## 🛠️ Installation
 
 1. Clone the repository.<br>
 `git clone https://github.com/weaponsforge/ph-regions.git`
@@ -194,7 +234,7 @@ docker exec -it weaponsforge-ph-regions npm run docker:seed:debug
 ```
 
 > 🔔 **IMPORTANT**<br>
-> This script requires having run only the `docker compose up` command. This ensures a free port `92229` since it does not run `tsx` with `--inspect=0.0.0.0:92229`.
+> This script requires having run only the `docker compose up` command. This ensures port `9229` is free for watching the script since it does not run the nodemon + server app with `tsx` with `--inspect=0.0.0.0:9229`.
 
 ### `npm run docker:watch:win`
 
