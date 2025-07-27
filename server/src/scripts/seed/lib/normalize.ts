@@ -4,6 +4,7 @@ import type { TMunicipality } from '@/schemas/municipality.schema.js'
 import type { TProvinceData } from '@/schemas/province.schema.js'
 import type { TRegionData } from '@/schemas/region.schema.js'
 import type { TStatsData } from '@/schemas/stats.schema.js'
+import type { SeedingResult } from './seed.js'
 
 export type removeFields = '_id' | '__v' | 'createdAt' | 'updatedAt'
 export type DRegion = Omit<TRegionData, removeFields | 'provinces'>
@@ -97,13 +98,13 @@ export const normalizeMunicipalities = (
 /**
  * Replaces the value of `data[].regionId` or `data[].provinceId` with real Document `_id` value from the `keyValues` object.
  * @param {DProvince[] | DMunicipality[]} data `DProvince[] | DMunicipality[]` normalized data to insert into a collection.
- * @param {Record<string, string>} keyValues On Object with `data.name` as keys and Document `_id` as values.
+ * @param {SeedingResult} keyValues On Object with `data.name` as keys and Document `_id` as values.
  * @param {string} key `regionId` or `provinceId` Document `_id` to put into the `keyValues` value.
  * @returns {DProvince[] | DMunicipality[]} `data` with real values of `regionId` or `provinceId`
  */
 export const replaceId = (
   data: DProvince[] | DMunicipality[],
-  keyValues: Record<string, any>,
+  keyValues: SeedingResult,
   key: 'regionId' | 'provinceId'
 ) => {
   return data.map(item => {

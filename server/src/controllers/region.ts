@@ -88,7 +88,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
       },
       data
     })
-  } catch (err: any) {
+  } catch (err: unknown) {
     return next(err)
   }
 }

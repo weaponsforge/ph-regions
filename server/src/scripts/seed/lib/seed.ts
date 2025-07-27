@@ -10,8 +10,7 @@ type MinData = DRegion | DProvince | DMunicipality | DStats
 type FullData = TRegionData | TProvinceData | TMunicipality | TStatsData
 
 // Type alias for the return type
-export type SeedingRecord = Record<string, string>
-export type SeedingResult = SeedingRecord | Partial<MinData>
+export type SeedingResult = Record<string, string>
 
 export type SeedOptions = {
   isReturnMapping?: boolean;
@@ -36,7 +35,7 @@ export const seed = async <
   model: Model<TDocument>,
   data: TInput[],
   options: SeedOptions = {}
-): Promise<SeedingResult | void> => {
+): Promise<SeedingResult | Document [] | void> => {
   const { isReturnMapping, isReturnRaw = false, session } = options
 
   await model.deleteMany({}, { session })
@@ -54,7 +53,7 @@ export const seed = async <
       'toObject' in doc
         ? doc.toObject()
         : doc
-    ) as SeedingResult
+    ) as Document[]
   }
 
   if (isReturnMapping) {

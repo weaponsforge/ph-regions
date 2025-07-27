@@ -4,6 +4,7 @@ import { MongoIdSchema } from '@/schemas/common.schema.js'
 
 import type { Request, Response, NextFunction } from 'express'
 import { PARAM_OPTIONS, type ServerErrorMessage } from '@/types/types.js'
+import type { ZodIssue } from 'zod/v3'
 
 export const validate = (schema: ZodObject) =>
   (req: Request, res: Response, next: NextFunction): Response | void => {
@@ -12,8 +13,8 @@ export const validate = (schema: ZodObject) =>
       const result = schema.safeParse(req.query)
 
       if (!result.success) {
-        const issues = result?.error?.issues
-          .reduce((list: string[], issue: any) => {
+        const issues = (result?.error?.issues as ZodIssue[])
+          .reduce((list: string[], issue) => {
             const errMsg = `${issue?.message} on ${issue?.path[0]}`
             const unknownMsg = 'Unknown validation error'
             const msg = issue?.message ? errMsg : unknownMsg
@@ -38,7 +39,7 @@ export const validate = (schema: ZodObject) =>
       }
 
       next()
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (err instanceof ZodError) {
         const errMsg = err.issues[0]?.message || 'Unknown validation error'
         return next(new ServerError(errMsg, 400))
