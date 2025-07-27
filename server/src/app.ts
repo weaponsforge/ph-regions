@@ -1,3 +1,4 @@
+import path from 'path'
 import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
@@ -6,23 +7,22 @@ import cookieParser from 'cookie-parser'
 import type { ExpressFnParamsFull, ExpressFnParams } from './types/types.js'
 import { errorHasStatus, typedCatchError } from './utils/error.js'
 import { corsOptions } from './utils/corsOptions.js'
+import { directory } from './utils/helpers.js'
+
+import apiRoutes from './routes/index.js'
 
 dotenv.config()
 const app = express()
-
-import apiRoutes from './routes/index.js'
+const _dirname = directory(import.meta.url)
 
 // Initialize the express app
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(express.static(path.resolve(_dirname, '../public')))
 
 if (process.env.ALLOW_CORS === '1') {
   app.use(cors(corsOptions))
-}
-
-const defaultRoute: ExpressFnParams = (req, res) => {
-  return res.status(200).send('Welcome to the Todo API')
 }
 
 // Not found 404 route handler
@@ -47,7 +47,6 @@ const errorHandler: ExpressFnParamsFull = (err, _req, res, _next) => {
   })
 }
 
-app.get('/', defaultRoute)
 app.use('/api', apiRoutes)
 
 // Register error handlers

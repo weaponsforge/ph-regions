@@ -13,8 +13,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 </sup>
 
 <sup>
-<b>Data Set Forecast Date:</b> 2022/08/03<br>
-<b>Last Updated:</b> 2025/07/27
+<b>Data Set Forecast Date:</b> 2022/08/03
 </sup>
 
 <br>
@@ -122,8 +121,9 @@ The main app is inside the `📂 server/src` folder.
 
 4. Access the local APIs at:<br>
    ```sh
-   http://localhost:3001/api
+   http://localhost:3001
    ```
+   - > **INFO:** Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 5. Stop the containers to exit.<br>
    ```sh
@@ -153,8 +153,9 @@ The main app is inside the `📂 server/src` folder.
 
 3. Access the local APIs at:<br>
    ```sh
-   http://localhost:3001/api
+   http://localhost:3001
    ```
+   - > **INFO:** Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 </details>
 <br>
@@ -226,7 +227,7 @@ docker exec -it weaponsforge-ph-regions npm run docker:seed:debug
 ```
 
 > 🔔 **IMPORTANT**<br>
-> This script requires having run only the `docker compose up` command. This ensures port `9229` is free for watching the script since it does not run the nodemon + server app with `tsx` with `--inspect=0.0.0.0:9229`.
+> This script requires having run only the `docker compose up` command. This ensures port `9229` is free for watching the script since it does not run the nodemon + server app with `tsx` and `--inspect=0.0.0.0:9229`.
 
 ### `npm run docker:watch:win`
 
