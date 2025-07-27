@@ -3,7 +3,7 @@ import { ServerError } from '@/utils/error.js'
 import { MongoIdSchema } from '@/schemas/common.schema.js'
 
 import type { Request, Response, NextFunction } from 'express'
-import { PARAM_OPTIONS } from '@/types/types.js'
+import { PARAM_OPTIONS, type ServerErrorMessage } from '@/types/types.js'
 
 export const validate = (schema: ZodObject) =>
   (req: Request, res: Response, next: NextFunction): Response | void => {
@@ -22,7 +22,7 @@ export const validate = (schema: ZodObject) =>
           error: 'Validation Error',
           message: issuesStr,
           status: 500
-        })
+        } as ServerErrorMessage)
       }
 
       // Store processed options data

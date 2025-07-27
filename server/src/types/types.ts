@@ -13,12 +13,23 @@ export type ExpressFnParams = (
   req: Request, res: Response, next: NextFunction
 ) => void;
 
+/** API query options */
 export enum PARAM_OPTIONS {
+  /** Flag to display the Mongo-specific fields eg., `_id`, `__v`, `createdDate` etc */
   INCLUDE_META = 'includeMeta'
 }
 
+/** HTTP request objects in the Express `req` object */
 export enum PARAM_METHODS {
   BODY = 'body',
   PARAMS = 'params',
   QUERY = 'query'
+}
+
+/** Server error response type */
+export interface ServerErrorMessage {
+  success: boolean;
+  error: string;
+  message: string;
+  status: number;
 }
