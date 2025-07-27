@@ -5,12 +5,14 @@ import type { TProvinceData } from '@/schemas/province.schema.js'
 import type { TRegionData } from '@/schemas/region.schema.js'
 import type { TStatsData } from '@/schemas/stats.schema.js'
 import type { SeedingResult } from './seed.js'
+import type { TIslandData } from '@/schemas/island.schema.js'
 
 export type removeFields = '_id' | '__v' | 'createdAt' | 'updatedAt'
 export type DRegion = Omit<TRegionData, removeFields | 'provinces'>
 export type DProvince = Omit<TProvinceData, removeFields | 'municipalities'>
 export type DMunicipality = Omit<TMunicipality, removeFields>
 export type DStats = Omit<TStatsData, removeFields>
+export type DIsland = Omit<TIslandData, removeFields>
 
 /**
  * Transforms the regions data from `ExcelFactory` for normalized `Region` document input
@@ -25,6 +27,7 @@ export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
 
   return regionNames.reduce((list: DRegion[], item: string, index: number) => {
     const region = {
+      islandId: item,
       name: item,
       abbrev: regionAbbrevs[index],
       regionalName: regionalNames[index],

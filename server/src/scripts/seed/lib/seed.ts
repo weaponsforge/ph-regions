@@ -1,13 +1,14 @@
 import type { Model, Document } from '@/types/types.js'
 import type { ClientSession } from 'mongoose'
-import type { DMunicipality, DProvince, DRegion, DStats } from './normalize.js'
+import type { DIsland, DMunicipality, DProvince, DRegion, DStats } from './normalize.js'
 import type { TProvinceData } from '@/schemas/province.schema.js'
 import type { TRegionData } from '@/schemas/region.schema.js'
 import type { TMunicipality } from '@/schemas/municipality.schema.js'
 import type { TStatsData } from '@/schemas/stats.schema.js'
+import type { TIslandData } from '@/schemas/island.schema.js'
 
-type MinData = DRegion | DProvince | DMunicipality | DStats
-type FullData = TRegionData | TProvinceData | TMunicipality | TStatsData
+type MinData = DRegion | DProvince | DMunicipality | DStats | DIsland
+type FullData = TRegionData | TProvinceData | TMunicipality | TStatsData | TIslandData
 
 // Type alias for the return type
 export type SeedingResult = Record<string, string>

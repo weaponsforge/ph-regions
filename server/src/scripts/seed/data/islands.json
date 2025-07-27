@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "description": "List of main island groups in the Philippines",
+    "source": "ChatGPT",
+    "dateCreated": "20250728"
+  },
+  "data": [
+    {
+      "name": "Luzon",
+      "regions": [
+        "Region I",
+        "Region II",
+        "Region III",
+        "Region IV-A",
+        "Region IV-B",
+        "Region V",
+        "National Capital Region",
+        "Cordillera Administrative Region"
+      ]
+    },
+    {
+      "name": "Visayas",
+      "regions": [
+        "Region VI",
+        "Region VII",
+        "Region VIII"
+      ]
+    },
+    {
+      "name": "Mindanao",
+      "regions": [
+        "Region IX",
+        "Region X",
+        "Region XI",
+        "Region XII",
+        "Region XIII",
+        "Bangsamoro"
+      ]
+    }
+  ]
+}

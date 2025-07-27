@@ -1,7 +1,12 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema, SchemaTypes } from 'mongoose'
 import type { TRegionData } from '@/schemas/region.schema.js'
 
 const RegionSchema = new Schema<TRegionData>({
+  islandId: {
+    type: SchemaTypes.ObjectId,
+    required: true,
+    ref: 'Island'
+  },
   name: {
     type: String,
     required: true
