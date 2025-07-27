@@ -14,7 +14,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
   const { includeMeta: _, regionId, provinceId, ...rest } = req.query
 
   if (!regionId && !provinceId) {
-    throw new ServerError('regionId or provinceId required', 500)
+    throw new ServerError('regionId or provinceId required', 400)
   }
 
   const params = {

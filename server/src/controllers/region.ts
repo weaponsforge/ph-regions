@@ -75,10 +75,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: {
-        description: 'Philippine region information',
-        source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces)'
-      },
+      metadata: fullApiMetaData,
       data
     })
   } catch (err: unknown) {

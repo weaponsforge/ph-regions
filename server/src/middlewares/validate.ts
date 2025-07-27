@@ -29,7 +29,7 @@ export const validate = (schema: ZodObject): RequestHandler =>
 
       if (!result.success) {
         const messages = (result?.error?.issues as ZodIssue[]).map(
-          (issue: ZodIssue) => `${issue.message} on ${issue.path.join('.')}`
+          (issue: ZodIssue) => `${issue.message?.replace(/"/g, '')} on ${issue.path.join('.')}`
         )
 
         return res.status(400).json({
