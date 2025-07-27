@@ -4,7 +4,7 @@ import { validate } from '@/middlewares/validate.js'
 
 import { getStatsById } from '@/controllers/stats.js'
 
-const router = new Router()
+const router = Router()
 const validateStatsParams = validate(StatsApiSchema)
 
 /** Finds the number of Barangays of a Municipality by ID */

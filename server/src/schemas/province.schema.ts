@@ -14,17 +14,6 @@ export const ProvinceDataSchema = z.object({
   name: z.string().max(40),
   municipalities: z.array(MunicipalityDataSchema).optional()
 })
-/*
-export const ProvinceApiSchema = z.object({
-  regionId: objectIdSchema.optional(),
-  includeMeta: z.string().optional()
-}).strict()
-
-export const ProvinceApiFullSchema = z.object({
-  regionId: objectIdSchema,
-  includeMeta: z.string().optional()
-}).strict()
-*/
 
 export const ProvinceApiSchema = ProvinceDataSchema.pick({
   regionId: true,

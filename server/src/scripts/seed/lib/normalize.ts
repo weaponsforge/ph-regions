@@ -104,7 +104,7 @@ export const normalizeMunicipalities = (
  */
 export const replaceId = (
   data: DProvince[] | DMunicipality[],
-  keyValues: SeedingResult,
+  keyValues: Record<string, any>,
   key: 'regionId' | 'provinceId'
 ) => {
   return data.map(item => {

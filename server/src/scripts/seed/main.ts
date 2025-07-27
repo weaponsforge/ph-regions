@@ -17,12 +17,13 @@ import {
 
 import { seed, type SeedingRecord, type SeedingResult } from './lib/seed.js'
 import { generateBarangayCounts } from './lib/generateCounts.js'
+import type { TStatsData } from '@/schemas/stats.schema.js'
 
 // TO-DO: seed using transactions and sessions in a replica set
 connectDb().then(async () => {
   const dataSet = new ExcelFactory()
 
-  // Normalize data
+  // Normalize and transform raw data
   const regions = normalizeRegions(dataSet)
   let provinces = normalizeProvinces(dataSet, regions)
   let municipalities = normalizeMunicipalities(dataSet, provinces)
@@ -49,7 +50,7 @@ connectDb().then(async () => {
   municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
 
   // Seed municipalities collection
-  const municipalityKeyIds = await seed(Municipality, municipalities, { isReturnRaw: true }) as SeedingRecord
+  const municipalityKeyIds = await seed(Municipality, municipalities, { isReturnRaw: true }) as TStatsData[]
 
   // Seed the random barangay counts per municipality
   statsBarangays = generateBarangayCounts(municipalityKeyIds)

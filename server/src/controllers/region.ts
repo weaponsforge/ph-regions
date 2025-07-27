@@ -14,7 +14,8 @@ const fullMetaData = {
 
 /** Returns a collection of regions (multiple regions) */
 export const getRegions: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta, ...rest } = req.query
+  const { includeMeta } = req.options
+  const { includeMeta: include, ...rest } = req.query
 
   try {
     const data = await RegionInstance.getDocs(rest, includeMeta)
@@ -36,7 +37,8 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a collection of regions `provinces[]` and `municipalities[]` */
 export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta, ...rest } = req.query
+  const { includeMeta } = req.options
+  const { includeMeta: _, ...rest } = req.query
   const excludedMetaFields = buildExcludedMetaFields(includeMeta)
 
   try {
@@ -68,11 +70,11 @@ export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a region by ID */
 export const getRegionById: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta } = req.query
+  const { includeMeta } = req.options
   const { id: regionId } = req.params
 
   try {
-    const data = await RegionInstance.getDocById(regionId, includeMeta)
+    const data = await RegionInstance.getDocById(regionId!, includeMeta)
 
     if (!data) {
       throw new ServerError('Region not found', 404)
@@ -93,7 +95,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a region by ID including its `provinces[]` and `municipalities[]` */
 export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta } = req.query
+  const { includeMeta } = req.options
   const { id: regionId } = req.params
 
   const excludedMetaFields = buildExcludedMetaFields(includeMeta)

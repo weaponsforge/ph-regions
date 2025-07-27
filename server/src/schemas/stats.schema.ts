@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { Types } from '@/types/types.js'
 
+import { BooleanValueSchema, MongoIdSchema } from './common.schema.js'
+
 export const StatsDataSchema = z.object({
   _id: z.string().optional(),
   __v: z.number().optional(),
@@ -9,11 +11,10 @@ export const StatsDataSchema = z.object({
 })
 
 export const StatsApiSchema = StatsDataSchema.pick({
-  _id: true,
-  __v: true,
   municipalityId: true
 }).extend({
-  municipalityId: z.string().optional()
+  municipalityId: MongoIdSchema,
+  includeMeta: BooleanValueSchema.optional(),
 }).strict()
 
 export type TStatsData = z.infer<typeof StatsDataSchema>

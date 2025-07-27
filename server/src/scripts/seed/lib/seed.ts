@@ -50,13 +50,11 @@ export const seed = async <
   console.log(`---inserted ${insertedDocs.insertedCount} ${model.modelName} docs`)
 
   if (isReturnRaw) {
-    return insertedDocs.mongoose.results.map((doc: any) => {
-      if (!('toObject' in doc)) return doc
-      return typeof doc.toObject === 'function'
+    return (insertedDocs.mongoose?.results as Document[]).map((doc: Document) =>
+      'toObject' in doc
         ? doc.toObject()
         : doc
-    }
-    )
+    ) as SeedingResult
   }
 
   if (isReturnMapping) {

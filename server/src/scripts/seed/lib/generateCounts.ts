@@ -1,5 +1,6 @@
+import type { DStats } from './normalize.js'
 import type { SeedingResult } from './seed.js'
-import type { TStatsData } from '@/models/schemas.js'
+import type { TStatsData } from '@/schemas/stats.schema.js'
 
 /**
  * Generates random number of barangays for each municipality item.
@@ -7,8 +8,10 @@ import type { TStatsData } from '@/models/schemas.js'
  * document fields (eg., `_id`, `__v`, etc)
  * @returns {TStatsData[]} Initial `municipalities[]` data with `numBrgy` - random number of barangay per item
  */
-export const generateBarangayCounts = (municipalities: SeedingResult): TStatsData[] => {
-  return municipalities.reduce((list: TStatsData[], municipality: SeedingResult) => {
+export const generateBarangayCounts = (municipalities: TStatsData[]): DStats[] => {
+  return municipalities.reduce((list: DStats[], municipality: TStatsData) => {
+    if (municipality._id === undefined) return list
+
     const item = {
       municipalityId: municipality._id.toString(),
       numBrgy: Math.floor(Math.random() * (1000 - 100 + 1)) + 100

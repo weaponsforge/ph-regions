@@ -15,16 +15,7 @@ export const RegionDataSchema = z.object({
   regionalCode: z.string().max(5).nullable(),
   provinces: z.array(ProvinceDataSchema).max(40).optional()
 })
-/*
-export const RegionApiSchema = z.object({
-  _id: objectIdSchema.optional(),
-  name: z.string().max(40).optional(),
-  abbrev: z.string().max(20).optional(),
-  regionalName: z.string().optional(),
-  regionalCode: z.string().max(5).optional(),
-  includeMeta: z.string().optional(),
-}).strict()
-*/
+
 export const RegionApiSchema = RegionDataSchema.pick({
   _id: true,
   name: true,

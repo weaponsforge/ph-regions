@@ -9,7 +9,8 @@ const ProvinceInstance = new MongoCrudClass(Province)
 
 /** Returns a collection of provinces across all regions */
 export const getProvinces: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta, ...rest } = req.query
+  const { includeMeta } = req.options
+  const { includeMeta: _, ...rest } = req.query
 
   try {
     const data = await ProvinceInstance.getDocs(rest, includeMeta)
@@ -31,7 +32,8 @@ export const getProvinces: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a collection of provinces and their `municipalities[]` by region */
 export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta, ...rest } = req.query
+  const { includeMeta } = req.options
+  const { includeMeta: _, ...rest } = req.query
   const excludedMetaFields = buildExcludedMetaFields(includeMeta)
 
   try {
@@ -62,11 +64,11 @@ export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a province by ID */
 export const getProvinceById: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta } = req.query
+  const { includeMeta } = req.options
   const { id: provinceId } = req.params
 
   try {
-    const data = await ProvinceInstance.getDocById(provinceId, includeMeta)
+    const data = await ProvinceInstance.getDocById(provinceId!, includeMeta)
 
     if (!data) {
       throw new ServerError('Province not found', 404)
@@ -87,7 +89,7 @@ export const getProvinceById: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a province by ID including its `municipalities[]` */
 export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta } = req.query
+  const { includeMeta } = req.options
   const { id: provinceId } = req.params
 
   const excludedMetaFields = buildExcludedMetaFields(includeMeta)

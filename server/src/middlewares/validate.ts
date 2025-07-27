@@ -1,8 +1,9 @@
-import { z, ZodError, ZodObject } from 'zod'
-import type { Request, Response, NextFunction } from 'express'
-import { PARAM_METHODS } from '@/types/types.js'
+import { ZodError, ZodObject } from 'zod'
 import { ServerError } from '@/utils/error.js'
 import { MongoIdSchema } from '@/schemas/common.schema.js'
+
+import type { Request, Response, NextFunction } from 'express'
+import { PARAM_OPTIONS } from '@/types/types.js'
 
 export const validate = (schema: ZodObject) =>
   (req: Request, res: Response, next: NextFunction): Response | void => {
@@ -12,8 +13,8 @@ export const validate = (schema: ZodObject) =>
 
       if (!result.success) {
         const issuesStr = result?.error?.issues
-          .reduce((list: string, issue: Record<string, string>) =>
-            list += issue.message, ''
+          .reduce((list: string, issue: any) =>
+            list += issue?.message || 'Unknown validation error', ''
         )
 
         return res.status(400).json({
@@ -24,10 +25,21 @@ export const validate = (schema: ZodObject) =>
         })
       }
 
+      // Store processed options data
+      for (const keyValue of Object.values(PARAM_OPTIONS)) {
+        req.options = {}
+
+        if (result.data[keyValue]) {
+          req.options[keyValue] = result.data[keyValue]
+          delete req.query[keyValue]
+        }
+      }
+
       next()
     } catch (err: any) {
       if (err instanceof ZodError) {
-        return next(new ServerError(err.issues[0].message, 400))
+        let errMsg = err.issues[0]?.message || 'Unknown validation error'
+        return next(new ServerError(errMsg, 400))
       }
 
       next(err)

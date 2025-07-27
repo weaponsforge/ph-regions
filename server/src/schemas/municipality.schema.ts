@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { Types } from '@/types/types.js'
-import { objectIdSchema, booleanValueSchema } from './common.schema.js'
+import { objectIdSchema, BooleanValueSchema } from './common.schema.js'
 
 // Zod schemas for query parameters
 
@@ -14,20 +14,14 @@ export const MunicipalityDataSchema = z.object({
   name: z.string().max(40),
   numDocs: z.number()
 })
-/*
-export const MunicipalityApiSchema = z.object({
-  regionId: objectIdSchema.optional(),
-  provinceId: objectIdSchema.optional(),
-  includeMeta: z.string().optional()
-}).strict()
-*/
+
 export const MunicipalityApiSchema = MunicipalityDataSchema.pick({
   regionId: true,
   provinceId: true,
 }).extend({
   regionId: objectIdSchema.optional(),
   provinceId: objectIdSchema.optional(),
-  includeMeta: booleanValueSchema.optional()
+  includeMeta: BooleanValueSchema.optional()
 }).strict()
 
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>

@@ -7,11 +7,11 @@ import type { ExpressFnParams } from '@/types/types.js'
 const StatsInstance = new MongoCrudClass(Stats)
 
 export const getStatsById: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta } = req.query
+  const { includeMeta } = req.options
   const { id: municipalityId } = req.params
 
   try {
-    const data = await StatsInstance.getDocById(municipalityId, includeMeta)
+    const data = await StatsInstance.getDocById(municipalityId!, includeMeta)
 
     if (!data) {
       throw new ServerError('Municipality stats not found', 404)

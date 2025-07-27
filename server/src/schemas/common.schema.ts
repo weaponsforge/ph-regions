@@ -12,7 +12,7 @@ export const MongoIdSchema = z.object({
   id: objectIdSchema.optional()
 })
 
-export const booleanValueSchema = z.preprocess(
+export const BooleanValueSchema = z.preprocess(
   (val: string | undefined) => {
     if (val === undefined) return false
     if (typeof val === 'string') return val.toLowerCase() === 'true'

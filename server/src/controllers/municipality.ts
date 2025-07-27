@@ -8,7 +8,8 @@ const MunicipalityInstace = new MongoCrudClass(Municipality)
 
 /** Returns a collection of municipalities */
 export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta, regionId, provinceId, ...rest } = req.query
+  const { includeMeta } = req.options
+  const { includeMeta: _, regionId, provinceId, ...rest } = req.query
 
   if (!regionId && !provinceId) {
     throw new ServerError('regionId or provinceId required', 500)
@@ -16,8 +17,8 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
 
   const params = {
     ...rest,
-    ...(regionId && ({ regionId })),
-    ...(provinceId && ({ provinceId }))
+    ...(regionId && ({ regionId: String(regionId) })),
+    ...(provinceId && ({ provinceId: String(provinceId) }))
   }
 
   try {
@@ -40,11 +41,11 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
 
 /** Returns a municipality by ID */
 export const getMunicipalityById: ExpressFnParams = async (req, res, next) => {
-  const { includeMeta } = req.query
+  const { includeMeta } = req.options
   const { id: municipalityId } = req.params
 
   try {
-    const data = await MunicipalityInstace.getDocById(municipalityId, includeMeta)
+    const data = await MunicipalityInstace.getDocById(municipalityId!, includeMeta)
 
     if (!data) {
       throw new ServerError('Municipality not found', 404)
