@@ -12,15 +12,18 @@ export const validate = (schema: ZodObject) =>
       const result = schema.safeParse(req.query)
 
       if (!result.success) {
-        const issuesStr = result?.error?.issues
-          .reduce((list: string, issue: any) =>
-            list += issue?.message || 'Unknown validation error', ''
-        )
+        const issues = result?.error?.issues
+          .reduce((list: string[], issue: any) => {
+            const errMsg = `${issue?.message} on ${issue?.path[0]}`
+            const unknownMsg = 'Unknown validation error'
+            const msg = issue?.message ? errMsg : unknownMsg
+            return [...list, msg]
+          }, [])
 
         return res.status(400).json({
           success: false,
           error: 'Validation Error',
-          message: issuesStr,
+          message: issues,
           status: 500
         } as ServerErrorMessage)
       }
@@ -37,10 +40,10 @@ export const validate = (schema: ZodObject) =>
       next()
     } catch (err: any) {
       if (err instanceof ZodError) {
-        let errMsg = err.issues[0]?.message || 'Unknown validation error'
+        const errMsg = err.issues[0]?.message || 'Unknown validation error'
         return next(new ServerError(errMsg, 400))
       }
 
       next(err)
     }
-}
+  }

@@ -17,7 +17,7 @@ export const MunicipalityDataSchema = z.object({
 
 export const MunicipalityApiSchema = MunicipalityDataSchema.pick({
   regionId: true,
-  provinceId: true,
+  provinceId: true
 }).extend({
   regionId: objectIdSchema.optional(),
   provinceId: objectIdSchema.optional(),

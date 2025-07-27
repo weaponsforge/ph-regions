@@ -30,6 +30,6 @@ export enum PARAM_METHODS {
 export interface ServerErrorMessage {
   success: boolean;
   error: string;
-  message: string;
+  message: string[];
   status: number;
 }

@@ -16,14 +16,14 @@ export const ProvinceDataSchema = z.object({
 })
 
 export const ProvinceApiSchema = ProvinceDataSchema.pick({
-  regionId: true,
+  regionId: true
 }).extend({
   regionId: objectIdSchema.optional(),
   includeMeta: z.string().optional()
 }).strict()
 
 export const ProvinceApiFullSchema = ProvinceDataSchema.pick({
-  regionId: true,
+  regionId: true
 }).extend({
   regionId: objectIdSchema,
   includeMeta: z.string().optional()

@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { objectIdSchema } from './common.schema.js'
 import { ProvinceDataSchema } from './province.schema.js'
 
 // Zod schemas for query parameters
@@ -17,14 +16,12 @@ export const RegionDataSchema = z.object({
 })
 
 export const RegionApiSchema = RegionDataSchema.pick({
-  _id: true,
   name: true,
   abbrev: true,
   regionalName: true,
   regionalCode: true
-}).extend({
-  _id: objectIdSchema.optional(),
-  includeMeta: z.string().optional(),
-}).strict()
+})
+  .partial()
+  .strict()
 
 export type TRegionData = z.infer<typeof RegionDataSchema>

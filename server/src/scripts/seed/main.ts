@@ -15,7 +15,7 @@ import {
   type DStats
 } from './lib/normalize.js'
 
-import { seed, type SeedingRecord, type SeedingResult } from './lib/seed.js'
+import { seed, type SeedingResult } from './lib/seed.js'
 import { generateBarangayCounts } from './lib/generateCounts.js'
 import type { TStatsData } from '@/schemas/stats.schema.js'
 

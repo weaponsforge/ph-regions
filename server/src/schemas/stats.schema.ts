@@ -14,7 +14,7 @@ export const StatsApiSchema = StatsDataSchema.pick({
   municipalityId: true
 }).extend({
   municipalityId: MongoIdSchema,
-  includeMeta: BooleanValueSchema.optional(),
+  includeMeta: BooleanValueSchema.optional()
 }).strict()
 
 export type TStatsData = z.infer<typeof StatsDataSchema>

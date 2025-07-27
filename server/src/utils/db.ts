@@ -1,11 +1,9 @@
-import { Connection } from 'mongoose'
 import dotenv from 'dotenv'
+import mongoose from 'mongoose'
 dotenv.config()
 
-import mongoose from 'mongoose'
-
 /** MongoDB connection */
-const db: Connection = mongoose.connection
+const db = mongoose.connection
 
 /**
  * Initializes a connection to the MongoDB.

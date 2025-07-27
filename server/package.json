@@ -8,16 +8,16 @@
     "node": ">=20"
   },
   "scripts": {
+    "start": "node dist/server.js",
     "dev": "nodemon",
-    "start": "tsc && node dist/index.js",
     "transpile": "tsc -p tsconfig.json && tsc-alias",
     "transpile:noemit": "tsc -p tsconfig.json --noEmit",
     "watch": "tsc -p tsconfig.json --watch",
     "lint": "eslint \"src/**/*.ts\" *.mjs *.ts",
     "lint:fix": "eslint \"src/**/*.ts\" *.mjs *.ts --fix",
-    "debug": "nodemon --inspect=0.0.0.0:9229",
-    "seed": "vite-node ./src/scripts/seed/main.ts",
-    "seed:debug": "export IS_DOCKER=true && node --inspect=0.0.0.0:9229 ./node_modules/.bin/vite-node ./src/scripts/seed/main.ts"
+    "seed": "tsx ./src/scripts/seed/main.ts",
+    "docker:seed:debug": "tsx --inspect=0.0.0.0:9229 ./src/scripts/seed/main.ts",
+    "docker:dev": "nodemon --config nodemon.debug.json"
   },
   "author": "",
   "license": "ISC",
@@ -32,9 +32,7 @@
     "nodemon": "^3.1.10",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.36.0",
-    "vite-node": "^3.2.4",
-    "vitest": "^3.2.4"
+    "typescript-eslint": "^8.36.0"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",

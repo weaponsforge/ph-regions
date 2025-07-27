@@ -30,19 +30,19 @@ const notFoundHandler: ExpressFnParams = (req, res) => {
   return res.status(404).json({
     success: false,
     error: 'Route not found',
-    message: `Cannot ${req.method} ${req.originalUrl}`,
+    message: [`Cannot ${req.method} ${req.originalUrl}`],
     status: 404
   })
 }
 
 // Request error handler
-const errorHandler: ExpressFnParamsFull = (err, req, res, next) => {
+const errorHandler: ExpressFnParamsFull = (err, _req, res, _next) => {
   const statusCode = errorHasStatus(err) ? err.status : 500
 
   return res.status(statusCode).json({
     success: false,
     error: 'Internal server error',
-    message: typedCatchError(err) || 'Internal server error',
+    message: [typedCatchError(err) || 'Internal server error'],
     status: statusCode
   })
 }

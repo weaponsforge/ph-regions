@@ -15,7 +15,7 @@ const fullMetaData = {
 /** Returns a collection of regions (multiple regions) */
 export const getRegions: ExpressFnParams = async (req, res, next) => {
   const { includeMeta } = req.options
-  const { includeMeta: include, ...rest } = req.query
+  const { includeMeta: _, ...rest } = req.query
 
   try {
     const data = await RegionInstance.getDocs(rest, includeMeta)
