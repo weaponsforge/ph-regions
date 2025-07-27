@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 /** Zod schema for MongoDB ObjectIDs */
-export const objectIdSchema = z
+export const ObjectIdSchema = z
   .string()
   .refine(
     (val: string) => /^[0-9a-fA-F]{24}$/.test(val),
@@ -9,7 +9,7 @@ export const objectIdSchema = z
   )
 
 export const MongoIdSchema = z.object({
-  id: objectIdSchema.optional()
+  id: ObjectIdSchema.optional()
 })
 
 export const BooleanValueSchema = z.preprocess(

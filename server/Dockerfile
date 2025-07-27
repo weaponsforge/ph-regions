@@ -20,6 +20,7 @@ COPY . .
 USER node
 EXPOSE 3001 9229
 CMD ["npm", "run", "dev"]
+# CMD ["npm", "run", "docker:dev"]
 
 # PRODUCTION PROFILE TARGET
 FROM base AS production

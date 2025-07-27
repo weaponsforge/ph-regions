@@ -13,7 +13,7 @@ export const getProvinces: ExpressFnParams = async (req, res, next) => {
   const { includeMeta: _, ...rest } = req.query
 
   try {
-    const data = await ProvinceInstance.getDocs(rest, includeMeta)
+    const data = await ProvinceInstance.getDocs(rest, { includeMeta, isLean: true })
     const total = data?.length || 0
 
     return res.status(200).json({
@@ -68,7 +68,7 @@ export const getProvinceById: ExpressFnParams = async (req, res, next) => {
   const { id: provinceId } = req.params
 
   try {
-    const data = await ProvinceInstance.getDocById(provinceId!, includeMeta)
+    const data = await ProvinceInstance.getDocById(provinceId!, { includeMeta, isLean: true })
 
     if (!data) {
       throw new ServerError('Province not found', 404)

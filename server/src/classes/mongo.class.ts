@@ -1,5 +1,17 @@
-import { Model } from '@/types/types.js'
+import { Model, Query } from '@/types/types.js'
 import type { HydratedDocument, Document } from '@/types/types.js'
+
+interface QueryOptionsLocal {
+  /** Flag to return full Mongoose documents or lean ones */
+  isLean?: boolean;
+  /** Flag to strip the Mongo fields like `_id`, `__v`, `createdAt`, etc */
+  includeMeta?: boolean;
+}
+
+const defaultOptions: QueryOptionsLocal = {
+  isLean: false,
+  includeMeta: true
+}
 
 /**
  * @class MongoCrudClass
@@ -22,30 +34,68 @@ class MongoCrudClass<T> {
     Object.freeze(this)
   }
 
-  async getDocById(id: string, isFull: true): Promise<HydratedDocument<T> | null>;
-  async getDocById(id: string, isFull: false): Promise<Document<T> | null>;
-  async getDocById (id: string, isFull: boolean): Promise<HydratedDocument<T> | Document<T> | null> {
-    const query = this.model!.findById(id)
-
-    if (!isFull) {
-      query
-        .select({ __v: 0, createdAt: 0, updatedAt: 0 })
-        .lean()
+  /**
+   * Applies optional Mongoose query options to an initial Query object
+   * @param {Query} query Mongoose `Query` object
+   * @param {QueryOptionsLocal} options - Local query options
+   * @returns {Query} Customized Mongoose `Query` object
+   */
+  buildQuery <T, DocType>(
+    query: Query<T, DocType>,
+    options: QueryOptionsLocal = defaultOptions
+  ): Query<T, DocType> {
+    if (!options.includeMeta || false) {
+      query.select({ __v: 0, createdAt: 0, updatedAt: 0 })
     }
+
+    if (options?.isLean) {
+      query.lean({ id: false })
+    }
+
+    return query
+  }
+
+  async getDocById (
+    id: string,
+    options: QueryOptionsLocal = defaultOptions
+  ): Promise<
+    HydratedDocument<T> | Document<T> | null
+  > {
+    const opts = { ...defaultOptions, ...options }
+    const query = this.buildQuery(this.model!.findById(id), opts)
 
     return await query
   }
 
-  async getDocs (params: Partial<T>, isFull: true): Promise<HydratedDocument<T>[]>;
-  async getDocs (params: Partial<T>, isFull: false): Promise<Document<T>[]>;
-  async getDocs (params: Partial<T> = {}, isFull: boolean): Promise<HydratedDocument<T>[] | Document<T>[]> {
-    const query = this.model!.find(params)
+  async getDocByParams (
+    params: Partial<T>,
+    options: QueryOptionsLocal = defaultOptions
+  ): Promise<
+    HydratedDocument<T> | Document<T> | null
+  > {
+    const opts = { ...defaultOptions, ...options }
+    const query = this.buildQuery(this.model!.findOne(params), opts)
 
-    if (!isFull) {
-      query
-        .select({ __v: 0, createdAt: 0, updatedAt: 0 })
-        .lean()
-    }
+    return await query
+  }
+
+  /**
+   * Gets documents from the collection based on provided query parameters.
+   *
+   * @template T
+   * @param {Partial<T>} [params={}] - The query parameters
+   * @param {false} includeMeta - Flag to return full Mongoose documents or lean ones
+   * @returns {Promise<HydratedDocument<T>[] | Document<T>[]>}
+   *  Promise that resolves into a collection of Mongoose documents or lean (plain JSON) documents
+   */
+  async getDocs (
+    params: Partial<T> = {},
+    options: QueryOptionsLocal = defaultOptions
+  ): Promise<
+    HydratedDocument<T>[] | Document<T>[]
+  > {
+    const opts = { ...defaultOptions, ...options }
+    const query = this.buildQuery(this.model!.find(params), opts)
 
     return await query
   }

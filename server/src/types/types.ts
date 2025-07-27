@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express'
-export { type HydratedDocument, Model, Types } from 'mongoose'
+export { type HydratedDocument, Model, Types, Query } from 'mongoose'
 export type { Document } from 'mongoose'
 export { ZodObject, type ZodRawShape } from 'zod'
 

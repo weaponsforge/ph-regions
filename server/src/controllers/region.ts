@@ -18,7 +18,7 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
   const { includeMeta: _, ...rest } = req.query
 
   try {
-    const data = await RegionInstance.getDocs(rest, includeMeta)
+    const data = await RegionInstance.getDocs(rest, { includeMeta, isLean: true })
     const total = data?.length || 0
 
     return res.status(200).json({
@@ -74,7 +74,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
   const { id: regionId } = req.params
 
   try {
-    const data = await RegionInstance.getDocById(regionId!, includeMeta)
+    const data = await RegionInstance.getDocById(regionId!, { includeMeta, isLean: true })
 
     if (!data) {
       throw new ServerError('Region not found', 404)

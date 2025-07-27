@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { ProvinceDataSchema } from './province.schema.js'
+import { BooleanValueSchema } from './common.schema.js'
 
 // Zod schemas for query parameters
 
@@ -20,6 +21,8 @@ export const RegionApiSchema = RegionDataSchema.pick({
   abbrev: true,
   regionalName: true,
   regionalCode: true
+}).extend({
+  includeMeta: BooleanValueSchema
 })
   .partial()
   .strict()

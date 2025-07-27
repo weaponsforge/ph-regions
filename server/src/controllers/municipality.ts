@@ -4,7 +4,7 @@ import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
 
-const MunicipalityInstace = new MongoCrudClass(Municipality)
+const MunicipalityInstance = new MongoCrudClass(Municipality)
 
 /** Returns a collection of municipalities */
 export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
@@ -22,7 +22,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
   }
 
   try {
-    const data = await MunicipalityInstace.getDocs(params, includeMeta)
+    const data = await MunicipalityInstance.getDocs(params, { includeMeta, isLean: true })
     const total = data?.length || 0
 
     return res.status(200).json({
@@ -45,7 +45,7 @@ export const getMunicipalityById: ExpressFnParams = async (req, res, next) => {
   const { id: municipalityId } = req.params
 
   try {
-    const data = await MunicipalityInstace.getDocById(municipalityId!, includeMeta)
+    const data = await MunicipalityInstance.getDocById(municipalityId!, { includeMeta, isLean: true })
 
     if (!data) {
       throw new ServerError('Municipality not found', 404)

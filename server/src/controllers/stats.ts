@@ -11,7 +11,10 @@ export const getStatsById: ExpressFnParams = async (req, res, next) => {
   const { id: municipalityId } = req.params
 
   try {
-    const data = await StatsInstance.getDocById(municipalityId!, includeMeta)
+    const data = await StatsInstance.getDocByParams(
+      { municipalityId },
+      { includeMeta, isLean: true }
+    )
 
     if (!data) {
       throw new ServerError('Municipality stats not found', 404)
