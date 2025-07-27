@@ -26,11 +26,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 ### 📦 Core Libraries/Frameworks
 
-<details>
-<summary>This server app uses the following libraries and frameworks.</summary>
-<br>
-
-**Core Libraries**
+The server app uses the following libraries and frameworks.
 
 | Library | Version | Description |
 | --- | --- | --- |
@@ -41,10 +37,6 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 | tsx | `v4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
 | tsc-alias | `v1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
 | eslint | `v9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
-
-</details>
-
-
 
 ## 📚 Project Folder Structure
 
