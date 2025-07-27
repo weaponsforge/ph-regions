@@ -4,7 +4,6 @@ import provinceRouter from './province.js'
 import regionRouter from './region.js'
 import statsRouter from './stats.js'
 
-
 const router = Router()
 
 router.use(municipalityRouter)

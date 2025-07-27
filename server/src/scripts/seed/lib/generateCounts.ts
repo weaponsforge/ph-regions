@@ -2,7 +2,7 @@ import type { TMunicipality } from '@/schemas/municipality.schema.js'
 import type { DStats } from './normalize.js'
 
 /**
- * Generates random number of barangays for each municipality item.
+ * Generates a random number of barangays for each municipality item.
  * @param municipalities - Array of `Municipalities` without the standard Mongo
  * document fields (eg., `_id`, `__v`, etc)
  * @returns {TStatsData[]} Initial `municipalities[]` data with `numBrgy` - random number of barangay per item

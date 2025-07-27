@@ -16,13 +16,13 @@ const validateProvinceParamsFull = validate(ProvinceApiFullSchema)
 /** Fetch all provinces */
 router.get('/provinces', validateProvinceParams, getProvinces)
 
-/** Fetches provinces by region including their municipalities[] */
+/** Fetches all provinces by region ID including their municipalities[] */
 router.get('/provinces/full', validateProvinceParamsFull, getProvincesFull)
 
-/** Fetch a region by ID */
+/** Fetch a province by ID */
 router.get('/provinces/:id', validateProvinceParams, getProvinceById)
 
-/** Fetch a region by ID */
+/** Fetch a province by ID including its municipalities[] */
 router.get('/provinces/:id/municipalities', validateProvinceParams, getProvinceMunicipalities)
 
 export default router

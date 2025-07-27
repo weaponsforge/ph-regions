@@ -29,7 +29,7 @@ connectDb().then(async () => {
   let municipalities = normalizeMunicipalities(dataSet, provinces)
   let statsBarangays: DStats[] = []
 
-  // Seed regions collection
+  // [1] Seed regions collection
   const regionKeyIDs = await seed(
     Region,
     regions,
@@ -38,7 +38,7 @@ connectDb().then(async () => {
 
   provinces = replaceId(provinces, regionKeyIDs, 'regionId')
 
-  // Seed provinces collection
+  // [2] Seed provinces collection
   const provinceKeyIDs = await seed(
     Province,
     provinces,
@@ -49,14 +49,14 @@ connectDb().then(async () => {
   municipalities = replaceId(municipalities, regionKeyIDs, 'regionId') as DMunicipality[]
   municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
 
-  // Seed municipalities collection
+  // [3] Seed municipalities collection
   const municipalityKeyIds = await seed(
     Municipality,
     municipalities,
     { isReturnRaw: true }
   ) as unknown as TMunicipality[]
 
-  // Seed the random barangay counts per municipality
+  // [4] Seed the random barangay counts per municipality
   statsBarangays = generateBarangayCounts(municipalityKeyIds)
   await seed(Stats, statsBarangays)
 

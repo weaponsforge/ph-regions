@@ -1,38 +1,49 @@
 import { ZodError, ZodObject } from 'zod'
+import type { ZodIssue } from 'zod/v3'
+import type { RequestHandler, Request, Response, NextFunction } from 'express'
+
 import { ServerError } from '@/utils/error.js'
 import { MongoIdSchema } from '@/schemas/common.schema.js'
 
-import type { Request, Response, NextFunction } from 'express'
 import { PARAM_OPTIONS, type ServerErrorMessage } from '@/types/types.js'
-import type { ZodIssue } from 'zod/v3'
 
-export const validate = (schema: ZodObject) =>
+/**
+ * ExpressJS middleware that validates HTTP query parameters against a Zod schema.
+ * - Passes the request to the next middleware or function if there are no validation errors.
+ * - Throws and passes Errors to the global Error request handler if there are errors.
+ * @param {ZodObject} schema Zod schema
+ * @param {Request} req ExpressJS request object
+ * @param {Response} res ExpressJS response object
+ * @param {NextFunction} next ExpressJS next function
+ * @returns {Response | void}
+ * @throws {Error} Zod input validation errors
+ */
+export const validate = (schema: ZodObject): RequestHandler =>
   (req: Request, res: Response, next: NextFunction): Response | void => {
     try {
+      // Validate route parameters (e.g., MongoDB ObjectId in "/:id")
       MongoIdSchema.parse(req.params)
+
+      // Validate query parameters
       const result = schema.safeParse(req.query)
 
       if (!result.success) {
-        const issues = (result?.error?.issues as ZodIssue[])
-          .reduce((list: string[], issue) => {
-            const errMsg = `${issue?.message} on ${issue?.path[0]}`
-            const unknownMsg = 'Unknown validation error'
-            const msg = issue?.message ? errMsg : unknownMsg
-            return [...list, msg]
-          }, [])
+        const messages = (result?.error?.issues as ZodIssue[]).map(
+          (issue: ZodIssue) => `${issue.message} on ${issue.path.join('.')}`
+        )
 
         return res.status(400).json({
           success: false,
           error: 'Validation Error',
-          message: issues,
-          status: 500
+          message: messages,
+          status: 400
         } as ServerErrorMessage)
       }
 
-      // Store processed options data
-      for (const keyValue of Object.values(PARAM_OPTIONS)) {
-        req.options = {}
+      // Store processed options data into "req.options"
+      req.options = {}
 
+      for (const keyValue of Object.values(PARAM_OPTIONS)) {
         if (result.data[keyValue]) {
           req.options[keyValue] = result.data[keyValue]
         }

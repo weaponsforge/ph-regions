@@ -21,7 +21,7 @@ export type SeedOptions = {
 /**
  * Inserts normalized data into the `regions`, `provinces` or the `municipalities` collections.
  * @param {Model<TDocument>} model - Mongoose model for the collection
- * @param {TInput[]} data - Array of objects for creating documents from the model
+ * @param {TInput[]} data - Array of objects for to inert as documents using the model
  * @param {SeedOptions} options - (Optional) Object containing custom options for seeding data
  * @param {boolean} [options.isReturnMapping=false] - (Optional) Flag to return a mapping of document `name` values to IDs. Defaults to `false`
  * @param {boolean} [options.isReturnRaw] - (Optional) Flag to return the original, raw inserted data.
