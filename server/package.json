@@ -2,7 +2,7 @@
   "name": "ph-regions",
   "version": "1.0.0",
   "type": "module",
-  "description": "Regions, provinces and municipalities of the Philippines",
+  "description": "A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces municipalities, and a randomly generated number of barangays per municipality.",
   "main": "dist/server.js",
   "engines": {
     "node": ">=20"
@@ -16,8 +16,9 @@
     "lint": "eslint \"src/**/*.ts\" *.mjs",
     "lint:fix": "eslint \"src/**/*.ts\" *.mjs --fix",
     "seed": "tsx ./src/scripts/seed/main.ts",
+    "docker:dev": "nodemon --config nodemon.debug.json",
     "docker:seed:debug": "tsx --inspect=0.0.0.0:9229 ./src/scripts/seed/main.ts",
-    "docker:dev": "nodemon --config nodemon.debug.json"
+    "docker:watch:win": "tsc -p tsconfig.json --watch --watchFile dynamicPriorityPolling --watchDirectory dynamicPriorityPolling"
   },
   "author": "",
   "license": "ISC",

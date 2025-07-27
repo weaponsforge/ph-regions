@@ -1,0 +1,49 @@
+services:
+  # Express server running in development mode
+  weaponsforge-ph-regions-prod:
+    container_name: weaponsforge-ph-regions-prod
+    image: weaponsforge/ph-regions:prod
+    env_file:
+      - ./server/.env
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+      target: production
+    networks:
+      - weaponsforge-ph-regions
+    volumes:
+      - /opt/server/node_modules
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db-ph-regions
+    links:
+      - db-ph-regions
+
+  # MongoDB service
+  db-ph-regions:
+    container_name: mongodb-ph-regions
+    image: mongo:7.0.9
+    restart: always
+    networks:
+      - weaponsforge-ph-regions
+    volumes:
+      - db-ph-regions:/data/db
+      - ./data/dump:/data/dump
+    command: mongod
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: ph-regions
+    ports:
+      - "27017:27017"
+
+networks:
+  weaponsforge-ph-regions:
+    name: weaponsforge-ph-regions
+    external: false
+
+# Named volumes for persisting data
+volumes:
+  db-ph-regions:
+    driver: local

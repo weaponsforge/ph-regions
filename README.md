@@ -50,7 +50,6 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
    | CHOKIDAR_INTERVAL | Chokidar polling interval. Set it along with `CHOKIDAR_USEPOLLING=true` if running Docker Desktop with WSL2 on a Windows OS. The default value is `1000`. |
 
    </details>
-   <br>
 
 4. Seed (create) the initial data set.<br>
    - This step requires running the `npm run seed` script.
@@ -60,7 +59,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
       docker exec -it weaponsforge-ph-regions npm run seed
       ```
 
-## Usage
+## ⚡ Usage
 
 ### 🐳 Using Docker
 
@@ -74,6 +73,12 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
    docker compose up
    ```
    - > **INFO:** Windows OS users may need to uncomment the `CHOKIDAR_USEPOLLING` and `CHOKIDAR_INTERVAL` environment variables to enable hot reload.
+   - > 🔄 **Alternate Run Command**
+     > Run this command instead of the first one to enable debugging with breakpoints in VS Code.
+
+        ```sh
+        docker compose -f docker-compose.debug.yml up
+        ```
 
 3. Confirm the running containers.
    ```sh
@@ -96,8 +101,9 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 ### 🟩 Alternate Usage Using Node
 
 > [!NOTE]
-> Running the server using only Node requires a running and accessible local MongoDB, which may need to be set up.<br>
-> Adjust the `MONGO_URI` variable in the `.env` when using other MongoDB installations or services other than the ones packaged in the docker compose file.
+> Running the server directly with Node.js requires a locally installed and accessible MongoDB instance, which may need to be set up manually.<br>
+>
+> When using a different MongoDB service or installation (other than the one provided in the Docker Compose setup), ensure the `MONGO_URI` variable in the `.env` file is properly configured.
 
 <details>
 <summary>View usage instructions</summary>
@@ -117,6 +123,82 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
    ```sh
    http://localhost:3001/api
    ```
+
+</details>
+<br>
+
+## 📜 Available Scripts
+
+These scripts, compatible with running in Node and Docker, run various TypeScript scripts and tests.
+
+<details>
+<summary>Click to expand the list of available scripts</summary>
+
+### `npm start`
+
+Runs the compiled (JavaScript) server app for production mode.
+
+### `npm run dev`
+
+Runs the app for local development (when using Node).
+
+### `npm run transpile`
+
+Builds JavaScript, `.d.ts` declaration files, and map files from the TypeScript source files.
+
+### `npm run transpile:noemit`
+
+Runs type-checking without generating the JavaScript or declaration files from the TypeScript files.
+
+### `npm run watch`
+
+Watches file changes in `.ts` files using the `tsc --watch` option.
+
+### `npm run lint`
+
+Lints TypeScript source codes.
+
+### `npm run lint:fix`
+
+Fixes lint errors in TypeScript files.
+
+### `npm run seed`
+
+Runs the database seeder script, inserting intial data contents to the database.
+
+</details>
+
+## 📦 Docker Scripts
+
+These scripts allow optional Docker-related processes, such as enabling file watching in Docker containers running in Windows WSL2 and others.
+
+<details>
+<summary>Click to expand the list of available scripts</summary>
+
+#### Docker run command
+
+```sh
+docker exec -it weaponsforge-ph-regions <AVAILABLE_SCRIPT>
+```
+
+### `npm run docker:dev`
+
+Runs the app for local development with the `--inspect` flag, enabling it for debugging with breakpoints in VS Code when running inside containers.
+
+### `npm run docker:seed:debug`
+
+Runs the database seeder script, inserting intial data contents to the database.
+
+```sh
+docker exec -it weaponsforge-ph-regions npm run docker:seed:debug
+```
+
+> 🔔 **IMPORTANT**<br>
+> This script requires having run only the `docker compose up` command. This ensures a free port `92229` since it does not run `tsx` with `--inspect=0.0.0.0:92229`.
+
+### `npm run docker:watch:win`
+
+Watches file changes in `.ts` files using the `tsc --watch` option with `dynamicPriorityPolling` in Docker containers running in Windows WSL2.
 
 </details>
 <br>
