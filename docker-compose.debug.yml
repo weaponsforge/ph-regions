@@ -1,14 +1,14 @@
 services:
   # Express server running in development mode
-  weaponsforge-ph-regions:
-    container_name: weaponsforge-ph-regions
-    image: weaponsforge/ph-regions
+  weaponsforge-ph-regions-debug:
+    container_name: weaponsforge-ph-regions-debug
+    image: weaponsforge/ph-regions:debug
     env_file:
       - ./server/.env
     build:
       context: ./server
       dockerfile: ./Dockerfile
-      target: development
+      target: debug
     networks:
       - weaponsforge-ph-regions
     volumes:

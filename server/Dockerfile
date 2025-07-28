@@ -7,25 +7,35 @@ COPY package*.json ./
 
 # BUILD TARGET
 FROM base AS build
-ENV NODE_ENV production
-RUN npm ci --only=production && npm cache clean --force
+RUN npm install
 COPY . ./
 RUN npm run transpile
 
-# DEVELOPMENT PROFILE TARGET
-FROM base AS development
+# DEVELOPMENT SETUP
+FROM base AS development-setup
 ENV NODE_ENV development
 RUN npm install
 COPY . .
 USER node
 EXPOSE 3001 9229
+
+# DEVELOPMENT PROFILE TARGET
+FROM development-setup AS development
 CMD ["npm", "run", "dev"]
+
+# DEBUGGING PROFILE TARGET
+FROM development-setup AS debug
+CMD ["npm", "run", "docker:dev"]
 
 # PRODUCTION PROFILE TARGET
 FROM base AS production
 ENV NODE_ENV production
-COPY --from=build /opt/app/dist /opt/app/dist
 COPY package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy build output
+COPY --from=build /opt/server/dist /opt/server/dist
+
 USER node
 EXPOSE 3001
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server.js"]

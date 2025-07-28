@@ -1,27 +1,16 @@
-import mongoose, { Document, Schema } from 'mongoose'
+import mongoose, { Schema, SchemaTypes } from 'mongoose'
+import type { TMunicipality } from '@/schemas/municipality.schema.js'
 
-export interface IMunicipality extends Document {
-  id?: string;
-  regionId: number;
-  provinceId: number;
-  municipalityId: number;
-  name: string;
-  numDocs: number;
-}
-
-const MunicipalitySchema = new Schema<IMunicipality>({
+const MunicipalitySchema = new Schema<TMunicipality>({
   regionId: {
-    type: Number,
-    required: true
+    type: SchemaTypes.ObjectId,
+    required: true,
+    ref: 'Region'
   },
   provinceId: {
-    type: Number,
-    required: true
-  },
-  municipalityId: {
-    type: Number,
+    type: SchemaTypes.ObjectId,
     required: true,
-    unique: true
+    ref: 'Province'
   },
   name: {
     type: String,
@@ -31,11 +20,13 @@ const MunicipalitySchema = new Schema<IMunicipality>({
     type: Number,
     required: true,
     default: 0
-  },
+  }
 },
 {
   timestamps: true
 })
 
-const Municipality = mongoose.model<IMunicipality>('Municipality', MunicipalitySchema)
+MunicipalitySchema.set('toJSON', { virtuals: true })
+
+const Municipality = mongoose.model<TMunicipality>('Municipality', MunicipalitySchema)
 export default Municipality

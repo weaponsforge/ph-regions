@@ -14,14 +14,17 @@ export default [
       // 'no-unused-vars': 'off',
       'no-undef': 'error',
       'no-trailing-spaces': 'error',
-      '@typescript-eslint/no-unused-vars': ['error'],
       'indent': ['error', 2],
       'linebreak-style': ['error', 'unix'],
       'quotes': ['error', 'single'],
       'semi': ['error', 'never'],
       'comma-dangle': ['error', 'never'],
       'object-curly-spacing': ['error', 'always'],
-      'eol-last': ['error', 'always']
+      'eol-last': ['error', 'always'],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }
+      ]
     }
   }
 ]

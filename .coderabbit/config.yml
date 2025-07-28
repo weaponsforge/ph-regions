@@ -1,0 +1,7 @@
+pull_request_rules:
+  - if:
+      target_branch: master
+    review: false
+  - if:
+      target_branch: dev
+    review: true

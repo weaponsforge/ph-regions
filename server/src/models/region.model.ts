@@ -1,39 +1,40 @@
-import mongoose, { Document, Schema } from 'mongoose'
-import Province, { type IProvince } from './province.model.js'
+import mongoose, { Schema, SchemaTypes } from 'mongoose'
+import type { TRegionData } from '@/schemas/region.schema.js'
 
-export interface IRegion extends Document {
-  id?: string;
-  regionId: number;
-  name: string;
-  provinces?: IProvince[];
-}
-
-const RegionSchema = new Schema<IRegion>({
-  regionId: {
-    type: Number,
+const RegionSchema = new Schema<TRegionData>({
+  islandId: {
+    type: SchemaTypes.ObjectId,
     required: true,
-    unique: true
+    ref: 'Island'
   },
   name: {
     type: String,
     required: true
+  },
+  abbrev: {
+    type: String,
+    default: null
+  },
+  regionalName: {
+    type: String
+  },
+  regionalCode: {
+    type: String
   }
 },
 {
   timestamps: true
 })
 
-// Create a unique index on regionId
-RegionSchema.index({ regionId: 1 }, { unique: true })
-
 RegionSchema.virtual('provinces', {
-  ref: Province.modelName,
-  localField: 'regionId',
+  ref: 'Province',
+  localField: '_id',
   foreignField: 'regionId'
 })
 
-const Region = mongoose.model<IRegion>('Region', RegionSchema)
+RegionSchema.set('toJSON', { virtuals: true })
 
-// Ensure the index is created
-Region.createIndexes().catch(console.error)
+const Region = mongoose.model<TRegionData>('Region', RegionSchema)
+
+export type TRegionModel = typeof Region
 export default Region

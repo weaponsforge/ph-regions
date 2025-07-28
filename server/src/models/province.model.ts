@@ -1,28 +1,17 @@
-import mongoose, { Document, Schema } from 'mongoose'
-import Municipality, { type IMunicipality } from './municipality.model.js'
+import mongoose, { Schema, SchemaTypes } from 'mongoose'
+import Municipality from './municipality.model.js'
+import type { TProvinceData } from '@/schemas/province.schema.js'
 
-export interface IProvince extends Document {
-  id?: string;
-  regionId: number;
-  provinceId: number;
-  name: string;
-  municipalities?: IMunicipality[];
-}
-
-const ProvinceSchema = new Schema<IProvince>({
+export const ProvinceSchema = new Schema<TProvinceData>({
   regionId: {
-    type: Number,
-    required: true
-  },
-  provinceId: {
-    type: Number,
+    type: SchemaTypes.ObjectId,
     required: true,
-    unique: true
+    ref: 'Region'
   },
   name: {
     type: String,
     required: true
-  },
+  }
 },
 {
   timestamps: true
@@ -30,9 +19,15 @@ const ProvinceSchema = new Schema<IProvince>({
 
 ProvinceSchema.virtual('municipalities', {
   ref: Municipality.modelName,
-  localField: 'provinceId',
+  localField: '_id',
   foreignField: 'provinceId'
 })
+/*
+ProvinceSchema.virtual('provinceId').get(function() {
+  return this._id
+})
+*/
+ProvinceSchema.set('toJSON', { virtuals: true })
 
-const Province = mongoose.model<IProvince>('Province', ProvinceSchema)
+const Province = mongoose.model<TProvinceData>('Province', ProvinceSchema)
 export default Province

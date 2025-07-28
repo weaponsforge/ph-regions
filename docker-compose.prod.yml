@@ -1,22 +1,20 @@
 services:
   # Express server running in development mode
-  weaponsforge-ph-regions:
-    container_name: weaponsforge-ph-regions
-    image: weaponsforge/ph-regions
+  weaponsforge-ph-regions-prod:
+    container_name: weaponsforge-ph-regions-prod
+    image: weaponsforge/ph-regions:prod
     env_file:
       - ./server/.env
     build:
       context: ./server
       dockerfile: ./Dockerfile
-      target: development
+      target: production
     networks:
       - weaponsforge-ph-regions
     volumes:
-      - ./server:/opt/server
       - /opt/server/node_modules
     ports:
       - "3001:3001"
-      - "9229:9229"
     depends_on:
       - db-ph-regions
     links:

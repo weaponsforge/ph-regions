@@ -1,10 +1,19 @@
-import { Connection } from 'mongoose'
 import dotenv from 'dotenv'
+import mongoose from 'mongoose'
 dotenv.config()
 
-import mongoose from 'mongoose'
-const db: Connection = mongoose.connection
+/** MongoDB connection */
+const db = mongoose.connection
 
+/**
+ * Initializes a connection to the MongoDB.
+ * @example
+ * ```
+ * connectDb().then(() => {
+ *   // Code here
+ * })
+ * ```
+ */
 const connectDb = async () => {
   try {
     if (!process.env.MONGO_URI) {
@@ -30,12 +39,13 @@ const connectDb = async () => {
     })
 
     console.log('✅ MongoDB connected')
-  } catch (err) {
-    console.error('❌ MongoDB connection error', err)
-    throw new Error(err)
+  } catch (_error) {
+    console.error('❌ MongoDB connection error', _error)
+    throw _error
   }
 }
 
+/** Disconnects the connection from the MongoDB */
 const disconnectDb = () => {
   mongoose.connection.removeAllListeners()
   mongoose.connection.close()
