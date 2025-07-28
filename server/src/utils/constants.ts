@@ -3,7 +3,7 @@
  * @param isIncludeMeta Flag to include or exclude the MongoDB metadata fields
  * @returns
  */
-export const buildExcludedMetaFields = (isIncludeMeta: boolean): string => {
+export const buildExcludedMetaFields = (isIncludeMeta: boolean = false): string => {
   return isIncludeMeta
     ? '-__v'
     : '-__v -createdAt -updatedAt'

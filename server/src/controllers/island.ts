@@ -28,7 +28,7 @@ export const getIslands: ExpressFnParams = async (req, res, next) => {
   }
 }
 
-/** Returns a collection of island gropus including its `regions[]` */
+/** Returns a collection of island groups including its `regions[]` list */
 export const getIslandsFull: ExpressFnParams = async (req, res, next) => {
   const { includeMeta } = req.options
   const { includeMeta: _, ...rest } = req.query

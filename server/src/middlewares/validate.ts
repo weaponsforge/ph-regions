@@ -1,6 +1,7 @@
 import { ZodError, ZodObject } from 'zod'
 import type { ZodIssue } from 'zod/v3'
 import type { RequestHandler, Request, Response, NextFunction } from 'express'
+import type { OptionsData } from '@/types/express.js'
 
 import { ServerError } from '@/utils/error.js'
 import { MongoIdSchema } from '@/schemas/common.schema.js'
@@ -41,11 +42,11 @@ export const validate = (schema: ZodObject): RequestHandler =>
       }
 
       // Store processed options data into "req.options"
-      req.options = {}
+      req.options = {} as OptionsData
 
       for (const keyValue of Object.values(PARAM_OPTIONS)) {
         if (result.data[keyValue]) {
-          req.options[keyValue] = result.data[keyValue]
+          req.options[keyValue] = result.data[keyValue] as boolean
         }
       }
 

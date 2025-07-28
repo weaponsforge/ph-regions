@@ -124,7 +124,7 @@ The main app is inside the `📂 server/src` folder.
    http://localhost:3001
    ```
    - > 💡 **INFO:**<br>
-     > Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
+     > Browse through the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 5. Stop the containers to exit.<br>
    ```sh
@@ -157,7 +157,7 @@ The main app is inside the `📂 server/src` folder.
    http://localhost:3001
    ```
    - > 💡 **INFO:**<br>
-     > Browse thru the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
+     > Browse through the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 </details>
 <br>
@@ -210,7 +210,7 @@ These scripts allow optional Docker-related processes, such as enabling file wat
 <details>
 <summary>Click to expand the list of available scripts</summary>
 
-#### Docker run command
+**Docker run command**
 
 ```sh
 docker exec -it weaponsforge-ph-regions <AVAILABLE_SCRIPT>
@@ -222,7 +222,7 @@ Runs the app for local development with the `--inspect` flag, enabling it for de
 
 ### `npm run docker:seed:debug`
 
-Runs the database seeder script, inserting intial data contents to the database.
+Runs the database seeder script, inserting initial data contents to the database.
 
 ```sh
 docker exec -it weaponsforge-ph-regions npm run docker:seed:debug
