@@ -199,7 +199,7 @@ Fixes lint errors in TypeScript files.
 
 ### `npm run seed`
 
-Runs the database seeder script, inserting intial data contents to the database.
+Runs the database seeder script, inserting initial data contents to the database.
 
 </details>
 
@@ -210,7 +210,7 @@ These scripts allow optional Docker-related processes, such as enabling file wat
 <details>
 <summary>Click to expand the list of available scripts</summary>
 
-**Docker run command**
+### Docker run command
 
 ```sh
 docker exec -it weaponsforge-ph-regions <AVAILABLE_SCRIPT>
