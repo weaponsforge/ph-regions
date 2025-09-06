@@ -1,20 +1,11 @@
 import { z } from 'zod'
 
-import {
-  BooleanValueSchema,
-  MongoVersionSchema,
-  MongoCreatedAtSchema,
-  MongoUpdatedAtSchema,
-  ObjectIdSchema
-} from './common.schema.js'
+import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
+import { MongoDocsDefault } from './mongodoc.schema.js'
 
 // Main Zod schema
 
-export const IslandDataSchema = z.object({
-  __v: MongoVersionSchema,
-  createdAt: MongoCreatedAtSchema,
-  updatedAt: MongoUpdatedAtSchema,
-
+export const IslandDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
     description: 'Island document ID',
     example: '68bc452af0a9414a4312e589'

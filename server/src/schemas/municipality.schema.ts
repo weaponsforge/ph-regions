@@ -1,21 +1,12 @@
 import { z } from 'zod'
 import { Types } from '@/types/types.js'
 
-import {
-  BooleanValueSchema,
-  MongoVersionSchema,
-  MongoCreatedAtSchema,
-  MongoUpdatedAtSchema,
-  ObjectIdSchema
-} from './common.schema.js'
+import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
+import { MongoDocsDefault } from './mongodoc.schema.js'
 
 // Main Zod schema
 
-export const MunicipalityDataSchema = z.object({
-  __v: MongoVersionSchema,
-  createdAt: MongoCreatedAtSchema,
-  updatedAt: MongoUpdatedAtSchema,
-
+export const MunicipalityDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
     description: 'Municipality ID',
     example: '68bc452bf0a9414a4312e753'

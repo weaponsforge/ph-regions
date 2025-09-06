@@ -1,5 +1,4 @@
 import { z } from 'zod'
-
 /** Zod schema for MongoDB ObjectIDs */
 export const ObjectIdSchema = z
   .string()
@@ -15,33 +14,6 @@ export const ObjectIdSchema = z
 export const MongoIdSchema = z.object({
   id: ObjectIdSchema.optional()
 })
-
-/** Zod schema for the Mongo "__v" field */
-export const MongoVersionSchema = z
-  .number()
-  .optional()
-  .meta({
-    description: 'Mongoose version key, `__v`',
-    example: 0
-  })
-
-/** Zod schema for the Mongo "createdAt" field */
-export const MongoCreatedAtSchema = z
-  .date()
-  .optional()
-  .meta({
-    description: 'MongoDB document creation date',
-    example: '025-09-06T14:28:58.985Z'
-  })
-
-/** Zod schema for the Mongo "updatedAt" field */
-export const MongoUpdatedAtSchema = z
-  .date()
-  .optional()
-  .meta({
-    description: 'MongoDB document last update/edit date',
-    example: '025-09-06T14:28:58.985Z'
-  })
 
 /** Zod schema for boolean values from query */
 export const BooleanValueSchema = z.preprocess(
