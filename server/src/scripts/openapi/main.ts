@@ -15,6 +15,9 @@ import { ProvinceDocSchema } from '@/schemas/province.schema.js'
 import { RegionDocSchema } from '@/schemas/region.schema.js'
 import { StatsDocSchema } from '@/schemas/stats.schema.js'
 
+// OpenAPI docs builder
+import { buildIslandDocs } from './docs/island.doc.js'
+
 // Constants
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -62,6 +65,10 @@ const registerMainSchemas = () => {
 const main = () => {
   registerMainSchemas()
 
+  // Build documentation for schemas
+  buildIslandDocs(registry)
+
+  // Generate full YAML docs
   const docs = generateOpenApiDocs()
   const fileContent = yaml.stringify(docs)
 
