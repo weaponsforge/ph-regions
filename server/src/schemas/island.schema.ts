@@ -1,13 +1,35 @@
 import { z } from 'zod'
-import { BooleanValueSchema } from './common.schema.js'
+
+import {
+  BooleanValueSchema,
+  MongoVersionSchema,
+  MongoCreatedAtSchema,
+  MongoUpdatedAtSchema,
+  ObjectIdSchema
+} from './common.schema.js'
 
 export const IslandDataSchema = z.object({
-  _id: z.string().optional(),
-  __v: z.number().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-  name: z.string().max(40)
+  __v: MongoVersionSchema,
+  createdAt: MongoCreatedAtSchema,
+  updatedAt: MongoUpdatedAtSchema,
+
+  _id: ObjectIdSchema.meta({
+    description: 'Island document ID',
+    example: '68bc452af0a9414a4312e589'
+  }),
+
+  name: z
+    .string()
+    .max(40)
+    .meta({
+      description: 'Island name',
+      example: 'Luzon'
+    })
 })
+  .meta({
+    id: 'Island',
+    description: 'Island schema'
+  })
 
 export const IslandApiSchema = IslandDataSchema.pick({
   name: true

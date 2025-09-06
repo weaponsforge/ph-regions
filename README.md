@@ -201,6 +201,10 @@ Fixes lint errors in TypeScript files.
 
 Runs the database seeder script, inserting initial data contents to the database.
 
+### `npm run gen:docs`
+
+Generates the OpenAPI documentation.
+
 </details>
 
 ## 📦 Docker Scripts

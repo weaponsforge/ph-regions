@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { ProvinceApiSchema, ProvinceApiFullSchema } from '@/schemas/province.schema.js'
+import { ProvinceApiSchema } from '@/schemas/province.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
@@ -11,13 +11,12 @@ import {
 
 const router = Router()
 const validateProvinceParams = validate(ProvinceApiSchema)
-const validateProvinceParamsFull = validate(ProvinceApiFullSchema)
 
 /** Fetch all provinces */
 router.get('/provinces', validateProvinceParams, getProvinces)
 
 /** Fetches all provinces by region ID including their municipalities[] */
-router.get('/provinces/full', validateProvinceParamsFull, getProvincesFull)
+router.get('/provinces/full', validateProvinceParams, getProvincesFull)
 
 /** Fetch a province by ID */
 router.get('/provinces/:id', validateProvinceParams, getProvinceById)

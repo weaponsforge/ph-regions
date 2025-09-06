@@ -1,18 +1,49 @@
 import { z } from 'zod'
-import { Types } from '@/types/types.js'
-import { ObjectIdSchema, BooleanValueSchema } from './common.schema.js'
+
+import {
+  BooleanValueSchema,
+  MongoVersionSchema,
+  MongoCreatedAtSchema,
+  MongoUpdatedAtSchema,
+  ObjectIdSchema
+} from './common.schema.js'
 
 // Zod schemas for query parameters
 
 export const MunicipalityDataSchema = z.object({
-  _id: z.string().optional(),
-  __v: z.number().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-  regionId: z.instanceof(Types.ObjectId).or(z.string()),
-  provinceId: z.instanceof(Types.ObjectId).or(z.string()),
-  name: z.string().max(40),
-  numDocs: z.number()
+  __v: MongoVersionSchema,
+  createdAt: MongoCreatedAtSchema,
+  updatedAt: MongoUpdatedAtSchema,
+
+  _id: ObjectIdSchema.meta({
+    description: 'Municipality ID',
+    example: '68bc452bf0a9414a4312e753'
+  }),
+
+  regionId: ObjectIdSchema.meta({
+    description: 'Region ID',
+    example: '68bc452bf0a9414a4312e591'
+  }),
+
+  provinceId: ObjectIdSchema.meta({
+    description: 'Province ID',
+    example: '68bc452bf0a9414a4312e5b1'
+  }),
+
+  name: z
+    .string()
+    .max(40)
+    .meta({
+      description: 'Municipality name',
+      example: 'Agoncillo'
+    }),
+
+  numDocs: z
+    .number()
+    .meta({
+      description: 'Random number',
+      example: 0
+    })
 })
 
 export const MunicipalityApiSchema = MunicipalityDataSchema.pick({
@@ -20,8 +51,6 @@ export const MunicipalityApiSchema = MunicipalityDataSchema.pick({
   provinceId: true,
   name: true
 }).extend({
-  regionId: ObjectIdSchema,
-  provinceId: ObjectIdSchema,
   includeMeta: BooleanValueSchema
 })
   .partial()
