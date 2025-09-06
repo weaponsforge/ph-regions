@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { MunicipalityDataSchema } from './municipality.schema.js'
+import { MunicipalityDataSchema, MunicipalityDocSchema } from './municipality.schema.js'
 
 import {
   BooleanValueSchema,
@@ -8,8 +8,9 @@ import {
   MongoUpdatedAtSchema,
   ObjectIdSchema
 } from './common.schema.js'
+import { Types } from '@/types/types.js'
 
-// Zod schemas for query parameters
+// Main Zod schema
 
 export const ProvinceDataSchema = z.object({
   __v: MongoVersionSchema,
@@ -21,10 +22,7 @@ export const ProvinceDataSchema = z.object({
     example: '68bc452bf0a9414a4312e5b1'
   }),
 
-  regionId: ObjectIdSchema.meta({
-    description: 'Region ID',
-    example: '68bc452bf0a9414a4312e591'
-  }),
+  regionId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
 
   name: z
     .string()
@@ -37,11 +35,24 @@ export const ProvinceDataSchema = z.object({
   municipalities: z
     .array(MunicipalityDataSchema)
     .optional()
+})
+
+// Zod ID definitions for OpenAPI docs
+export const ProvinceDocSchema = ProvinceDataSchema.extend({
+  regionId: ObjectIdSchema.meta({
+    description: 'Region ID',
+    example: '68bc452bf0a9414a4312e591'
+  }),
+
+  municipalities: z
+    .array(MunicipalityDocSchema)
+    .optional()
     .meta({
       description: 'Municipalities under a province'
     })
 })
 
+// Zod filters for API query
 export const ProvinceApiSchema = ProvinceDataSchema.pick({
   regionId: true
 }).extend({

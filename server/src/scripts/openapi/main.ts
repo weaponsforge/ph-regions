@@ -8,12 +8,12 @@ import {
   OpenAPIRegistry
 } from '@asteasolutions/zod-to-openapi'
 
-// Zod schemas
+// Zod OpenAPI compatible schemas
 import { IslandDataSchema } from '@/schemas/island.schema.js'
-import { MunicipalityDataSchema } from '@/schemas/municipality.schema.js'
-import { ProvinceDataSchema } from '@/schemas/province.schema.js'
-import { RegionDataSchema } from '@/schemas/region.schema.js'
-import { StatsDataSchema } from '@/schemas/stats.schema.js'
+import { MunicipalityDocSchema } from '@/schemas/municipality.schema.js'
+import { ProvinceDocSchema } from '@/schemas/province.schema.js'
+import { RegionDocSchema } from '@/schemas/region.schema.js'
+import { StatsDocSchema } from '@/schemas/stats.schema.js'
 
 // Constants
 const __filename = fileURLToPath(import.meta.url)
@@ -50,10 +50,10 @@ const generateOpenApiDocs = () => {
  */
 const registerMainSchemas = () => {
   registry.register('Island', IslandDataSchema)
-  registry.register('Municipality', MunicipalityDataSchema)
-  registry.register('Province', ProvinceDataSchema)
-  registry.register('Region', RegionDataSchema)
-  registry.register('Stats', StatsDataSchema)
+  registry.register('Municipality', MunicipalityDocSchema)
+  registry.register('Stats', StatsDocSchema)
+  registry.register('Province', ProvinceDocSchema)
+  registry.register('Region', RegionDocSchema)
 }
 
 /**

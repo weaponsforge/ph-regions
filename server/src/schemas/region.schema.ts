@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ProvinceDataSchema } from './province.schema.js'
+import { ProvinceDataSchema, ProvinceDocSchema } from './province.schema.js'
 
 import {
   BooleanValueSchema,
@@ -8,8 +8,9 @@ import {
   MongoUpdatedAtSchema,
   ObjectIdSchema
 } from './common.schema.js'
+import { Types } from '@/types/types.js'
 
-// Zod schemas for query parameters
+// Main Zod schema
 
 export const RegionDataSchema = z.object({
   __v: MongoVersionSchema,
@@ -21,10 +22,7 @@ export const RegionDataSchema = z.object({
     example: '68bc452bf0a9414a4312e591'
   }),
 
-  islandId: ObjectIdSchema.meta({
-    description: 'Island document ID',
-    example: '68bc452af0a9414a4312e589'
-  }),
+  islandId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
 
   name: z
     .string()
@@ -64,15 +62,25 @@ export const RegionDataSchema = z.object({
     .array(ProvinceDataSchema)
     .max(40)
     .optional()
+})
+
+// Zod ID definitions for OpenAPI docs
+export const RegionDocSchema = RegionDataSchema.extend({
+  islandId: ObjectIdSchema.meta({
+    description: 'Island document ID',
+    example: '68bc452af0a9414a4312e589'
+  }),
+
+  provinces: z
+    .array(ProvinceDocSchema)
+    .max(40)
+    .optional()
     .meta({
       description: 'Provinces under this region'
     })
 })
-  .meta({
-    id: 'Region',
-    description: 'Philippine region object'
-  })
 
+// Zod filters for API query
 export const RegionApiSchema = RegionDataSchema.pick({
   islandId: true,
   name: true,

@@ -8,6 +8,8 @@ import {
   ObjectIdSchema
 } from './common.schema.js'
 
+// Main Zod schema
+
 export const IslandDataSchema = z.object({
   __v: MongoVersionSchema,
   createdAt: MongoCreatedAtSchema,
@@ -31,6 +33,7 @@ export const IslandDataSchema = z.object({
     description: 'Island schema'
   })
 
+// Zod filters for API query
 export const IslandApiSchema = IslandDataSchema.pick({
   name: true
 }).extend({
