@@ -5,6 +5,7 @@ import { ProvinceDocSchema } from '@/schemas/province.schema.js'
 import { RegionDocSchema } from '@/schemas/region.schema.js'
 
 import { omitCommonFields } from '@/utils/helpers.js'
+import { IslandDocSchema } from '@/schemas/island.schema.js'
 
 /**
  * -----------------------------------------------------------------
@@ -27,13 +28,21 @@ export const RegionResponseSchema = omitCommonFields(RegionDocSchema, ['includeM
     provinces: z.array(ProvinceResponseSchema)
   })
 
-// export const IslandResponseSchema = omitCommonFields(IslandD)
+export const IslandResponseSchema = omitCommonFields(IslandDocSchema, ['includeMeta'])
+  .extend({
+    regions: z.array(RegionResponseSchema.omit({ provinces: true }))
+  })
 
 /**
  * -----------------------------------------------------------------
  * Query schemas for API documentation only
  * These schemas are used for request validation (ex)
  */
+
+// Island query schema for filtering/querying islads
+export const IslandQuerySchema = omitCommonFields(IslandDocSchema, ['_id', 'regions'])
+  .partial()
+  .strict()
 
 // Region query schema for filtering/querying regions
 export const RegionQuerySchema = omitCommonFields(RegionDocSchema, ['_id', 'provinces'])

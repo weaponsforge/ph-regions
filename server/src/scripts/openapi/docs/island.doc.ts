@@ -2,10 +2,10 @@
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
-import { IslandDataSchema, IslandApiSchema } from '@/schemas/island.schema.js'
-import { RegionDocSchema } from '@/schemas/region.schema.js'
+import { IslandDocSchema } from '@/schemas/island.schema.js'
 import { ResponseErrorSchema } from './api.error.schema.js'
 import { ResponseSuccessSchema } from './api.success.schema.js'
+import { IslandQuerySchema, IslandResponseSchema } from './api.schema.js'
 
 /**
  * Builds the Islands - OpenAPI docs.
@@ -13,15 +13,10 @@ import { ResponseSuccessSchema } from './api.success.schema.js'
  */
 export const buildIslandDocs = (registry: OpenAPIRegistry) => {
   // API route: /islands
-  const IslandsApiSchema = ResponseSuccessSchema
+  const IslandListResponseSchema = ResponseSuccessSchema
     .extend({
-      data: z.array(IslandDataSchema.omit({
-        __v: true,
-        createdAt: true,
-        updatedAt: true
-      }))
+      data: z.array(IslandResponseSchema.omit({ regions: true }))
     })
-
 
   registry.registerPath({
     method: 'get',
@@ -30,17 +25,14 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     summary: 'Get island names',
     tags: ['Islands'],
     request: {
-      query: z.object({
-        name: IslandApiSchema.shape.name,
-        includeMeta: IslandApiSchema.shape.includeMeta
-      })
+      query: IslandQuerySchema
     },
     responses: {
       200: {
         description: 'Object with Philippine main island group names',
         content: {
           'application/json': {
-            schema: IslandsApiSchema
+            schema: IslandListResponseSchema
           }
         }
       },
@@ -56,25 +48,9 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
   })
 
   // API route: /islands/full
-  const IslandsFullApiSchema = ResponseSuccessSchema
+  const IslandListFullResponseSchema = ResponseSuccessSchema
     .extend({
-      data: z.array(IslandDataSchema
-        .omit({
-          __v: true,
-          createdAt: true,
-          updatedAt: true
-        })
-        .extend({
-          regions: z.array(RegionDocSchema
-            .omit({
-              __v: true,
-              createdAt: true,
-              updatedAt: true,
-              provinces: true
-            })
-          )
-        })
-      )
+      data: z.array(IslandResponseSchema)
     })
 
   registry.registerPath({
@@ -84,17 +60,14 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     summary: 'Get full islands data with regions data',
     tags: ['Islands'],
     request: {
-      query: z.object({
-        name: IslandApiSchema.shape.name,
-        includeMeta: IslandApiSchema.shape.includeMeta
-      })
+      query: IslandQuerySchema
     },
     responses: {
       200: {
         description: 'Object contaning Philippine main island groups including regions',
         content: {
           'application/json': {
-            schema: IslandsFullApiSchema
+            schema: IslandListFullResponseSchema
           }
         }
       }
@@ -102,16 +75,11 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
   })
 
   // API route: /islands/{id}
-  const IslandsIDApiSchema = ResponseSuccessSchema
-    .extend({
-      data: z.array(IslandDataSchema
-        .omit({
-          __v: true,
-          createdAt: true,
-          updatedAt: true
-        })
-      )
-    })
+  const IslandDetailResponseSchema =
+    ResponseSuccessSchema
+      .extend({
+        data: IslandResponseSchema.omit({ regions: true })
+      })
 
   registry.registerPath({
     method: 'get',
@@ -121,10 +89,10 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     tags: ['Islands'],
     request: {
       params: z.object({
-        id: IslandDataSchema.shape._id
+        id: IslandDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: IslandApiSchema.shape.includeMeta
+        includeMeta: IslandDocSchema.shape.includeMeta
       })
     },
     responses: {
@@ -132,7 +100,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
         description: 'Object contaning Philippine main island groups including regions',
         content: {
           'application/json': {
-            schema: IslandsIDApiSchema
+            schema: IslandDetailResponseSchema
           }
         }
       }

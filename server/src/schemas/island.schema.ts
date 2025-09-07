@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
 import { MongoDocsDefault } from './mongodoc.schema.js'
+import { RegionDocSchema } from './region.schema.js'
 
 // Main Zod schema
 
@@ -24,13 +25,17 @@ export const IslandDataSchema = MongoDocsDefault.extend({
     description: 'Island schema'
   })
 
-// Zod filters for API query
-export const IslandApiSchema = IslandDataSchema.pick({
-  name: true
-}).extend({
-  includeMeta: BooleanValueSchema
+// Zod ID definitions for OpenAPI docs
+export const IslandDocSchema = IslandDataSchema.extend({
+  includeMeta: BooleanValueSchema,
+
+  regions: z
+    .array(RegionDocSchema)
+    .max(40)
+    .optional()
+    .meta({
+      description: 'Regions under this island'
+    })
 })
-  .partial()
-  .strict()
 
 export type TIslandData = z.infer<typeof IslandDataSchema>
