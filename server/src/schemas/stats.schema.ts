@@ -8,7 +8,7 @@ import { MongoDocsDefault } from './mongodoc.schema.js'
 
 export const StatsDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
-    description: 'Stats ID',
+    description: 'Stats ID is the same as `municipalityId`',
     example: '68bc452bf0a9414a4312ed9b'
   }),
 
