@@ -21,6 +21,7 @@ import { buildRegionDocs } from './docs/region.doc.js'
 import { buildProvinceDocs } from './docs/province.doc.js'
 import { buildMunicipalityDocs } from './docs/municipality.doc.js'
 import { buildStatsDocs } from './docs/stats.doc.js'
+import { directory } from '@/utils/helpers.js'
 
 // Constants
 const __filename = fileURLToPath(import.meta.url)
@@ -48,7 +49,7 @@ const generateOpenApiDocs = () => {
       title: 'PH Regions API',
       description: 'A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces municipalities, and a randomly generated number of barangays per municipality for testing purposes.'
     },
-    servers: [{ url: 'http://localhost:3001/api' }]
+    servers: [{ url: 'http://localhost:3001/' }]
   })
 }
 
@@ -80,7 +81,9 @@ const main = () => {
   const docs = generateOpenApiDocs()
   const fileContent = yaml.stringify(docs)
 
-  fs.writeFileSync(`${__dirname}/openapi-docs.yaml`, fileContent, {
+  const filePath = path.resolve(__dirname, '../../../', 'openapi.yaml')
+
+  fs.writeFileSync(filePath, fileContent, {
     encoding: 'utf-8'
   })
 }
