@@ -10,7 +10,7 @@ export const MongoDocsDefault = z.object({
     .number()
     .optional()
     .meta({
-      description: 'Mongoose version key, `__v`',
+      description: 'Mongoose version key',
       example: 0
     }),
 

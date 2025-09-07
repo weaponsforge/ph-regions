@@ -55,10 +55,10 @@ const generateOpenApiDocs = () => {
  */
 const registerMainSchemas = () => {
   registry.register('Island', IslandDataSchema)
-  registry.register('Municipality', MunicipalityDocSchema)
-  registry.register('Stats', StatsDocSchema)
-  registry.register('Province', ProvinceDocSchema)
-  registry.register('Region', RegionDocSchema)
+  registry.register('Municipality', MunicipalityDocSchema.omit({ includeMeta: true }))
+  registry.register('Stats', StatsDocSchema.omit({ includeMeta: true }))
+  registry.register('Province', ProvinceDocSchema.omit({ includeMeta: true }))
+  registry.register('Region', RegionDocSchema.omit({ includeMeta: true }))
 }
 
 /**

@@ -35,7 +35,7 @@ export const IslandResponseSchema = omitCommonFields(IslandDocSchema, ['includeM
 
 /**
  * -----------------------------------------------------------------
- * Query schemas for API documentation only
+ * Query schemas for API documentation and middleware validation
  * These schemas are used for request validation (ex)
  */
 
