@@ -27,11 +27,15 @@ export const RegionResponseSchema = omitCommonFields(RegionDocSchema, ['includeM
     provinces: z.array(ProvinceResponseSchema)
   })
 
+// export const IslandResponseSchema = omitCommonFields(IslandD)
+
 /**
  * -----------------------------------------------------------------
- * Query schemas for API documentation
- * These schemas are used for request validation
+ * Query schemas for API documentation only
+ * These schemas are used for request validation (ex)
  */
 
 // Region query schema for filtering/querying regions
 export const RegionQuerySchema = omitCommonFields(RegionDocSchema, ['_id', 'provinces'])
+  .partial()
+  .strict()

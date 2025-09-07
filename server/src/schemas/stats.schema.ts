@@ -17,7 +17,7 @@ export const StatsDataSchema = MongoDocsDefault.extend({
     })
 })
 
-// Zod ID definitions for OpenAPI docs
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const StatsDocSchema = StatsDataSchema.extend({
   includeMeta: BooleanValueSchema,
 

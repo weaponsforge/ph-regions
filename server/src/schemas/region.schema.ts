@@ -56,7 +56,7 @@ export const RegionDataSchema = MongoDocsDefault.extend({
     .optional()
 })
 
-// Zod ID definitions for OpenAPI docs
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const RegionDocSchema = RegionDataSchema.extend({
   includeMeta: BooleanValueSchema,
 
@@ -73,18 +73,5 @@ export const RegionDocSchema = RegionDataSchema.extend({
       description: 'Provinces under this region'
     })
 })
-
-// Zod filters for API query
-export const RegionApiSchema = RegionDataSchema.pick({
-  islandId: true,
-  name: true,
-  abbrev: true,
-  regionalName: true,
-  regionalCode: true
-}).extend({
-  includeMeta: BooleanValueSchema
-})
-  .partial()
-  .strict()
 
 export type TRegionData = z.infer<typeof RegionDataSchema>

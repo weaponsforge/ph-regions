@@ -29,7 +29,7 @@ export const ProvinceDataSchema = MongoDocsDefault.extend({
     .optional()
 })
 
-// Zod ID definitions for OpenAPI docs
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const ProvinceDocSchema = ProvinceDataSchema.extend({
   includeMeta: BooleanValueSchema,
 

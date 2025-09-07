@@ -31,7 +31,7 @@ export const MunicipalityDataSchema = MongoDocsDefault.extend({
     })
 })
 
-// Zod ID definitions for OpenAPI docs
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const MunicipalityDocSchema = MunicipalityDataSchema.extend({
   includeMeta: BooleanValueSchema,
 
