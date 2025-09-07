@@ -206,6 +206,10 @@ Runs the database seeder script, inserting initial data contents to the database
 
 Generates the OpenAPI `openapi.yaml` file into the project's root directory.
 
+### `npm run docs:build`
+
+Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/public/index.html` folder.
+
 </details>
 
 ## 📦 Docker Scripts

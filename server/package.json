@@ -13,6 +13,7 @@
     "transpile": "tsc -p tsconfig.json && tsc-alias",
     "transpile:noemit": "tsc -p tsconfig.json --noEmit",
     "docs:gen": "tsx --import ./src/scripts/openapi/zod-extend.ts ./src/scripts/openapi/main.ts",
+    "docs:build": "npm run docs:gen && redocly build-docs -o public/index.html",
     "watch": "tsc -p tsconfig.json --watch",
     "lint": "eslint \"src/**/*.ts\" *.mjs",
     "lint:fix": "eslint \"src/**/*.ts\" *.mjs --fix",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^8.1.0",
     "@eslint/js": "^9.32.0",
+    "@redocly/cli": "^2.0.8",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
