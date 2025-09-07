@@ -2,22 +2,22 @@
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
-import { RegionDocSchema } from '@/schemas/region.schema.js'
 import { ResponseErrorSchema } from './api.error.schema.js'
 import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
 
-import { RegionResponseSchema, RegionQuerySchema } from './api.schema.js'
+import { RegionResponseSchema, ProvinceResponseSchema, ProvinceQuerySchema } from './api.schema.js'
+import { ProvinceDocSchema } from '@/schemas/province.schema.js'
 import { FULL_API_METADATA } from '@/utils/constants.js'
 
 /**
- * Builds the Regions - OpenAPI docs.
+ * Builds the Provinces - OpenAPI docs.
  * @param {OpenAPIRegistry} registry OpenAPIRegistry instance from the calling method
  */
-export const buildRegionDocs = (registry: OpenAPIRegistry) => {
-  const RegionResponseSuccessSchema = ResponseSuccessSchema.extend({
+export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
+  const ResponseSuccessObject = ResponseSuccessSchema.extend({
     metadata: z.object({
       description: RESPONSE_SUCCESS_META.description.meta({
-        example: 'Regional geographic location data of the Philippines'
+        example: 'Provincial geographic location data of the Philippines'
       }),
       source: RESPONSE_SUCCESS_META.source.meta({
         example: FULL_API_METADATA.source
@@ -28,28 +28,28 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     })
   })
 
-  // API route: /regions
-  const RegionListResponseSchema =
-    RegionResponseSuccessSchema
+  // API route: /provinces
+  const ProvinceListResponseSchema =
+    ResponseSuccessObject
       .extend({
-        data: z.array(RegionResponseSchema.omit({ provinces: true }))
+        data: z.array(ProvinceResponseSchema.omit({ municipalities: true }))
       })
 
   registry.registerPath({
     method: 'get',
-    path: '/api/regions',
-    description: 'List of region names in the Philippines',
-    summary: 'Get region names',
-    tags: ['Regions'],
+    path: '/api/provinces',
+    description: 'List of provinces in the Philippines',
+    summary: 'Get province names',
+    tags: ['Provinces'],
     request: {
-      query: RegionQuerySchema
+      query: ProvinceQuerySchema
     },
     responses: {
       200: {
-        description: 'Object with Philippine region names',
+        description: 'Object containing a list of Philippine province names',
         content: {
           'application/json': {
-            schema: RegionListResponseSchema
+            schema: ProvinceListResponseSchema
           }
         }
       },
@@ -64,28 +64,28 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     }
   })
 
-  // API route: /regions/full
-  const RegionListFullResponseSchema =
-    RegionResponseSuccessSchema
+  // API route: /provinces/full
+  const ProvinceListFullResponseSchema =
+    ResponseSuccessObject
       .extend({
         data: z.array(RegionResponseSchema)
       })
 
   registry.registerPath({
     method: 'get',
-    path: '/api/regions/full',
-    description: 'Full list of regions in the Philippines including provinces and municipalities',
-    summary: 'Get full regions data with provinces and municipalities data',
-    tags: ['Regions'],
+    path: '/api/provinces/full',
+    description: 'Full list of provinces in the Philippines including municipalities',
+    summary: 'Get full provinces data with municipalities',
+    tags: ['Provinces'],
     request: {
-      query: RegionQuerySchema
+      query: ProvinceQuerySchema
     },
     responses: {
       200: {
         description: 'Object contaning Philippine regions including provinces and municipalities',
         content: {
           'application/json': {
-            schema: RegionListFullResponseSchema
+            schema: ProvinceListFullResponseSchema
           }
         }
       },
@@ -100,33 +100,33 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     }
   })
 
-  // API route: /regions/{id}
-  const RegionDetailResponseSchema =
-    RegionResponseSuccessSchema
+  // API route: /provinces/{id}
+  const ProvinceDetailResponseSchema =
+    ResponseSuccessObject
       .extend({
-        data: RegionResponseSchema.omit({ provinces: true })
+        data: ProvinceResponseSchema.omit({ municipalities: true })
       })
 
   registry.registerPath({
     method: 'get',
-    path: '/api/regions/{id}',
-    description: 'Get region data by ID excluding provinces and municipalities',
-    summary: 'Get region data by ID',
-    tags: ['Regions'],
+    path: '/api/provinces/{id}',
+    description: 'Get province data by ID excluding municipalities',
+    summary: 'Get province data by ID',
+    tags: ['Provinces'],
     request: {
       params: z.object({
-        id: RegionDocSchema.shape._id
+        id: ProvinceDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: RegionDocSchema.shape.includeMeta
+        includeMeta: ProvinceDocSchema.shape.includeMeta
       })
     },
     responses: {
       200: {
-        description: 'Object contaning one (1) Philippine region data excluding provinces and municipalities',
+        description: 'Object contaning one (1) Philippine province data excluding municipalities',
         content: {
           'application/json': {
-            schema: RegionDetailResponseSchema
+            schema: ProvinceDetailResponseSchema
           }
         }
       },
@@ -141,23 +141,23 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     }
   })
 
-  // API route: /regions/{id}/provinces
-  const RegionDetailFullResponseSchema =
-    RegionResponseSuccessSchema
-      .extend({ data: RegionResponseSchema })
+  // API route: /provinces/{id}/municipalities
+  const ProvinceDetailFullResponseSchema =
+    ResponseSuccessObject
+      .extend({ data: ProvinceResponseSchema })
 
   registry.registerPath({
     method: 'get',
-    path: '/api/regions/{id}/provinces',
-    description: 'Get region data by ID including all provinces and municipalities',
-    summary: 'Get region data by ID with provinces',
-    tags: ['Regions'],
+    path: '/api/provinces/{id}/municipalities',
+    description: 'Get province data by ID including its municipalities',
+    summary: 'Get province data by ID with municipalities',
+    tags: ['Provinces'],
     request: {
       params: z.object({
-        id: RegionDocSchema.shape._id
+        id: ProvinceDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: RegionDocSchema.shape.includeMeta
+        includeMeta: ProvinceDocSchema.shape.includeMeta
       })
     },
     responses: {
@@ -165,7 +165,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
         description: 'Object contaning a Philippine region data including provinces and municipalities',
         content: {
           'application/json': {
-            schema: RegionDetailFullResponseSchema
+            schema: ProvinceDetailFullResponseSchema
           }
         }
       },

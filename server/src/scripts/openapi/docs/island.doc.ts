@@ -2,10 +2,12 @@
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
-import { IslandDocSchema } from '@/schemas/island.schema.js'
 import { ResponseErrorSchema } from './api.error.schema.js'
 import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
+
 import { IslandQuerySchema, IslandResponseSchema } from './api.schema.js'
+import { IslandDocSchema } from '@/schemas/island.schema.js'
+import { FULL_API_METADATA } from '@/utils/constants.js'
 
 /**
  * Builds the Islands - OpenAPI docs.
@@ -18,7 +20,10 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
         example: 'Main Island groups geographic location data of the Philippines'
       }),
       source: RESPONSE_SUCCESS_META.source.meta({
-        example: 'Remote Excel file'
+        example: FULL_API_METADATA.source
+      }),
+      dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
+        example: '2022/08/03'
       })
     })
   })

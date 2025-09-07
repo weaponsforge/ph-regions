@@ -48,3 +48,8 @@ export const IslandQuerySchema = omitCommonFields(IslandDocSchema, ['_id', 'regi
 export const RegionQuerySchema = omitCommonFields(RegionDocSchema, ['_id', 'provinces'])
   .partial()
   .strict()
+
+// Province query schema for filtering/querying provinces
+export const ProvinceQuerySchema = omitCommonFields(ProvinceDocSchema, ['_id', 'name', 'municipalities'])
+  .partial()
+  .strict()

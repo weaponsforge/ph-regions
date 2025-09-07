@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { ProvinceApiSchema } from '@/schemas/province.schema.js'
+import { ProvinceQuerySchema } from '@/scripts/openapi/docs/api.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
@@ -10,7 +10,7 @@ import {
 } from '@/controllers/province.js'
 
 const router = Router()
-const validateProvinceParams = validate(ProvinceApiSchema)
+const validateProvinceParams = validate(ProvinceQuerySchema)
 
 /** Fetch all provinces */
 router.get('/provinces', validateProvinceParams, getProvinces)

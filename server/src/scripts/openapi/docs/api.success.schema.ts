@@ -19,7 +19,7 @@ export const RESPONSE_SUCCESS_META = {
   dateCreated: z
     .string()
     .meta({
-      description: 'Date the data set was created in YYYY/MM/DD format',
+      description: 'Date the data set was originally fetched from source(s) in YYYY/MM/DD format',
       example: '2025/09/07'
     })
 }
