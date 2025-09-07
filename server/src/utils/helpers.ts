@@ -35,11 +35,6 @@ export const omitCommonFields = <T extends z.ZodObject<z.ZodRawShape>>(
   additionalFields: string[] = []
 ) => {
   const fieldsToOmit = [...COMMON_FIELDS_TO_OMIT, ...additionalFields]
-
-  return schema.omit(
-    fieldsToOmit.reduce(
-      (acc, field) => ({ ...acc, [field]: true }),
-      {} as Record<string, true>
-    )
-  )
+  const mask = Object.fromEntries(fieldsToOmit.map((item) => [item, true])) as Record<string, true>
+  return schema.omit(mask)
 }

@@ -98,7 +98,7 @@ export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next)
       .exec()
 
     if (!data) {
-      throw new ServerError('Region not found', 404)
+      throw new ServerError('Province not found', 404)
     }
 
     return res.status(200).json({

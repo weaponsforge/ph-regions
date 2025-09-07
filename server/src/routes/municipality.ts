@@ -8,12 +8,12 @@ import {
 } from '@/controllers/municipality.js'
 
 const router = Router()
-const validateMunicipalityParams = validate(MunicipalityQuerySchema)
+const validateMunicipalityQuery = validate(MunicipalityQuerySchema)
 
 /** Fetch all municipalities */
-router.get('/municipalities', validateMunicipalityParams, getMunicipalities)
+router.get('/municipalities', validateMunicipalityQuery, getMunicipalities)
 
 /** Fetch a municipality by ID */
-router.get('/municipalities/:id', validateMunicipalityParams, getMunicipalityById)
+router.get('/municipalities/:id', validateMunicipalityQuery, getMunicipalityById)
 
 export default router

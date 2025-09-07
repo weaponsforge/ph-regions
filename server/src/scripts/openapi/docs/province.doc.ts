@@ -23,7 +23,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
         example: FULL_API_METADATA.source
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: '2022/08/03'
+        example: FULL_API_METADATA.dateCreated
       })
     })
   })
@@ -38,7 +38,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/provinces',
-    description: 'List of provinces in the Philippines including only province name',
+    description: 'List of provinces in the Philippines (excluding municipalities)',
     summary: 'Get province names',
     tags: ['Provinces'],
     request: {
@@ -46,7 +46,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object containing a list of Philippine province names',
+        description: 'Object containing a list of Philippine provinces',
         content: {
           'application/json': {
             schema: ProvinceListResponseSchema
@@ -162,7 +162,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object containing a Philippine region data including provinces and municipalities',
+        description: 'Object containing one (1) Philippine province data including its municipalities',
         content: {
           'application/json': {
             schema: ProvinceDetailFullResponseSchema

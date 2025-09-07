@@ -2,6 +2,11 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: PH Regions API
+  contact:
+    name: PH Regions
+    url: https://github.com/weaponsforge/ph-regions
+  license:
+    name: MIT
   description: >-
     **💡About** 
 
@@ -59,12 +64,12 @@ components:
           type: string
           format: date
           description: MongoDB document creation date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         updatedAt:
           type: string
           format: date
           description: MongoDB document last update/edit date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         name:
           type: string
           maxLength: 40
@@ -87,12 +92,12 @@ components:
                 type: string
                 format: date
                 description: MongoDB document creation date
-                example: 025-09-06T14:28:58.985Z
+                example: 2025-09-06T14:28:58.985Z
               updatedAt:
                 type: string
                 format: date
                 description: MongoDB document last update/edit date
-                example: 025-09-06T14:28:58.985Z
+                example: 2025-09-06T14:28:58.985Z
               islandId:
                 type: string
                 description: Island document ID
@@ -135,12 +140,12 @@ components:
                       type: string
                       format: date
                       description: MongoDB document creation date
-                      example: 025-09-06T14:28:58.985Z
+                      example: 2025-09-06T14:28:58.985Z
                     updatedAt:
                       type: string
                       format: date
                       description: MongoDB document last update/edit date
-                      example: 025-09-06T14:28:58.985Z
+                      example: 2025-09-06T14:28:58.985Z
                     regionId:
                       type: string
                       description: Region ID
@@ -167,12 +172,12 @@ components:
                             type: string
                             format: date
                             description: MongoDB document creation date
-                            example: 025-09-06T14:28:58.985Z
+                            example: 2025-09-06T14:28:58.985Z
                           updatedAt:
                             type: string
                             format: date
                             description: MongoDB document last update/edit date
-                            example: 025-09-06T14:28:58.985Z
+                            example: 2025-09-06T14:28:58.985Z
                           regionId:
                             type: string
                             description: Region ID
@@ -250,12 +255,12 @@ components:
           type: string
           format: date
           description: MongoDB document creation date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         updatedAt:
           type: string
           format: date
           description: MongoDB document last update/edit date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         regionId:
           type: string
           description: Region ID
@@ -294,12 +299,12 @@ components:
           type: string
           format: date
           description: MongoDB document creation date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         updatedAt:
           type: string
           format: date
           description: MongoDB document last update/edit date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         municipalityId:
           type: string
           description: Municipality ID
@@ -327,12 +332,12 @@ components:
           type: string
           format: date
           description: MongoDB document creation date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         updatedAt:
           type: string
           format: date
           description: MongoDB document last update/edit date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         regionId:
           type: string
           description: Region ID
@@ -359,12 +364,12 @@ components:
                 type: string
                 format: date
                 description: MongoDB document creation date
-                example: 025-09-06T14:28:58.985Z
+                example: 2025-09-06T14:28:58.985Z
               updatedAt:
                 type: string
                 format: date
                 description: MongoDB document last update/edit date
-                example: 025-09-06T14:28:58.985Z
+                example: 2025-09-06T14:28:58.985Z
               regionId:
                 type: string
                 description: Region ID
@@ -415,12 +420,12 @@ components:
           type: string
           format: date
           description: MongoDB document creation date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         updatedAt:
           type: string
           format: date
           description: MongoDB document last update/edit date
-          example: 025-09-06T14:28:58.985Z
+          example: 2025-09-06T14:28:58.985Z
         islandId:
           type: string
           description: Island document ID
@@ -463,12 +468,12 @@ components:
                 type: string
                 format: date
                 description: MongoDB document creation date
-                example: 025-09-06T14:28:58.985Z
+                example: 2025-09-06T14:28:58.985Z
               updatedAt:
                 type: string
                 format: date
                 description: MongoDB document last update/edit date
-                example: 025-09-06T14:28:58.985Z
+                example: 2025-09-06T14:28:58.985Z
               regionId:
                 type: string
                 description: Region ID
@@ -495,12 +500,12 @@ components:
                       type: string
                       format: date
                       description: MongoDB document creation date
-                      example: 025-09-06T14:28:58.985Z
+                      example: 2025-09-06T14:28:58.985Z
                     updatedAt:
                       type: string
                       format: date
                       description: MongoDB document last update/edit date
-                      example: 025-09-06T14:28:58.985Z
+                      example: 2025-09-06T14:28:58.985Z
                     regionId:
                       type: string
                       description: Region ID
@@ -794,7 +799,6 @@ paths:
                       required:
                         - _id
                         - name
-                        - regions
                 required:
                   - total
                   - metadata
@@ -1311,14 +1315,12 @@ paths:
                               - _id
                               - regionId
                               - name
-                              - municipalities
                       required:
                         - _id
                         - islandId
                         - name
                         - abbrev
                         - regionalCode
-                        - provinces
                 required:
                   - total
                   - metadata
@@ -1643,14 +1645,12 @@ paths:
                             - _id
                             - regionId
                             - name
-                            - municipalities
                     required:
                       - _id
                       - islandId
                       - name
                       - abbrev
                       - regionalCode
-                      - provinces
                 required:
                   - total
                   - metadata
@@ -1717,7 +1717,7 @@ paths:
                   - status
   /api/provinces:
     get:
-      description: List of provinces in the Philippines including only province name
+      description: List of provinces in the Philippines (excluding municipalities)
       summary: Get province names
       tags:
         - Provinces
@@ -1744,7 +1744,7 @@ paths:
           in: query
       responses:
         "200":
-          description: Object containing a list of Philippine province names
+          description: Object containing a list of Philippine provinces
           content:
             application/json:
               schema:
@@ -1956,7 +1956,6 @@ paths:
                         - _id
                         - regionId
                         - name
-                        - municipalities
                 required:
                   - total
                   - metadata
@@ -2140,7 +2139,7 @@ paths:
           in: query
       responses:
         "200":
-          description: Object containing a Philippine region data including provinces and
+          description: Object containing one (1) Philippine province data including its
             municipalities
           content:
             application/json:
@@ -2229,7 +2228,6 @@ paths:
                       - _id
                       - regionId
                       - name
-                      - municipalities
                 required:
                   - total
                   - metadata
@@ -2301,7 +2299,7 @@ paths:
           in: query
       responses:
         "200":
-          description: Object containing a list of Philippine municipality names
+          description: Object containing a list of Philippine municipalities
           content:
             application/json:
               schema:

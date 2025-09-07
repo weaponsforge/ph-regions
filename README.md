@@ -134,7 +134,7 @@ The main app is inside the `📂 server/src` folder.
    // -- mongodb-ph-regions (Mongo DB service)
    ```
 
-4. 💡 Launch the API documentation at to view available endpoints.
+4. 💡 Launch the API documentation to view available endpoints.
 
    ```text
    # Main API docs
@@ -144,7 +144,7 @@ The main app is inside the `📂 server/src` folder.
    http://localhost:3001/api/docs
    ```
 
-4. Stop the containers to exit.<br>
+5. Stop the containers to exit.<br>
    ```sh
    docker compose down
    ```
@@ -170,7 +170,7 @@ The main app is inside the `📂 server/src` folder.
    npm run seed
    ```
 
-3. 💡 Launch the API documentation at to view available endpoints.
+3. 💡 Launch the API documentation to view available endpoints.
 
    ```text
    # Main API docs

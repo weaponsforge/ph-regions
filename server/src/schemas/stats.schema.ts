@@ -21,6 +21,10 @@ export const StatsDataSchema = MongoDocsDefault.extend({
       example: 97
     })
 })
+  .meta({
+    id: 'Stats',
+    description: 'Municipality stats schema'
+  })
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const StatsDocSchema = StatsDataSchema.extend({

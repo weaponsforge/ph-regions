@@ -22,8 +22,10 @@ export const BooleanValueSchema = z.preprocess(
     if (typeof val === 'string') return val.toLowerCase() === 'true'
     return Boolean(val)
   },
-  z.boolean().default(false)
-).meta({
-  description: 'Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response',
-  example: false
-})
+  z.boolean()
+)
+  .default(false)
+  .meta({
+    description: 'Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response',
+    example: false
+  })

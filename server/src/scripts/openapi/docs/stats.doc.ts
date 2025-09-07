@@ -7,6 +7,7 @@ import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.sche
 
 import { StatsResponseSchema } from './api.schema.js'
 import { StatsDocSchema } from '@/schemas/stats.schema.js'
+import { FULL_API_METADATA } from '@/utils/constants.js'
 
 /**
  * Builds the Stats - OpenAPI docs.
@@ -24,7 +25,7 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
           example: 'n/a'
         }),
         dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-          example: '2022/08/03'
+          example: FULL_API_METADATA.dateCreated
         })
       })
     })

@@ -23,7 +23,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
         example: FULL_API_METADATA.source
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: '2022/08/03'
+        example: FULL_API_METADATA.dateCreated
       })
     })
   })
@@ -46,7 +46,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object containing a list of Philippine municipality names',
+        description: 'Object containing a list of Philippine municipalities',
         content: {
           'application/json': {
             schema: MunicipalityListResponseSchema

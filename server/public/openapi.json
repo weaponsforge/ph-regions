@@ -3,6 +3,13 @@
   "info": {
     "version": "1.0.0",
     "title": "PH Regions API",
+    "contact": {
+      "name": "PH Regions",
+      "url": "https://github.com/weaponsforge/ph-regions"
+    },
+    "license": {
+      "name": "MIT"
+    },
     "description": "**💡About** \n\n A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces municipalities, and a randomly generated number of barangays per municipality for testing purposes. \n\n **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. \n **Note:** The location data may be outdated and does not reflect the most current official records. \n\n **🧩 Alternate Docs** <ul><li>Interactive API documentation (Swagger UI): [http://localhost:3001/api/docs](http://localhost:3001/api/docs)</li></ul>",
     "x-logo": {
       "url": "./assets/images/logo_ph_regions_01.png",
@@ -77,13 +84,13 @@
             "type": "string",
             "format": "date",
             "description": "MongoDB document creation date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
             "format": "date",
             "description": "MongoDB document last update/edit date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "name": {
             "type": "string",
@@ -110,13 +117,13 @@
                   "type": "string",
                   "format": "date",
                   "description": "MongoDB document creation date",
-                  "example": "025-09-06T14:28:58.985Z"
+                  "example": "2025-09-06T14:28:58.985Z"
                 },
                 "updatedAt": {
                   "type": "string",
                   "format": "date",
                   "description": "MongoDB document last update/edit date",
-                  "example": "025-09-06T14:28:58.985Z"
+                  "example": "2025-09-06T14:28:58.985Z"
                 },
                 "islandId": {
                   "type": "string",
@@ -167,13 +174,13 @@
                         "type": "string",
                         "format": "date",
                         "description": "MongoDB document creation date",
-                        "example": "025-09-06T14:28:58.985Z"
+                        "example": "2025-09-06T14:28:58.985Z"
                       },
                       "updatedAt": {
                         "type": "string",
                         "format": "date",
                         "description": "MongoDB document last update/edit date",
-                        "example": "025-09-06T14:28:58.985Z"
+                        "example": "2025-09-06T14:28:58.985Z"
                       },
                       "regionId": {
                         "type": "string",
@@ -205,13 +212,13 @@
                               "type": "string",
                               "format": "date",
                               "description": "MongoDB document creation date",
-                              "example": "025-09-06T14:28:58.985Z"
+                              "example": "2025-09-06T14:28:58.985Z"
                             },
                             "updatedAt": {
                               "type": "string",
                               "format": "date",
                               "description": "MongoDB document last update/edit date",
-                              "example": "025-09-06T14:28:58.985Z"
+                              "example": "2025-09-06T14:28:58.985Z"
                             },
                             "regionId": {
                               "type": "string",
@@ -311,13 +318,13 @@
             "type": "string",
             "format": "date",
             "description": "MongoDB document creation date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
             "format": "date",
             "description": "MongoDB document last update/edit date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "regionId": {
             "type": "string",
@@ -366,13 +373,13 @@
             "type": "string",
             "format": "date",
             "description": "MongoDB document creation date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
             "format": "date",
             "description": "MongoDB document last update/edit date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "municipalityId": {
             "type": "string",
@@ -408,13 +415,13 @@
             "type": "string",
             "format": "date",
             "description": "MongoDB document creation date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
             "format": "date",
             "description": "MongoDB document last update/edit date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "regionId": {
             "type": "string",
@@ -446,13 +453,13 @@
                   "type": "string",
                   "format": "date",
                   "description": "MongoDB document creation date",
-                  "example": "025-09-06T14:28:58.985Z"
+                  "example": "2025-09-06T14:28:58.985Z"
                 },
                 "updatedAt": {
                   "type": "string",
                   "format": "date",
                   "description": "MongoDB document last update/edit date",
-                  "example": "025-09-06T14:28:58.985Z"
+                  "example": "2025-09-06T14:28:58.985Z"
                 },
                 "regionId": {
                   "type": "string",
@@ -517,13 +524,13 @@
             "type": "string",
             "format": "date",
             "description": "MongoDB document creation date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
             "format": "date",
             "description": "MongoDB document last update/edit date",
-            "example": "025-09-06T14:28:58.985Z"
+            "example": "2025-09-06T14:28:58.985Z"
           },
           "islandId": {
             "type": "string",
@@ -574,13 +581,13 @@
                   "type": "string",
                   "format": "date",
                   "description": "MongoDB document creation date",
-                  "example": "025-09-06T14:28:58.985Z"
+                  "example": "2025-09-06T14:28:58.985Z"
                 },
                 "updatedAt": {
                   "type": "string",
                   "format": "date",
                   "description": "MongoDB document last update/edit date",
-                  "example": "025-09-06T14:28:58.985Z"
+                  "example": "2025-09-06T14:28:58.985Z"
                 },
                 "regionId": {
                   "type": "string",
@@ -612,13 +619,13 @@
                         "type": "string",
                         "format": "date",
                         "description": "MongoDB document creation date",
-                        "example": "025-09-06T14:28:58.985Z"
+                        "example": "2025-09-06T14:28:58.985Z"
                       },
                       "updatedAt": {
                         "type": "string",
                         "format": "date",
                         "description": "MongoDB document last update/edit date",
-                        "example": "025-09-06T14:28:58.985Z"
+                        "example": "2025-09-06T14:28:58.985Z"
                       },
                       "regionId": {
                         "type": "string",
@@ -991,8 +998,7 @@
                         },
                         "required": [
                           "_id",
-                          "name",
-                          "regions"
+                          "name"
                         ]
                       }
                     }
@@ -1666,8 +1672,7 @@
                               "required": [
                                 "_id",
                                 "regionId",
-                                "name",
-                                "municipalities"
+                                "name"
                               ]
                             }
                           }
@@ -1677,8 +1682,7 @@
                           "islandId",
                           "name",
                           "abbrev",
-                          "regionalCode",
-                          "provinces"
+                          "regionalCode"
                         ]
                       }
                     }
@@ -2097,8 +2101,7 @@
                             "required": [
                               "_id",
                               "regionId",
-                              "name",
-                              "municipalities"
+                              "name"
                             ]
                           }
                         }
@@ -2108,8 +2111,7 @@
                         "islandId",
                         "name",
                         "abbrev",
-                        "regionalCode",
-                        "provinces"
+                        "regionalCode"
                       ]
                     }
                   },
@@ -2212,7 +2214,7 @@
     },
     "/api/provinces": {
       "get": {
-        "description": "List of provinces in the Philippines including only province name",
+        "description": "List of provinces in the Philippines (excluding municipalities)",
         "summary": "Get province names",
         "tags": [
           "Provinces"
@@ -2245,7 +2247,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object containing a list of Philippine province names",
+            "description": "Object containing a list of Philippine provinces",
             "content": {
               "application/json": {
                 "schema": {
@@ -2513,8 +2515,7 @@
                         "required": [
                           "_id",
                           "regionId",
-                          "name",
-                          "municipalities"
+                          "name"
                         ]
                       }
                     }
@@ -2767,7 +2768,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object containing a Philippine region data including provinces and municipalities",
+            "description": "Object containing one (1) Philippine province data including its municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -2872,8 +2873,7 @@
                       "required": [
                         "_id",
                         "regionId",
-                        "name",
-                        "municipalities"
+                        "name"
                       ]
                     }
                   },
@@ -2978,7 +2978,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object containing a list of Philippine municipality names",
+            "description": "Object containing a list of Philippine municipalities",
             "content": {
               "application/json": {
                 "schema": {

@@ -14,7 +14,7 @@ import { FULL_API_METADATA } from '@/utils/constants.js'
  * @param {OpenAPIRegistry} registry OpenAPIRegistry instance from the calling method
  */
 export const buildIslandDocs = (registry: OpenAPIRegistry) => {
-  const RegionResponseSuccessSchema = ResponseSuccessSchema.extend({
+  const IslandResponseSuccessSchema = ResponseSuccessSchema.extend({
     metadata: z.object({
       description: RESPONSE_SUCCESS_META.description.meta({
         example: 'Main Island groups geographic location data of the Philippines'
@@ -23,14 +23,14 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
         example: FULL_API_METADATA.source
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: '2022/08/03'
+        example: FULL_API_METADATA.dateCreated
       })
     })
   })
 
   // API route: /islands
   const IslandListResponseSchema =
-    RegionResponseSuccessSchema
+    IslandResponseSuccessSchema
       .extend({
         data: z.array(IslandResponseSchema.omit({ regions: true }))
       })
@@ -66,7 +66,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
 
   // API route: /islands/full
   const IslandListFullResponseSchema =
-    RegionResponseSuccessSchema
+    IslandResponseSuccessSchema
       .extend({
         data: z.array(IslandResponseSchema)
       })
@@ -102,7 +102,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
 
   // API route: /islands/{id}
   const IslandDetailResponseSchema =
-    RegionResponseSuccessSchema
+    IslandResponseSuccessSchema
       .extend({
         data: IslandResponseSchema.omit({ regions: true })
       })

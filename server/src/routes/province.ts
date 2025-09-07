@@ -15,7 +15,7 @@ const validateProvinceParams = validate(ProvinceQuerySchema)
 /** Fetch all provinces */
 router.get('/provinces', validateProvinceParams, getProvinces)
 
-/** Fetches all provinces by region ID including their municipalities[] */
+/** Fetch all provinces (optionally filtered by regionId) including their municipalities[] */
 router.get('/provinces/full', validateProvinceParams, getProvincesFull)
 
 /** Fetch a province by ID */

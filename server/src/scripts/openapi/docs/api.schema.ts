@@ -20,19 +20,25 @@ export const MunicipalityResponseSchema = omitCommonFields(MunicipalityDocSchema
 // Province response schema with nested municipalities
 export const ProvinceResponseSchema = omitCommonFields(ProvinceDocSchema, ['includeMeta'])
   .extend({
-    municipalities: z.array(MunicipalityResponseSchema)
+    municipalities: z
+      .array(MunicipalityResponseSchema)
+      .optional()
   })
 
 // Region response schema with nested provinces
 export const RegionResponseSchema = omitCommonFields(RegionDocSchema, ['includeMeta'])
   .extend({
-    provinces: z.array(ProvinceResponseSchema)
+    provinces: z
+      .array(ProvinceResponseSchema)
+      .optional()
   })
 
 // Island response schema with nested regions and provinces
 export const IslandResponseSchema = omitCommonFields(IslandDocSchema, ['includeMeta'])
   .extend({
-    regions: z.array(RegionResponseSchema.omit({ provinces: true }))
+    regions: z
+      .array(RegionResponseSchema.omit({ provinces: true }))
+      .optional()
   })
 
 // Base stats response schema
@@ -44,7 +50,7 @@ export const StatsResponseSchema = omitCommonFields(StatsDocSchema, ['includeMet
  * These schemas are used for request validation (ex)
  */
 
-// Island query schema for filtering/querying islads
+// Island query schema for filtering/querying islands
 export const IslandQuerySchema = omitCommonFields(IslandDocSchema, ['_id', 'regions'])
   .partial()
   .strict()

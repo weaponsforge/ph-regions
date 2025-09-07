@@ -23,7 +23,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
         example: FULL_API_METADATA.source
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: '2022/08/03'
+        example: FULL_API_METADATA.dateCreated
       })
     })
   })

@@ -72,8 +72,11 @@ const main = () => {
   const docs = generateOpenApiDocs()
   const fileContent = yaml.stringify(docs)
 
-  const docPathYML = path.resolve(__dirname, '../../../', 'public', 'openapi.yaml')
-  const docPathJSON = path.resolve(__dirname, '../../../', 'public', 'openapi.json')
+  const outDir = path.resolve(__dirname, '../../../', 'public')
+  fs.mkdirSync(outDir, { recursive: true })
+
+  const docPathYML = path.join(outDir, 'openapi.yaml')
+  const docPathJSON = path.join(outDir, 'openapi.json')
 
   // Generate a YML file
   fs.writeFileSync(docPathYML, fileContent, {
