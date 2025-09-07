@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { MunicipalityApiSchema } from '@/schemas/municipality.schema.js'
+import { MunicipalityQuerySchema } from '@/scripts/openapi/docs/api.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
@@ -8,7 +8,7 @@ import {
 } from '@/controllers/municipality.js'
 
 const router = Router()
-const validateMunicipalityParams = validate(MunicipalityApiSchema)
+const validateMunicipalityParams = validate(MunicipalityQuerySchema)
 
 /** Fetch all provinces */
 router.get('/municipalities', validateMunicipalityParams, getMunicipalities)

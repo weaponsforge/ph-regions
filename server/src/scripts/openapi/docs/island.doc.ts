@@ -75,7 +75,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/islands/full',
     description: 'Full list of main island groups in the Philippines including regions',
-    summary: 'Get full islands data with regions data',
+    summary: 'Get full islands data including regions',
     tags: ['Islands'],
     request: {
       query: IslandQuerySchema
