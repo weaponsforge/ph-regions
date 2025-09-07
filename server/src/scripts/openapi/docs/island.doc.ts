@@ -82,7 +82,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning Philippine main island groups including regions',
+        description: 'Object containing Philippine main island groups including regions',
         content: {
           'application/json': {
             schema: IslandListFullResponseSchema
@@ -123,7 +123,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning Philippine main island groups including regions',
+        description: 'Object containing Philippine main island groups including regions',
         content: {
           'application/json': {
             schema: IslandDetailResponseSchema

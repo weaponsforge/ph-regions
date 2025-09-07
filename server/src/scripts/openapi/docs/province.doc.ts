@@ -5,7 +5,7 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 import { ResponseErrorSchema } from './api.error.schema.js'
 import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
 
-import { RegionResponseSchema, ProvinceResponseSchema, ProvinceQuerySchema } from './api.schema.js'
+import { ProvinceResponseSchema, ProvinceQuerySchema } from './api.schema.js'
 import { ProvinceDocSchema } from '@/schemas/province.schema.js'
 import { FULL_API_METADATA } from '@/utils/constants.js'
 
@@ -68,7 +68,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
   const ProvinceListFullResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: z.array(RegionResponseSchema)
+        data: z.array(ProvinceResponseSchema)
       })
 
   registry.registerPath({
@@ -82,7 +82,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning Philippine regions including provinces and municipalities',
+        description: 'Object containing Philippine regions including provinces and municipalities',
         content: {
           'application/json': {
             schema: ProvinceListFullResponseSchema
@@ -123,7 +123,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning one (1) Philippine province data excluding municipalities',
+        description: 'Object containing one (1) Philippine province data excluding municipalities',
         content: {
           'application/json': {
             schema: ProvinceDetailResponseSchema
@@ -162,7 +162,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning a Philippine region data including provinces and municipalities',
+        description: 'Object containing a Philippine region data including provinces and municipalities',
         content: {
           'application/json': {
             schema: ProvinceDetailFullResponseSchema

@@ -62,7 +62,7 @@ The main app is inside the `📂 server/src` folder.
 - 🪧 **routes** - Contains API endpoint definitions and route bindings.
 - 📐 **schemas** - Contains Zod validation schemas.
 - 📜 **scripts** - Contains utility scripts for setup and maintenance tasks.
-- 🌐 **openapi** - Contains OpenAPI definitions using Zod schemas (folder: `/srcipts/openapi/docs`)
+- 🌐 **openapi** - Contains OpenAPI definitions using Zod schemas (folder: `/scripts/openapi/docs`)
 - 🧾 **types** - Contains shared TypeScript types and interfaces
 - 🛠️ **utils** - Contains general-purpose helper functions.
 - 📱 `app.ts` - Sets up the Express app and middleware.
@@ -134,8 +134,9 @@ The main app is inside the `📂 server/src` folder.
    // -- mongodb-ph-regions (Mongo DB service)
    ```
 
-4. 💡 Launch the API documentation at to view available endpoints.<br>
-   ```
+4. 💡 Launch the API documentation at to view available endpoints.
+
+   ```text
    # Main API docs
    http://localhost:3001
 
@@ -169,8 +170,9 @@ The main app is inside the `📂 server/src` folder.
    npm run seed
    ```
 
-3. 💡 Launch the API documentation at to view available endpoints.<br>
-   ```
+3. 💡 Launch the API documentation at to view available endpoints.
+
+   ```text
    # Main API docs
    http://localhost:3001
 

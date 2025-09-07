@@ -881,7 +881,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning Philippine main island groups including regions",
+            "description": "Object containing Philippine main island groups including regions",
             "content": {
               "application/json": {
                 "schema": {
@@ -1087,7 +1087,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning Philippine main island groups including regions",
+            "description": "Object containing Philippine main island groups including regions",
             "content": {
               "application/json": {
                 "schema": {
@@ -1519,7 +1519,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning Philippine regions including provinces and municipalities",
+            "description": "Object containing Philippine regions including provinces and municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -1773,7 +1773,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning one (1) Philippine region data excluding provinces and municipalities",
+            "description": "Object containing one (1) Philippine region data excluding provinces and municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -1952,7 +1952,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning a Philippine region data including provinces and municipalities",
+            "description": "Object containing a Philippine region data including provinces and municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -2164,6 +2164,48 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Region not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Server query failure flag"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Common error message text",
+                      "example": "Validation Error"
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of error messages",
+                      "example": [
+                        "Region not found"
+                      ]
+                    },
+                    "status": {
+                      "type": "number",
+                      "description": "HTTP error status code",
+                      "example": 400
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "status"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -2364,7 +2406,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning Philippine regions including provinces and municipalities",
+            "description": "Object containing Philippine regions including provinces and municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -2412,118 +2454,67 @@
                         "properties": {
                           "_id": {
                             "type": "string",
+                            "description": "Province ID",
+                            "example": "68bc452bf0a9414a4312e5b1"
+                          },
+                          "regionId": {
+                            "type": "string",
                             "description": "Region ID",
                             "example": "68bc452bf0a9414a4312e591"
-                          },
-                          "islandId": {
-                            "type": "string",
-                            "description": "Island document ID",
-                            "example": "68bc452af0a9414a4312e589"
                           },
                           "name": {
                             "type": "string",
                             "maxLength": 40,
-                            "description": "Region name",
-                            "example": "Region IV-A"
+                            "description": "Province name",
+                            "example": "Batangas"
                           },
-                          "abbrev": {
-                            "type": "string",
-                            "nullable": true,
-                            "maxLength": 20,
-                            "description": "Abbreviation name or code",
-                            "example": "CALABARZON"
-                          },
-                          "regionalName": {
-                            "type": "string",
-                            "description": "Long-form regional name",
-                            "example": "CALABARZON"
-                          },
-                          "regionalCode": {
-                            "type": "string",
-                            "nullable": true,
-                            "maxLength": 5,
-                            "description": "Region code",
-                            "example": "4A"
-                          },
-                          "provinces": {
+                          "municipalities": {
                             "type": "array",
                             "items": {
                               "type": "object",
                               "properties": {
                                 "_id": {
                                   "type": "string",
-                                  "description": "Province ID",
-                                  "example": "68bc452bf0a9414a4312e5b1"
+                                  "description": "Municipality ID",
+                                  "example": "68bc452bf0a9414a4312e753"
                                 },
                                 "regionId": {
                                   "type": "string",
                                   "description": "Region ID",
                                   "example": "68bc452bf0a9414a4312e591"
                                 },
+                                "provinceId": {
+                                  "type": "string",
+                                  "description": "Province ID",
+                                  "example": "68bc452bf0a9414a4312e5b1"
+                                },
                                 "name": {
                                   "type": "string",
                                   "maxLength": 40,
-                                  "description": "Province name",
-                                  "example": "Batangas"
+                                  "description": "Municipality name",
+                                  "example": "Agoncillo"
                                 },
-                                "municipalities": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "_id": {
-                                        "type": "string",
-                                        "description": "Municipality ID",
-                                        "example": "68bc452bf0a9414a4312e753"
-                                      },
-                                      "regionId": {
-                                        "type": "string",
-                                        "description": "Region ID",
-                                        "example": "68bc452bf0a9414a4312e591"
-                                      },
-                                      "provinceId": {
-                                        "type": "string",
-                                        "description": "Province ID",
-                                        "example": "68bc452bf0a9414a4312e5b1"
-                                      },
-                                      "name": {
-                                        "type": "string",
-                                        "maxLength": 40,
-                                        "description": "Municipality name",
-                                        "example": "Agoncillo"
-                                      },
-                                      "numDocs": {
-                                        "type": "number",
-                                        "description": "Random number",
-                                        "example": 0
-                                      }
-                                    },
-                                    "required": [
-                                      "_id",
-                                      "regionId",
-                                      "provinceId",
-                                      "name",
-                                      "numDocs"
-                                    ]
-                                  }
+                                "numDocs": {
+                                  "type": "number",
+                                  "description": "Random number",
+                                  "example": 0
                                 }
                               },
                               "required": [
                                 "_id",
                                 "regionId",
+                                "provinceId",
                                 "name",
-                                "municipalities"
+                                "numDocs"
                               ]
                             }
                           }
                         },
                         "required": [
                           "_id",
-                          "islandId",
+                          "regionId",
                           "name",
-                          "abbrev",
-                          "regionalCode",
-                          "provinces"
+                          "municipalities"
                         ]
                       }
                     }
@@ -2618,7 +2609,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning one (1) Philippine province data excluding municipalities",
+            "description": "Object containing one (1) Philippine province data excluding municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -2776,7 +2767,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning a Philippine region data including provinces and municipalities",
+            "description": "Object containing a Philippine region data including provinces and municipalities",
             "content": {
               "application/json": {
                 "schema": {
@@ -3160,7 +3151,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning one (1) Philippine municipality data",
+            "description": "Object containing one (1) Philippine municipality data",
             "content": {
               "application/json": {
                 "schema": {
@@ -3291,6 +3282,48 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Municipality data not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Server query failure flag"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Common error message text",
+                      "example": "Validation Error"
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of error messages",
+                      "example": [
+                        "Municipality not found"
+                      ]
+                    },
+                    "status": {
+                      "type": "number",
+                      "description": "HTTP error status code",
+                      "example": 400
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "status"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -3306,11 +3339,11 @@
           {
             "schema": {
               "type": "string",
-              "description": "Stats `id` is the same as `municipalityId`",
+              "description": "Municipality ID",
               "example": "68bc452bf0a9414a4312e753"
             },
             "required": true,
-            "description": "Stats `id` is the same as `municipalityId`",
+            "description": "Municipality ID",
             "name": "id",
             "in": "path"
           },
@@ -3330,7 +3363,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Object contaning one (1) random Philippine municipality stat data",
+            "description": "Object containing one (1) random Philippine municipality stat data",
             "content": {
               "application/json": {
                 "schema": {
@@ -3340,11 +3373,6 @@
                       "type": "boolean",
                       "default": true,
                       "description": "Server query success flag"
-                    },
-                    "total": {
-                      "type": "number",
-                      "description": "Total number of items in the `data[]` array",
-                      "example": 1
                     },
                     "metadata": {
                       "type": "object",
@@ -3398,7 +3426,6 @@
                     }
                   },
                   "required": [
-                    "total",
                     "metadata",
                     "data"
                   ]
@@ -3445,6 +3472,48 @@
                     "status"
                   ],
                   "description": "Server error response information"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Stats data for municipality not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Server query failure flag"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Common error message text",
+                      "example": "Validation Error"
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of error messages",
+                      "example": [
+                        "Municipality stats not found"
+                      ]
+                    },
+                    "status": {
+                      "type": "number",
+                      "description": "HTTP error status code",
+                      "example": 400
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "status"
+                  ]
                 }
               }
             }

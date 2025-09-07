@@ -87,7 +87,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning one (1) Philippine municipality data',
+        description: 'Object containing one (1) Philippine municipality data',
         content: {
           'application/json': {
             schema: MunicipalityDetailResponseSchema
@@ -99,6 +99,21 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
         content: {
           'application/json': {
             schema: ResponseErrorSchema
+          }
+        }
+      },
+      404: {
+        description: 'Municipality data not found',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema.extend({
+              message: z
+                .array(z.string())
+                .meta({
+                  description: 'List of error messages',
+                  example: ['Municipality not found']
+                })
+            })
           }
         }
       }

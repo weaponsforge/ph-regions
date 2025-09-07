@@ -10,7 +10,7 @@ import {
 const router = Router()
 const validateMunicipalityParams = validate(MunicipalityQuerySchema)
 
-/** Fetch all provinces */
+/** Fetch all municipalities */
 router.get('/municipalities', validateMunicipalityParams, getMunicipalities)
 
 /** Fetch a municipality by ID */

@@ -82,7 +82,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning Philippine regions including provinces and municipalities',
+        description: 'Object containing Philippine regions including provinces and municipalities',
         content: {
           'application/json': {
             schema: RegionListFullResponseSchema
@@ -123,7 +123,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning one (1) Philippine region data excluding provinces and municipalities',
+        description: 'Object containing one (1) Philippine region data excluding provinces and municipalities',
         content: {
           'application/json': {
             schema: RegionDetailResponseSchema
@@ -162,7 +162,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object contaning a Philippine region data including provinces and municipalities',
+        description: 'Object containing a Philippine region data including provinces and municipalities',
         content: {
           'application/json': {
             schema: RegionDetailFullResponseSchema
@@ -174,6 +174,21 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
         content: {
           'application/json': {
             schema: ResponseErrorSchema
+          }
+        }
+      },
+      404: {
+        description: 'Region not found error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema.extend({
+              message: z
+                .array(z.string())
+                .meta({
+                  description: 'List of error messages',
+                  example: ['Region not found']
+                })
+            })
           }
         }
       }
