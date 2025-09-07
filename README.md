@@ -263,7 +263,7 @@ Follow the steps for adding (or editing) new endpoints to the API.
 <summary>👉 Click to view the guidelines</summary>
 
 1. **Create a Zod schema**<br>
-Follow the patterns in the 📐 `📐 schemas` directory (e.g., `province.schema.ts`).
+Follow the patterns in the `📐 schemas` directory (e.g., `province.schema.ts`).
 
 2. **Create a Mongoose model**<br>
 Follow the patterns in the `🧊 models` directory (e.g., `province.model.ts`).
