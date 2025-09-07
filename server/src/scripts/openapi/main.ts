@@ -21,7 +21,7 @@ import { buildRegionDocs } from './docs/region.doc.js'
 import { buildProvinceDocs } from './docs/province.doc.js'
 import { buildMunicipalityDocs } from './docs/municipality.doc.js'
 import { buildStatsDocs } from './docs/stats.doc.js'
-import { directory } from '@/utils/helpers.js'
+import { API_INFO } from './docs/api.info.js'
 
 // Constants
 const __filename = fileURLToPath(import.meta.url)
@@ -41,16 +41,7 @@ const registry = new OpenAPIRegistry()
  */
 const generateOpenApiDocs = () => {
   const generator = new OpenApiGeneratorV3(registry.definitions)
-
-  return generator.generateDocument({
-    openapi: '3.0.0',
-    info: {
-      version: '1.0.0',
-      title: 'PH Regions API',
-      description: 'A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces municipalities, and a randomly generated number of barangays per municipality for testing purposes.'
-    },
-    servers: [{ url: 'http://localhost:3001/' }]
-  })
+  return generator.generateDocument(API_INFO)
 }
 
 /**

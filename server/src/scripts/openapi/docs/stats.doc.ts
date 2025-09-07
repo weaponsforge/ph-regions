@@ -38,7 +38,7 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/stats/{id}',
     description: 'Retrieves municipality stats data by ID',
-    summary: 'Get municipality stats data by ID',
+    summary: 'Get municipality stats by ID',
     tags: ['Stats'],
     request: {
       params: z.object({

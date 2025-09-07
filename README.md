@@ -247,5 +247,15 @@ Watches file changes in `.ts` files using the `tsc --watch` option with `dynamic
 </details>
 <br>
 
+## References
+
+- [OpenAPI Specification](https://swagger.io/specification/)
+- [Redocly - Introduction to OpenAPI](https://redocly.com/learn/openapi/learning-openapi)
+- [Redocly - API Governance](https://redocly.com/api-governance)
+- [Redocly Configuration](https://redocly.com/docs/redoc/config)
+- [Redocly CLI](https://www.npmjs.com/package/@redocly/cli)
+- [Redocly CLI Cookbook](https://github.com/Redocly/redocly-cli-cookbook)
+- [Redoc Demo](https://redocly.github.io/redoc/)
+
 @weaponsforge<br>
 20250711
