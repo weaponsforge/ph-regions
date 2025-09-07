@@ -25,17 +25,18 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 ### 📦 Core Libraries/Frameworks
 
-The server app uses the following libraries and frameworks.
+The server app uses the following core libraries and frameworks.
 
 | Library | Version | Description |
 | --- | --- | --- |
-| express | `v5.1.0` |  Node.js web framework for building APIs and web servers. |
-| mongoose | `v8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
-| zod | `v4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
-| nodemon | `v3.1.10` | Development tool that automatically restarts the server on file changes. |
-| tsx | `v4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
-| tsc-alias | `v1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
-| eslint | `v9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
+| express | `5.1.0` |  Node.js web framework for building APIs and web servers. |
+| mongoose | `8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| zod | `4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
+| nodemon | `3.1.10` | Development tool that automatically restarts the server on file changes. |
+| tsx | `4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
+| tsc-alias | `1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
+| eslint | `9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
+| @asteasolutions/zod-to-openapi | `8.1.0` | Generates an OpenAPI yaml file from Zod schemas. |
 
 ## 📚 Project Folder Structure
 
@@ -201,9 +202,9 @@ Fixes lint errors in TypeScript files.
 
 Runs the database seeder script, inserting initial data contents to the database.
 
-### `npm run gen:docs`
+### `npm run docs:gen`
 
-Generates the OpenAPI documentation.
+Generates the OpenAPI `openapi.yaml` file into the project's root directory.
 
 </details>
 
