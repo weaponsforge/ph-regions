@@ -46,15 +46,4 @@ export const MunicipalityDocSchema = MunicipalityDataSchema.extend({
   })
 })
 
-// Zod filters for API query
-export const MunicipalityApiSchema = MunicipalityDataSchema.pick({
-  regionId: true,
-  provinceId: true,
-  name: true
-}).extend({
-  includeMeta: BooleanValueSchema
-})
-  .partial()
-  .strict()
-
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>

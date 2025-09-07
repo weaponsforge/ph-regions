@@ -9,7 +9,7 @@ import {
 } from '@asteasolutions/zod-to-openapi'
 
 // Zod OpenAPI compatible schemas
-import { IslandDataSchema } from '@/schemas/island.schema.js'
+import { IslandDocSchema } from '@/schemas/island.schema.js'
 import { MunicipalityDocSchema } from '@/schemas/municipality.schema.js'
 import { ProvinceDocSchema } from '@/schemas/province.schema.js'
 import { RegionDocSchema } from '@/schemas/region.schema.js'
@@ -20,6 +20,7 @@ import { buildIslandDocs } from './docs/island.doc.js'
 import { buildRegionDocs } from './docs/region.doc.js'
 import { buildProvinceDocs } from './docs/province.doc.js'
 import { buildMunicipalityDocs } from './docs/municipality.doc.js'
+import { buildStatsDocs } from './docs/stats.doc.js'
 
 // Constants
 const __filename = fileURLToPath(import.meta.url)
@@ -55,7 +56,7 @@ const generateOpenApiDocs = () => {
  * Register the main objects (models) as OpenAPI schemas
  */
 const registerMainSchemas = () => {
-  registry.register('Island', IslandDataSchema)
+  registry.register('Island', IslandDocSchema.omit({ includeMeta: true }))
   registry.register('Municipality', MunicipalityDocSchema.omit({ includeMeta: true }))
   registry.register('Stats', StatsDocSchema.omit({ includeMeta: true }))
   registry.register('Province', ProvinceDocSchema.omit({ includeMeta: true }))
@@ -73,6 +74,7 @@ const main = () => {
   buildRegionDocs(registry)
   buildProvinceDocs(registry)
   buildMunicipalityDocs(registry)
+  buildStatsDocs(registry)
 
   // Generate full YAML docs
   const docs = generateOpenApiDocs()

@@ -7,6 +7,11 @@ import { MongoDocsDefault } from './mongodoc.schema.js'
 // Main Zod schema
 
 export const StatsDataSchema = MongoDocsDefault.extend({
+  _id: ObjectIdSchema.meta({
+    description: 'Stats ID',
+    example: '68bc452bf0a9414a4312ed9b'
+  }),
+
   municipalityId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
 
   numBrgy: z
@@ -26,12 +31,5 @@ export const StatsDocSchema = StatsDataSchema.extend({
     example: '68bc452bf0a9414a4312e753'
   })
 })
-
-// Zod filters for API query
-export const StatsApiSchema = StatsDataSchema.extend({
-  includeMeta: BooleanValueSchema
-})
-  .partial()
-  .strict()
 
 export type TStatsData = z.infer<typeof StatsDataSchema>

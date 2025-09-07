@@ -42,7 +42,7 @@ export const ProvinceDocSchema = ProvinceDataSchema.extend({
     .array(MunicipalityDocSchema)
     .optional()
     .meta({
-      description: 'Municipalities under a province'
+      description: 'Municipalities under this province'
     })
 })
 

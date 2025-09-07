@@ -1,0 +1,70 @@
+
+import { z } from 'zod'
+import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
+
+import { ResponseErrorSchema } from './api.error.schema.js'
+import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
+
+import { StatsResponseSchema } from './api.schema.js'
+import { StatsDocSchema } from '@/schemas/stats.schema.js'
+
+/**
+ * Builds the Stats - OpenAPI docs.
+ * @param {OpenAPIRegistry} registry OpenAPIRegistry instance from the calling method
+ */
+export const buildStatsDocs = (registry: OpenAPIRegistry) => {
+  const ResponseSuccessObject = ResponseSuccessSchema.extend({
+    metadata: z.object({
+      description: RESPONSE_SUCCESS_META.description.meta({
+        example: 'Random barangay geographic location data of the Philippines'
+      }),
+      source: RESPONSE_SUCCESS_META.source.meta({
+        example: 'n/a'
+      }),
+      dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
+        example: '2022/08/03'
+      })
+    })
+  })
+
+  // API route: /stats/{id}
+  const StatsDetailResponseSchema =
+    ResponseSuccessObject
+      .extend({
+        data: StatsResponseSchema
+      })
+
+  registry.registerPath({
+    method: 'get',
+    path: '/api/stats/{id}',
+    description: 'Retrieves municipality stats data by ID',
+    summary: 'Get municipality stats data by ID',
+    tags: ['Stats'],
+    request: {
+      params: z.object({
+        id: StatsDocSchema.shape._id
+      }),
+      query: z.object({
+        includeMeta: StatsDocSchema.shape.includeMeta
+      })
+    },
+    responses: {
+      200: {
+        description: 'Object contaning one (1) random Philippine municipality stat data',
+        content: {
+          'application/json': {
+            schema: StatsDetailResponseSchema
+          }
+        }
+      },
+      400: {
+        description: 'Query parameter validation error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema
+          }
+        }
+      }
+    }
+  })
+}

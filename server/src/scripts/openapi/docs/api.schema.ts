@@ -6,6 +6,7 @@ import { RegionDocSchema } from '@/schemas/region.schema.js'
 
 import { omitCommonFields } from '@/utils/helpers.js'
 import { IslandDocSchema } from '@/schemas/island.schema.js'
+import { StatsDocSchema } from '@/schemas/stats.schema.js'
 
 /**
  * -----------------------------------------------------------------
@@ -28,10 +29,14 @@ export const RegionResponseSchema = omitCommonFields(RegionDocSchema, ['includeM
     provinces: z.array(ProvinceResponseSchema)
   })
 
+// Island response schema with nested regions and provinces
 export const IslandResponseSchema = omitCommonFields(IslandDocSchema, ['includeMeta'])
   .extend({
     regions: z.array(RegionResponseSchema.omit({ provinces: true }))
   })
+
+// Base stats response schema
+export const StatsResponseSchema = omitCommonFields(StatsDocSchema, ['includeMeta'])
 
 /**
  * -----------------------------------------------------------------
@@ -56,5 +61,10 @@ export const ProvinceQuerySchema = omitCommonFields(ProvinceDocSchema, ['_id', '
 
 // Municipality query schema for filtering/querying municipalities
 export const MunicipalityQuerySchema = omitCommonFields(MunicipalityDocSchema, ['_id', 'numDocs', 'name'])
+  .partial()
+  .strict()
+
+// Stats query schema for filtering/querying stats
+export const StatsQuerySchema = omitCommonFields(StatsDocSchema, ['_id', 'municipalityId', 'numBrgy'])
   .partial()
   .strict()
