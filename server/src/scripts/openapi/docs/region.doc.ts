@@ -39,7 +39,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/regions',
     description: 'List of region names in the Philippines',
-    summary: 'Get region names',
+    summary: 'Get regions',
     tags: ['Regions'],
     request: {
       query: RegionQuerySchema
@@ -74,8 +74,8 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/regions/full',
-    description: 'Full list of regions in the Philippines including provinces and municipalities',
-    summary: 'Get full regions data with provinces and municipalities data',
+    description: 'Full list of regions data in the Philippines including provinces and municipalities',
+    summary: 'Get full regions',
     tags: ['Regions'],
     request: {
       query: RegionQuerySchema
@@ -110,8 +110,8 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/regions/{id}',
-    description: 'Get region data by ID excluding provinces and municipalities',
-    summary: 'Get region data by ID',
+    description: 'Retrieves region data by ID excluding provinces and municipalities',
+    summary: 'Get region by ID',
     tags: ['Regions'],
     request: {
       params: z.object({
@@ -149,8 +149,8 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/regions/{id}/provinces',
-    description: 'Get region data by ID including all provinces and municipalities',
-    summary: 'Get region data by ID with provinces',
+    description: 'Retrieves region data by ID including all provinces and municipalities',
+    summary: 'Get region by ID with provinces',
     tags: ['Regions'],
     request: {
       params: z.object({

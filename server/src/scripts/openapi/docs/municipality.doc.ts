@@ -38,8 +38,8 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/municipalities',
-    description: 'List of municipalities in the Philippines',
-    summary: 'Get municipalities by regionId or provinceId',
+    description: 'List of municipalities in the Philippines by region or province',
+    summary: 'Get municipalities',
     tags: ['Municipalities'],
     request: {
       query: MunicipalityQuerySchema
@@ -75,7 +75,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/municipalities/{id}',
     description: 'Retrieves municipality data by ID',
-    summary: 'Get municipality data by ID',
+    summary: 'Get municipality by ID',
     tags: ['Municipalities'],
     request: {
       params: z.object({

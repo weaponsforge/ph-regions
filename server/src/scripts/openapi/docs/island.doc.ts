@@ -39,7 +39,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/islands',
     description: 'List of main island group names in the Philippines',
-    summary: 'Get island names',
+    summary: 'Get islands',
     tags: ['Islands'],
     request: {
       query: IslandQuerySchema
@@ -75,7 +75,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/islands/full',
     description: 'Full list of main island groups in the Philippines including regions',
-    summary: 'Get full islands data including regions',
+    summary: 'Get full islands',
     tags: ['Islands'],
     request: {
       query: IslandQuerySchema
@@ -111,7 +111,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/islands/{id}',
     description: 'Get an island data by ID',
-    summary: 'Get island data by ID',
+    summary: 'Get island by ID',
     tags: ['Islands'],
     request: {
       params: z.object({

@@ -38,7 +38,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/provinces',
-    description: 'List of provinces in the Philippines',
+    description: 'List of provinces in the Philippines including only province name',
     summary: 'Get province names',
     tags: ['Provinces'],
     request: {
@@ -75,7 +75,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/provinces/full',
     description: 'Full list of provinces in the Philippines including municipalities',
-    summary: 'Get full provinces data with municipalities',
+    summary: 'Get full provinces',
     tags: ['Provinces'],
     request: {
       query: ProvinceQuerySchema
@@ -111,7 +111,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/provinces/{id}',
     description: 'Get province data by ID excluding municipalities',
-    summary: 'Get province data by ID',
+    summary: 'Get province by ID',
     tags: ['Provinces'],
     request: {
       params: z.object({
@@ -150,7 +150,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/provinces/{id}/municipalities',
     description: 'Get province data by ID including its municipalities',
-    summary: 'Get province data by ID with municipalities',
+    summary: 'Get province by ID with municipalities',
     tags: ['Provinces'],
     request: {
       params: z.object({

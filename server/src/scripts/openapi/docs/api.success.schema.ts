@@ -37,7 +37,7 @@ export const ResponseSuccessSchema = z.object({
     .number()
     .meta({
       description: 'Total number of items in the `data[]` array',
-      example: 3
+      example: 1
     }),
 
   metadata: z.object(RESPONSE_SUCCESS_META)
