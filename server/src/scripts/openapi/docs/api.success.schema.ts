@@ -1,5 +1,29 @@
 import { z } from 'zod'
 
+/** Zod fields under the `ResponseSuccessSchema.meta` */
+export const RESPONSE_SUCCESS_META = {
+  description: z
+    .string()
+    .meta({
+      description: 'Summary describing the data set',
+      example: 'List of main island groups in the Philippines'
+    }),
+
+  source: z
+    .string()
+    .meta({
+      description: 'Data source description',
+      example: 'ChatGPT'
+    }),
+
+  dateCreated: z
+    .string()
+    .meta({
+      description: 'Date the data set was created in YYYY/MM/DD format',
+      example: '2025/09/07'
+    })
+}
+
 /** API success response schema */
 export const ResponseSuccessSchema = z.object({
   success: z
@@ -16,28 +40,7 @@ export const ResponseSuccessSchema = z.object({
       example: 3
     }),
 
-  metadata: z.object({
-    description: z
-      .string()
-      .meta({
-        description: 'Summary describing the data set',
-        example: 'List of main island groups in the Philippines'
-      }),
-
-    source: z
-      .string()
-      .meta({
-        description: 'Data source description',
-        example: 'ChatGPT'
-      }),
-
-    dateCreated: z
-      .string()
-      .meta({
-        description: 'Date the data set was created in YYYY/MM/DD format',
-        example: '2025/09/07'
-      })
-  })
+  metadata: z.object(RESPONSE_SUCCESS_META)
 })
   .meta({
     description: 'Successful response with requested data'

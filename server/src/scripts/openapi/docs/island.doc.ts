@@ -4,7 +4,7 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
 import { IslandDocSchema } from '@/schemas/island.schema.js'
 import { ResponseErrorSchema } from './api.error.schema.js'
-import { ResponseSuccessSchema } from './api.success.schema.js'
+import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
 import { IslandQuerySchema, IslandResponseSchema } from './api.schema.js'
 
 /**
@@ -12,11 +12,23 @@ import { IslandQuerySchema, IslandResponseSchema } from './api.schema.js'
  * @param {OpenAPIRegistry} registry OpenAPIRegistry instance from the calling method
  */
 export const buildIslandDocs = (registry: OpenAPIRegistry) => {
-  // API route: /islands
-  const IslandListResponseSchema = ResponseSuccessSchema
-    .extend({
-      data: z.array(IslandResponseSchema.omit({ regions: true }))
+  const RegionResponseSuccessSchema = ResponseSuccessSchema.extend({
+    metadata: z.object({
+      description: RESPONSE_SUCCESS_META.description.meta({
+        example: 'Main Island groups geographic location data of the Philippines'
+      }),
+      source: RESPONSE_SUCCESS_META.source.meta({
+        example: 'Remote Excel file'
+      })
     })
+  })
+
+  // API route: /islands
+  const IslandListResponseSchema =
+    RegionResponseSuccessSchema
+      .extend({
+        data: z.array(IslandResponseSchema.omit({ regions: true }))
+      })
 
   registry.registerPath({
     method: 'get',
@@ -48,10 +60,11 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
   })
 
   // API route: /islands/full
-  const IslandListFullResponseSchema = ResponseSuccessSchema
-    .extend({
-      data: z.array(IslandResponseSchema)
-    })
+  const IslandListFullResponseSchema =
+    RegionResponseSuccessSchema
+      .extend({
+        data: z.array(IslandResponseSchema)
+      })
 
   registry.registerPath({
     method: 'get',
@@ -84,7 +97,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
 
   // API route: /islands/{id}
   const IslandDetailResponseSchema =
-    ResponseSuccessSchema
+    RegionResponseSuccessSchema
       .extend({
         data: IslandResponseSchema.omit({ regions: true })
       })

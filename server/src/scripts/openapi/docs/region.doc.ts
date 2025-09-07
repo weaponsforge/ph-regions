@@ -4,7 +4,7 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
 import { RegionDocSchema } from '@/schemas/region.schema.js'
 import { ResponseErrorSchema } from './api.error.schema.js'
-import { ResponseSuccessSchema } from './api.success.schema.js'
+import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
 
 import { RegionResponseSchema, RegionQuerySchema } from './api.schema.js'
 
@@ -13,9 +13,20 @@ import { RegionResponseSchema, RegionQuerySchema } from './api.schema.js'
  * @param {OpenAPIRegistry} registry OpenAPIRegistry instance from the calling method
  */
 export const buildRegionDocs = (registry: OpenAPIRegistry) => {
+  const RegionResponseSuccessSchema = ResponseSuccessSchema.extend({
+    metadata: z.object({
+      description: RESPONSE_SUCCESS_META.description.meta({
+        example: 'Regional geographic location data of the Philippines'
+      }),
+      source: RESPONSE_SUCCESS_META.source.meta({
+        example: 'Remote Excel file'
+      })
+    })
+  })
+
   // API route: /regions
   const RegionListResponseSchema =
-    ResponseSuccessSchema
+    RegionResponseSuccessSchema
       .extend({
         data: z.array(RegionResponseSchema.omit({ provinces: true }))
       })
@@ -27,7 +38,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     summary: 'Get region names',
     tags: ['Regions'],
     request: {
-      query: RegionQuerySchema.partial()
+      query: RegionQuerySchema
     },
     responses: {
       200: {
@@ -51,7 +62,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
 
   // API route: /regions/full
   const RegionListFullResponseSchema =
-    ResponseSuccessSchema
+    RegionResponseSuccessSchema
       .extend({
         data: z.array(RegionResponseSchema)
       })
@@ -63,7 +74,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     summary: 'Get full regions data with provinces and municipalities data',
     tags: ['Regions'],
     request: {
-      query: RegionQuerySchema.partial()
+      query: RegionQuerySchema
     },
     responses: {
       200: {
@@ -87,7 +98,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
 
   // API route: /regions/{id}
   const RegionDetailResponseSchema =
-    ResponseSuccessSchema
+    RegionResponseSuccessSchema
       .extend({
         data: RegionResponseSchema.omit({ provinces: true })
       })
@@ -128,7 +139,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
 
   // API route: /regions/{id}/provinces
   const RegionDetailFullResponseSchema =
-    ResponseSuccessSchema
+    RegionResponseSuccessSchema
       .extend({ data: RegionResponseSchema })
 
   registry.registerPath({
