@@ -13,7 +13,7 @@
     "transpile": "tsc -p tsconfig.json && tsc-alias",
     "transpile:noemit": "tsc -p tsconfig.json --noEmit",
     "docs:gen": "tsx --import ./src/scripts/openapi/zod-extend.ts ./src/scripts/openapi/main.ts",
-    "docs:build": "npm run docs:gen && redocly build-docs openapi.yaml -o public/index.html",
+    "docs:build": "npm run docs:gen && redocly build-docs ./public/openapi.yaml -o public/index.html",
     "watch": "tsc -p tsconfig.json --watch",
     "lint": "eslint \"src/**/*.ts\" *.mjs",
     "lint:fix": "eslint \"src/**/*.ts\" *.mjs --fix",
@@ -31,6 +31,7 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.0.1",
     "mongoose": "^8.16.5",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.0.10"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.1.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "eslint": "^9.32.0",
     "globals": "^16.3.0",
     "nodemon": "^3.1.10",

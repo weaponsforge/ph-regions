@@ -46,13 +46,4 @@ export const ProvinceDocSchema = ProvinceDataSchema.extend({
     })
 })
 
-// Zod filters for API query
-export const ProvinceApiSchema = ProvinceDataSchema.pick({
-  regionId: true
-}).extend({
-  includeMeta: BooleanValueSchema
-})
-  .partial()
-  .strict()
-
 export type TProvinceData = z.infer<typeof ProvinceDataSchema>

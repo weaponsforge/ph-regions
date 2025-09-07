@@ -68,13 +68,20 @@ const main = () => {
   buildMunicipalityDocs(registry)
   buildStatsDocs(registry)
 
-  // Generate full YAML docs
+  // Generate full OpenAPI files
   const docs = generateOpenApiDocs()
   const fileContent = yaml.stringify(docs)
 
-  const filePath = path.resolve(__dirname, '../../../', 'openapi.yaml')
+  const docPathYML = path.resolve(__dirname, '../../../', 'public', 'openapi.yaml')
+  const docPathJSON = path.resolve(__dirname, '../../../', 'public', 'openapi.json')
 
-  fs.writeFileSync(filePath, fileContent, {
+  // Generate a YML file
+  fs.writeFileSync(docPathYML, fileContent, {
+    encoding: 'utf-8'
+  })
+
+  // Generate a JSON file
+  fs.writeFileSync(docPathJSON, JSON.stringify(docs, null, 2), {
     encoding: 'utf-8'
   })
 }

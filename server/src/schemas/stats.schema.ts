@@ -8,8 +8,8 @@ import { MongoDocsDefault } from './mongodoc.schema.js'
 
 export const StatsDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
-    description: 'Stats ID is the same as `municipalityId`',
-    example: '68bc452bf0a9414a4312ed9b'
+    description: 'Stats `id` is the same as `municipalityId`',
+    example: '68bc452bf0a9414a4312e753'
   }),
 
   municipalityId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
