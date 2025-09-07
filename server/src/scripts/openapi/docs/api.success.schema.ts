@@ -4,9 +4,9 @@ import { z } from 'zod'
 export const ResponseSuccessSchema = z.object({
   success: z
     .boolean()
+    .default(true)
     .meta({
-      description: 'Server query success flag',
-      example: true
+      description: 'Server query success flag'
     }),
 
   total: z

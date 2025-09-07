@@ -70,6 +70,14 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
             schema: IslandListFullResponseSchema
           }
         }
+      },
+      400: {
+        description: 'Query parameter validation error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema
+          }
+        }
       }
     }
   })
@@ -101,6 +109,14 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
         content: {
           'application/json': {
             schema: IslandDetailResponseSchema
+          }
+        }
+      },
+      400: {
+        description: 'Query parameter validation error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema
           }
         }
       }

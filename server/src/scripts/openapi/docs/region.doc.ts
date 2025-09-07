@@ -73,6 +73,14 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
             schema: RegionListFullResponseSchema
           }
         }
+      },
+      400: {
+        description: 'Query parameter validation error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema
+          }
+        }
       }
     }
   })
@@ -106,6 +114,14 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
             schema: RegionDetailResponseSchema
           }
         }
+      },
+      400: {
+        description: 'Query parameter validation error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema
+          }
+        }
       }
     }
   })
@@ -135,6 +151,14 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
         content: {
           'application/json': {
             schema: RegionDetailFullResponseSchema
+          }
+        }
+      },
+      400: {
+        description: 'Query parameter validation error',
+        content: {
+          'application/json': {
+            schema: ResponseErrorSchema
           }
         }
       }

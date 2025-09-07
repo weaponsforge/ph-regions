@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-/** API success response schema */
+/** API error response schema */
 export const ResponseErrorSchema = z.object({
   success: z
     .boolean()
+    .default(false)
     .meta({
-      description: 'Server query failure flag',
-      example: false
+      description: 'Server query failure flag'
     }),
 
   error: z
