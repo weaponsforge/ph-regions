@@ -135,8 +135,12 @@ The main app is inside the `📂 server/src` folder.
    ```
 
 4. 💡 Launch the API documentation at to view available endpoints.<br>
-   ```sh
+   ```
+   # Main API docs
    http://localhost:3001
+
+   # Alternate API docs (interactive)
+   http://localhost:3001/api/docs
    ```
 
 4. Stop the containers to exit.<br>
@@ -166,9 +170,14 @@ The main app is inside the `📂 server/src` folder.
    ```
 
 3. 💡 Launch the API documentation at to view available endpoints.<br>
-   ```sh
-   http://localhost:3001
    ```
+   # Main API docs
+   http://localhost:3001
+
+   # Alternate API docs (interactive)
+   http://localhost:3001/api/docs
+   ```
+
 </details>
 <br>
 
