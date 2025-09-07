@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
+import { ObjectIdSchema } from './common.schema.js'
 import { MongoDocsDefault } from './mongodoc.schema.js'
 import { RegionDocSchema } from './region.schema.js'
 
@@ -27,7 +27,7 @@ export const IslandDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs
 export const IslandDocSchema = IslandDataSchema.extend({
-  includeMeta: BooleanValueSchema,
+  // includeMeta: BooleanValueSchema,
 
   regions: z
     .array(RegionDocSchema)

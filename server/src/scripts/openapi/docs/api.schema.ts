@@ -7,6 +7,7 @@ import { RegionDocSchema } from '@/schemas/region.schema.js'
 import { omitCommonFields } from '@/utils/helpers.js'
 import { IslandDocSchema } from '@/schemas/island.schema.js'
 import { StatsDocSchema } from '@/schemas/stats.schema.js'
+import { BooleanValueSchema } from '@/schemas/common.schema.js'
 
 /**
  * -----------------------------------------------------------------
@@ -15,10 +16,10 @@ import { StatsDocSchema } from '@/schemas/stats.schema.js'
  */
 
 // Base municipality response schema
-export const MunicipalityResponseSchema = omitCommonFields(MunicipalityDocSchema, ['includeMeta'])
+export const MunicipalityResponseSchema = omitCommonFields(MunicipalityDocSchema)
 
 // Province response schema with nested municipalities
-export const ProvinceResponseSchema = omitCommonFields(ProvinceDocSchema, ['includeMeta'])
+export const ProvinceResponseSchema = omitCommonFields(ProvinceDocSchema)
   .extend({
     municipalities: z
       .array(MunicipalityResponseSchema)
@@ -26,7 +27,7 @@ export const ProvinceResponseSchema = omitCommonFields(ProvinceDocSchema, ['incl
   })
 
 // Region response schema with nested provinces
-export const RegionResponseSchema = omitCommonFields(RegionDocSchema, ['includeMeta'])
+export const RegionResponseSchema = omitCommonFields(RegionDocSchema)
   .extend({
     provinces: z
       .array(ProvinceResponseSchema)
@@ -34,7 +35,7 @@ export const RegionResponseSchema = omitCommonFields(RegionDocSchema, ['includeM
   })
 
 // Island response schema with nested regions and provinces
-export const IslandResponseSchema = omitCommonFields(IslandDocSchema, ['includeMeta'])
+export const IslandResponseSchema = omitCommonFields(IslandDocSchema)
   .extend({
     regions: z
       .array(RegionResponseSchema.omit({ provinces: true }))
@@ -42,7 +43,7 @@ export const IslandResponseSchema = omitCommonFields(IslandDocSchema, ['includeM
   })
 
 // Base stats response schema
-export const StatsResponseSchema = omitCommonFields(StatsDocSchema, ['includeMeta'])
+export const StatsResponseSchema = omitCommonFields(StatsDocSchema)
 
 /**
  * -----------------------------------------------------------------
@@ -52,25 +53,30 @@ export const StatsResponseSchema = omitCommonFields(StatsDocSchema, ['includeMet
 
 // Island query schema for filtering/querying islands
 export const IslandQuerySchema = omitCommonFields(IslandDocSchema, ['_id', 'regions'])
+  .extend({ includeMeta: BooleanValueSchema })
   .partial()
   .strict()
 
 // Region query schema for filtering/querying regions
 export const RegionQuerySchema = omitCommonFields(RegionDocSchema, ['_id', 'provinces'])
+  .extend({ includeMeta: BooleanValueSchema })
   .partial()
   .strict()
 
 // Province query schema for filtering/querying provinces
 export const ProvinceQuerySchema = omitCommonFields(ProvinceDocSchema, ['_id', 'name', 'municipalities'])
+  .extend({ includeMeta: BooleanValueSchema })
   .partial()
   .strict()
 
 // Municipality query schema for filtering/querying municipalities
 export const MunicipalityQuerySchema = omitCommonFields(MunicipalityDocSchema, ['_id', 'numDocs', 'name'])
+  .extend({ includeMeta: BooleanValueSchema })
   .partial()
   .strict()
 
 // Stats query schema for filtering/querying stats
 export const StatsQuerySchema = omitCommonFields(StatsDocSchema, ['_id', 'municipalityId', 'numBrgy'])
+  .extend({ includeMeta: BooleanValueSchema })
   .partial()
   .strict()

@@ -48,11 +48,11 @@ const generateOpenApiDocs = () => {
  * Register the main objects (models) as OpenAPI schemas
  */
 const registerMainSchemas = () => {
-  registry.register('Island', IslandDocSchema.omit({ includeMeta: true }))
-  registry.register('Municipality', MunicipalityDocSchema.omit({ includeMeta: true }))
-  registry.register('Stats', StatsDocSchema.omit({ includeMeta: true }))
-  registry.register('Province', ProvinceDocSchema.omit({ includeMeta: true }))
-  registry.register('Region', RegionDocSchema.omit({ includeMeta: true }))
+  registry.register('Island', IslandDocSchema)
+  registry.register('Municipality', MunicipalityDocSchema)
+  registry.register('Stats', StatsDocSchema)
+  registry.register('Province', ProvinceDocSchema)
+  registry.register('Region', RegionDocSchema)
 }
 
 /**

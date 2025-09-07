@@ -118,7 +118,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
         id: IslandDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: IslandDocSchema.shape.includeMeta
+        includeMeta: IslandQuerySchema.shape.includeMeta
       })
     },
     responses: {

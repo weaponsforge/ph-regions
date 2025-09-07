@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { Types } from '@/types/types.js'
 
-import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
+import { ObjectIdSchema } from './common.schema.js'
 import { MongoDocsDefault } from './mongodoc.schema.js'
 
 // Main Zod schema
@@ -28,7 +28,7 @@ export const StatsDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const StatsDocSchema = StatsDataSchema.extend({
-  includeMeta: BooleanValueSchema,
+  // includeMeta: BooleanValueSchema,
 
   municipalityId: ObjectIdSchema.meta({
     description: 'Municipality ID',

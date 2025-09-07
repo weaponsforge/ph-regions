@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { ProvinceDataSchema, ProvinceDocSchema } from './province.schema.js'
 
-import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
+import { ObjectIdSchema } from './common.schema.js'
 import { MongoDocsDefault } from './mongodoc.schema.js'
 
 import { Types } from '@/types/types.js'
@@ -58,7 +58,7 @@ export const RegionDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const RegionDocSchema = RegionDataSchema.extend({
-  includeMeta: BooleanValueSchema,
+  // includeMeta: BooleanValueSchema,
 
   islandId: ObjectIdSchema.meta({
     description: 'Island document ID',

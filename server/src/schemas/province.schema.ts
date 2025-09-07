@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
+import { ObjectIdSchema } from './common.schema.js'
 import { MongoDocsDefault } from './mongodoc.schema.js'
 import { MunicipalityDataSchema, MunicipalityDocSchema } from './municipality.schema.js'
 
@@ -31,7 +31,7 @@ export const ProvinceDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
 export const ProvinceDocSchema = ProvinceDataSchema.extend({
-  includeMeta: BooleanValueSchema,
+  // includeMeta: BooleanValueSchema,
 
   regionId: ObjectIdSchema.meta({
     description: 'Region ID',

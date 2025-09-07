@@ -118,7 +118,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
         id: RegionDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: RegionDocSchema.shape.includeMeta
+        includeMeta: RegionQuerySchema.shape.includeMeta
       })
     },
     responses: {
@@ -157,7 +157,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
         id: RegionDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: RegionDocSchema.shape.includeMeta
+        includeMeta: RegionQuerySchema.shape.includeMeta
       })
     },
     responses: {

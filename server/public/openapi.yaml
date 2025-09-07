@@ -195,13 +195,6 @@ components:
                             type: number
                             description: Random number
                             example: 0
-                          includeMeta:
-                            type: boolean
-                            nullable: true
-                            default: false
-                            description: Flag to include the Mongo meta fields (eg., `createdAt`,
-                              `updatedAt`) in the response
-                            example: false
                         required:
                           - _id
                           - regionId
@@ -209,26 +202,12 @@ components:
                           - name
                           - numDocs
                       description: Municipalities under this province
-                    includeMeta:
-                      type: boolean
-                      nullable: true
-                      default: false
-                      description: Flag to include the Mongo meta fields (eg., `createdAt`,
-                        `updatedAt`) in the response
-                      example: false
                   required:
                     - _id
                     - regionId
                     - name
                 maxItems: 40
                 description: Provinces under this region
-              includeMeta:
-                type: boolean
-                nullable: true
-                default: false
-                description: Flag to include the Mongo meta fields (eg., `createdAt`,
-                  `updatedAt`) in the response
-                example: false
             required:
               - _id
               - islandId
@@ -387,13 +366,6 @@ components:
                 type: number
                 description: Random number
                 example: 0
-              includeMeta:
-                type: boolean
-                nullable: true
-                default: false
-                description: Flag to include the Mongo meta fields (eg., `createdAt`,
-                  `updatedAt`) in the response
-                example: false
             required:
               - _id
               - regionId
@@ -523,13 +495,6 @@ components:
                       type: number
                       description: Random number
                       example: 0
-                    includeMeta:
-                      type: boolean
-                      nullable: true
-                      default: false
-                      description: Flag to include the Mongo meta fields (eg., `createdAt`,
-                        `updatedAt`) in the response
-                      example: false
                   required:
                     - _id
                     - regionId
@@ -537,13 +502,6 @@ components:
                     - name
                     - numDocs
                 description: Municipalities under this province
-              includeMeta:
-                type: boolean
-                nullable: true
-                default: false
-                description: Flag to include the Mongo meta fields (eg., `createdAt`,
-                  `updatedAt`) in the response
-                example: false
             required:
               - _id
               - regionId

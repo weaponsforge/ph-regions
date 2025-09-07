@@ -118,7 +118,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
         id: ProvinceDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: ProvinceDocSchema.shape.includeMeta
+        includeMeta: ProvinceQuerySchema.shape.includeMeta
       })
     },
     responses: {
@@ -157,7 +157,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
         id: ProvinceDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: ProvinceDocSchema.shape.includeMeta
+        includeMeta: ProvinceQuerySchema.shape.includeMeta
       })
     },
     responses: {

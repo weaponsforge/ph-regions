@@ -240,13 +240,6 @@
                               "type": "number",
                               "description": "Random number",
                               "example": 0
-                            },
-                            "includeMeta": {
-                              "type": "boolean",
-                              "nullable": true,
-                              "default": false,
-                              "description": "Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response",
-                              "example": false
                             }
                           },
                           "required": [
@@ -258,13 +251,6 @@
                           ]
                         },
                         "description": "Municipalities under this province"
-                      },
-                      "includeMeta": {
-                        "type": "boolean",
-                        "nullable": true,
-                        "default": false,
-                        "description": "Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response",
-                        "example": false
                       }
                     },
                     "required": [
@@ -275,13 +261,6 @@
                   },
                   "maxItems": 40,
                   "description": "Provinces under this region"
-                },
-                "includeMeta": {
-                  "type": "boolean",
-                  "nullable": true,
-                  "default": false,
-                  "description": "Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response",
-                  "example": false
                 }
               },
               "required": [
@@ -481,13 +460,6 @@
                   "type": "number",
                   "description": "Random number",
                   "example": 0
-                },
-                "includeMeta": {
-                  "type": "boolean",
-                  "nullable": true,
-                  "default": false,
-                  "description": "Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response",
-                  "example": false
                 }
               },
               "required": [
@@ -647,13 +619,6 @@
                         "type": "number",
                         "description": "Random number",
                         "example": 0
-                      },
-                      "includeMeta": {
-                        "type": "boolean",
-                        "nullable": true,
-                        "default": false,
-                        "description": "Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response",
-                        "example": false
                       }
                     },
                     "required": [
@@ -665,13 +630,6 @@
                     ]
                   },
                   "description": "Municipalities under this province"
-                },
-                "includeMeta": {
-                  "type": "boolean",
-                  "nullable": true,
-                  "default": false,
-                  "description": "Flag to include the Mongo meta fields (eg., `createdAt`, `updatedAt`) in the response",
-                  "example": false
                 }
               },
               "required": [

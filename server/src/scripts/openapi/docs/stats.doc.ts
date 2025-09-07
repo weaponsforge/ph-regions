@@ -5,7 +5,7 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 import { ResponseErrorSchema } from './api.error.schema.js'
 import { RESPONSE_SUCCESS_META, ResponseSuccessSchema } from './api.success.schema.js'
 
-import { StatsResponseSchema } from './api.schema.js'
+import { StatsQuerySchema, StatsResponseSchema } from './api.schema.js'
 import { StatsDocSchema } from '@/schemas/stats.schema.js'
 import { FULL_API_METADATA } from '@/utils/constants.js'
 
@@ -48,7 +48,7 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
         id: StatsDocSchema.shape.municipalityId
       }),
       query: z.object({
-        includeMeta: StatsDocSchema.shape.includeMeta
+        includeMeta: StatsQuerySchema.shape.includeMeta
       })
     },
     responses: {

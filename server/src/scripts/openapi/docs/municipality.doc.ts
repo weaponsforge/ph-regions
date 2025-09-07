@@ -82,7 +82,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
         id: MunicipalityDocSchema.shape._id
       }),
       query: z.object({
-        includeMeta: MunicipalityDocSchema.shape.includeMeta
+        includeMeta: MunicipalityQuerySchema.shape.includeMeta
       })
     },
     responses: {
