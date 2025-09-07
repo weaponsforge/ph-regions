@@ -4,8 +4,8 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
 import { IslandDataSchema, IslandApiSchema } from '@/schemas/island.schema.js'
 import { RegionDocSchema } from '@/schemas/region.schema.js'
-import { ResponseErrorSchema } from '@/schemas/error.schema.js'
-import { ResponseSuccessSchema } from '@/schemas/success.schema.js'
+import { ResponseErrorSchema } from './api.error.schema.js'
+import { ResponseSuccessSchema } from './api.success.schema.js'
 
 /**
  * Builds the Islands - OpenAPI docs.

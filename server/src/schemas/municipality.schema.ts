@@ -33,6 +33,8 @@ export const MunicipalityDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs
 export const MunicipalityDocSchema = MunicipalityDataSchema.extend({
+  includeMeta: BooleanValueSchema,
+
   regionId: ObjectIdSchema.meta({
     description: 'Region ID',
     example: '68bc452bf0a9414a4312e591'

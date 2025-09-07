@@ -17,6 +17,7 @@ import { StatsDocSchema } from '@/schemas/stats.schema.js'
 
 // OpenAPI docs builder
 import { buildIslandDocs } from './docs/island.doc.js'
+import { buildRegionDocs } from './docs/region.doc.js'
 
 // Constants
 const __filename = fileURLToPath(import.meta.url)
@@ -67,6 +68,7 @@ const main = () => {
 
   // Build documentation for schemas
   buildIslandDocs(registry)
+  buildRegionDocs(registry)
 
   // Generate full YAML docs
   const docs = generateOpenApiDocs()

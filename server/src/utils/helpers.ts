@@ -1,5 +1,7 @@
+import { z } from 'zod'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import { COMMON_FIELDS_TO_OMIT } from './constants.js'
 
 /**
  * Get the full file path of the current directory of a module file equivalent to `"__dirname"`from
@@ -20,4 +22,24 @@ export const directory = (moduleFile: string): string => {
  */
 export const file = (moduleFile: string, fileName: string) => {
   return path.join(directory(moduleFile), fileName)
+}
+
+/**
+ * Helper function to omit common Zod fields
+ * @param schema - Zod schema
+ * @param {string[]} additionalFields - Array of Zod fields to omit
+ * @returns Zod schema with specified fields omitted
+ */
+export const omitCommonFields = <T extends z.ZodObject<z.ZodRawShape>>(
+  schema: T,
+  additionalFields: string[] = []
+) => {
+  const fieldsToOmit = [...COMMON_FIELDS_TO_OMIT, ...additionalFields]
+
+  return schema.omit(
+    fieldsToOmit.reduce(
+      (acc, field) => ({ ...acc, [field]: true }),
+      {} as Record<string, true>
+    )
+  )
 }

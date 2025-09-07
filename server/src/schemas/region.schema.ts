@@ -58,6 +58,8 @@ export const RegionDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs
 export const RegionDocSchema = RegionDataSchema.extend({
+  includeMeta: BooleanValueSchema,
+
   islandId: ObjectIdSchema.meta({
     description: 'Island document ID',
     example: '68bc452af0a9414a4312e589'

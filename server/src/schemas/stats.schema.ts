@@ -19,6 +19,8 @@ export const StatsDataSchema = MongoDocsDefault.extend({
 
 // Zod ID definitions for OpenAPI docs
 export const StatsDocSchema = StatsDataSchema.extend({
+  includeMeta: BooleanValueSchema,
+
   municipalityId: ObjectIdSchema.meta({
     description: 'Municipality ID',
     example: '68bc452bf0a9414a4312e753'
