@@ -28,6 +28,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 - [Available Scripts](#-available-scripts)
 - [Docker Scripts](#-docker-scripts)
 - [Adding New Endpoints](#️-adding-new-endpoints)
+- [Usage with GitHub Actions](#usage-with-github-actions)
 - [References](#references)
 
 ### 📋 Requirements
@@ -108,6 +109,22 @@ The main app is inside the `📂 server/src` folder.
 ## ⚡ Usage
 
 ### 🐳 Using Docker
+
+### Use Pre-Built Development Docker Image
+
+https://hub.docker.com/r/weaponsforge/ph-regions
+
+1. Pull the development Docker image from Docker Hub using one of the options.<br>
+   - `docker pull weaponsforge/ph-regions:latest`
+   - `docker compose pull` (using Docker compose from the root project directory)
+
+2. Navigate to the project directory using the command line. Create a `.env` file inside the **/docs** directory with reference to the `.env.example` file.
+   - See [Installation](#️-installation) - **step # 3** for more information.
+
+3. Run the development Docker image.
+   - Proceed to **Build the Development Docker Image - step # 2** for more information.
+
+### Build the Development Docker Image
 
 1. Build the image.<br>
    ```sh
@@ -304,6 +321,29 @@ Perform manual tests to ensure everything works correctly.
 
 </details>
 <br>
+
+## Usage with GitHub Actions
+
+### Deployment to Docker Hub
+
+This repository deploys the latest development Docker image `weaponsforge/ph-regions:latest` to Docker Hub on the creation of new Tags/Releases with GitHub Actions. Supply the following GitHub Secrets and Variable to enable deployment to Docker Hub. It requires a Docker Hub account.
+
+The Docker Hub image is available at:
+
+https://hub.docker.com/r/weaponsforge/ph-regions
+
+#### GitHub Secrets
+
+| GitHub Secret | Description |
+| --- | --- |
+| DOCKERHUB_USERNAME | Docker Hub username |
+| DOCKERHUB_TOKEN | Deploy token for the Docker Hub account |
+
+#### GitHub Variables
+
+| GitHub Variable | Description |
+| --- | --- |
+| DOCKERHUB_USERNAME | Docker Hub username |
 
 ## References
 
