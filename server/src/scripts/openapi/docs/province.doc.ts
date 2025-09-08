@@ -28,6 +28,24 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     })
   })
 
+  // Schema for 404 not found error response
+  const ProvinceNotFoundErrorSchema = {
+    description: 'Region not found error',
+    content: {
+      'application/json': {
+        schema: ResponseErrorSchema.extend({
+          status: ResponseErrorSchema.shape.status.meta({ example: 404 }),
+          message: z
+            .array(z.string())
+            .meta({
+              description: 'List of error messages',
+              example: ['Province not found']
+            })
+        })
+      }
+    }
+  }
+
   // API route: /provinces
   const ProvinceListResponseSchema =
     ResponseSuccessObject
@@ -39,7 +57,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/provinces',
     description: 'List of provinces in the Philippines (excluding municipalities)',
-    summary: 'Get province names',
+    summary: 'List provinces',
     tags: ['Provinces'],
     request: {
       query: ProvinceQuerySchema
@@ -75,7 +93,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/provinces/full',
     description: 'Full list of provinces in the Philippines including municipalities',
-    summary: 'Get full provinces',
+    summary: 'List full provinces',
     tags: ['Provinces'],
     request: {
       query: ProvinceQuerySchema
@@ -137,7 +155,8 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
             schema: ResponseErrorSchema
           }
         }
-      }
+      },
+      404: ProvinceNotFoundErrorSchema
     }
   })
 
@@ -176,7 +195,8 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
             schema: ResponseErrorSchema
           }
         }
-      }
+      },
+      404: ProvinceNotFoundErrorSchema
     }
   })
 }
