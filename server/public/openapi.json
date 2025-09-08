@@ -10,7 +10,7 @@
     "license": {
       "name": "MIT"
     },
-    "description": "**💡About** \n\n A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces municipalities, and a randomly generated number of barangays per municipality for testing purposes. \n\n **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. \n **Note:** The location data may be outdated and does not reflect the most current official records. \n\n **🧩 Alternate Docs** <ul><li>Interactive API documentation (Swagger UI): [http://localhost:3001/api/docs](http://localhost:3001/api/docs)</li></ul>",
+    "description": "**💡About** \n\n A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality for testing purposes. \n\n **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. \n **Note:** The location data may be outdated and does not reflect the most current official records. \n\n **🧩 Alternate Docs** <ul><li>Interactive API documentation (Swagger UI): [http://localhost:3001/api/docs](http://localhost:3001/api/docs)</li></ul>",
     "x-logo": {
       "url": "./assets/images/logo_ph_regions_01.png",
       "altText": "PH Regions logo"
@@ -232,13 +232,13 @@
                             },
                             "name": {
                               "type": "string",
-                              "maxLength": 40,
+                              "maxLength": 80,
                               "description": "Municipality name",
                               "example": "Agoncillo"
                             },
                             "numDocs": {
                               "type": "number",
-                              "description": "Random number",
+                              "description": "Document counter (for demo/testing)",
                               "example": 0
                             }
                           },
@@ -317,13 +317,13 @@
           },
           "name": {
             "type": "string",
-            "maxLength": 40,
+            "maxLength": 80,
             "description": "Municipality name",
             "example": "Agoncillo"
           },
           "numDocs": {
             "type": "number",
-            "description": "Random number",
+            "description": "Document counter (for demo/testing)",
             "example": 0
           }
         },
@@ -452,13 +452,13 @@
                 },
                 "name": {
                   "type": "string",
-                  "maxLength": 40,
+                  "maxLength": 80,
                   "description": "Municipality name",
                   "example": "Agoncillo"
                 },
                 "numDocs": {
                   "type": "number",
-                  "description": "Random number",
+                  "description": "Document counter (for demo/testing)",
                   "example": 0
                 }
               },
@@ -611,13 +611,13 @@
                       },
                       "name": {
                         "type": "string",
-                        "maxLength": 40,
+                        "maxLength": 80,
                         "description": "Municipality name",
                         "example": "Agoncillo"
                       },
                       "numDocs": {
                         "type": "number",
-                        "description": "Random number",
+                        "description": "Document counter (for demo/testing)",
                         "example": 0
                       }
                     },
@@ -1164,6 +1164,48 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Region not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Server query failure flag"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Common error message text",
+                      "example": "Validation Error"
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of error messages",
+                      "example": [
+                        "Island not found"
+                      ]
+                    },
+                    "status": {
+                      "type": "number",
+                      "description": "HTTP error status code",
+                      "example": 400
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "status"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -1607,13 +1649,13 @@
                                       },
                                       "name": {
                                         "type": "string",
-                                        "maxLength": 40,
+                                        "maxLength": 80,
                                         "description": "Municipality name",
                                         "example": "Agoncillo"
                                       },
                                       "numDocs": {
                                         "type": "number",
-                                        "description": "Random number",
+                                        "description": "Document counter (for demo/testing)",
                                         "example": 0
                                       }
                                     },
@@ -1875,6 +1917,48 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Region not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Server query failure flag"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Common error message text",
+                      "example": "Validation Error"
+                    },
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of error messages",
+                      "example": [
+                        "Region not found"
+                      ]
+                    },
+                    "status": {
+                      "type": "number",
+                      "description": "HTTP error status code",
+                      "example": 400
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "status"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -2036,13 +2120,13 @@
                                     },
                                     "name": {
                                       "type": "string",
-                                      "maxLength": 40,
+                                      "maxLength": 80,
                                       "description": "Municipality name",
                                       "example": "Agoncillo"
                                     },
                                     "numDocs": {
                                       "type": "number",
-                                      "description": "Random number",
+                                      "description": "Document counter (for demo/testing)",
                                       "example": 0
                                     }
                                   },
@@ -2450,13 +2534,13 @@
                                 },
                                 "name": {
                                   "type": "string",
-                                  "maxLength": 40,
+                                  "maxLength": 80,
                                   "description": "Municipality name",
                                   "example": "Agoncillo"
                                 },
                                 "numDocs": {
                                   "type": "number",
-                                  "description": "Random number",
+                                  "description": "Document counter (for demo/testing)",
                                   "example": 0
                                 }
                               },
@@ -2808,13 +2892,13 @@
                               },
                               "name": {
                                 "type": "string",
-                                "maxLength": 40,
+                                "maxLength": 80,
                                 "description": "Municipality name",
                                 "example": "Agoncillo"
                               },
                               "numDocs": {
                                 "type": "number",
-                                "description": "Random number",
+                                "description": "Document counter (for demo/testing)",
                                 "example": 0
                               }
                             },
@@ -2999,13 +3083,13 @@
                           },
                           "name": {
                             "type": "string",
-                            "maxLength": 40,
+                            "maxLength": 80,
                             "description": "Municipality name",
                             "example": "Agoncillo"
                           },
                           "numDocs": {
                             "type": "number",
-                            "description": "Random number",
+                            "description": "Document counter (for demo/testing)",
                             "example": 0
                           }
                         },
@@ -3170,13 +3254,13 @@
                         },
                         "name": {
                           "type": "string",
-                          "maxLength": 40,
+                          "maxLength": 80,
                           "description": "Municipality name",
                           "example": "Agoncillo"
                         },
                         "numDocs": {
                           "type": "number",
-                          "description": "Random number",
+                          "description": "Document counter (for demo/testing)",
                           "example": 0
                         }
                       },

@@ -28,6 +28,23 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     })
   })
 
+  // Schema for 404 not found error response
+  const IslandNotFoundErrorSchema = {
+    description: 'Region not found error',
+    content: {
+      'application/json': {
+        schema: ResponseErrorSchema.extend({
+          message: z
+            .array(z.string())
+            .meta({
+              description: 'List of error messages',
+              example: ['Island not found']
+            })
+        })
+      }
+    }
+  }
+
   // API route: /islands
   const IslandListResponseSchema =
     IslandResponseSuccessSchema
@@ -137,7 +154,8 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
             schema: ResponseErrorSchema
           }
         }
-      }
+      },
+      404: IslandNotFoundErrorSchema
     }
   })
 }

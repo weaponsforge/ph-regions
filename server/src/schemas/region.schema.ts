@@ -19,6 +19,7 @@ export const RegionDataSchema = MongoDocsDefault.extend({
   name: z
     .string()
     .max(40)
+    .trim()
     .meta({
       description: 'Region name',
       example: 'Region IV-A'

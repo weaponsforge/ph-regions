@@ -4,10 +4,9 @@ import { MunicipalityDocSchema } from '@/schemas/municipality.schema.js'
 import { ProvinceDocSchema } from '@/schemas/province.schema.js'
 import { RegionDocSchema } from '@/schemas/region.schema.js'
 
-import { omitCommonFields } from '@/utils/helpers.js'
+import { buildQuerySchema, omitCommonFields } from '@/utils/helpers.js'
 import { IslandDocSchema } from '@/schemas/island.schema.js'
 import { StatsDocSchema } from '@/schemas/stats.schema.js'
-import { BooleanValueSchema } from '@/schemas/common.schema.js'
 
 /**
  * -----------------------------------------------------------------
@@ -52,31 +51,21 @@ export const StatsResponseSchema = omitCommonFields(StatsDocSchema)
  */
 
 // Island query schema for filtering/querying islands
-export const IslandQuerySchema = omitCommonFields(IslandDocSchema, ['_id', 'regions'])
-  .extend({ includeMeta: BooleanValueSchema })
-  .partial()
-  .strict()
+export const IslandQuerySchema =
+  buildQuerySchema(IslandDocSchema, ['_id', 'regions'])
 
 // Region query schema for filtering/querying regions
-export const RegionQuerySchema = omitCommonFields(RegionDocSchema, ['_id', 'provinces'])
-  .extend({ includeMeta: BooleanValueSchema })
-  .partial()
-  .strict()
+export const RegionQuerySchema =
+  buildQuerySchema(RegionDocSchema, ['_id', 'provinces'])
 
 // Province query schema for filtering/querying provinces
-export const ProvinceQuerySchema = omitCommonFields(ProvinceDocSchema, ['_id', 'name', 'municipalities'])
-  .extend({ includeMeta: BooleanValueSchema })
-  .partial()
-  .strict()
+export const ProvinceQuerySchema =
+  buildQuerySchema(ProvinceDocSchema, ['_id', 'name', 'municipalities'])
 
 // Municipality query schema for filtering/querying municipalities
-export const MunicipalityQuerySchema = omitCommonFields(MunicipalityDocSchema, ['_id', 'numDocs', 'name'])
-  .extend({ includeMeta: BooleanValueSchema })
-  .partial()
-  .strict()
+export const MunicipalityQuerySchema =
+  buildQuerySchema(MunicipalityDocSchema, ['_id', 'numDocs', 'name'])
 
 // Stats query schema for filtering/querying stats
-export const StatsQuerySchema = omitCommonFields(StatsDocSchema, ['_id', 'municipalityId', 'numBrgy'])
-  .extend({ includeMeta: BooleanValueSchema })
-  .partial()
-  .strict()
+export const StatsQuerySchema =
+  buildQuerySchema(StatsDocSchema, ['_id', 'municipalityId', 'numBrgy'])

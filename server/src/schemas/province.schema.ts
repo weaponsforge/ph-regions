@@ -19,6 +19,7 @@ export const ProvinceDataSchema = MongoDocsDefault.extend({
   name: z
     .string()
     .max(40)
+    .trim()
     .meta({
       description: 'Province name',
       example: 'Batangas'

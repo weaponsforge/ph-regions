@@ -28,6 +28,23 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     })
   })
 
+  // Schema for 404 not found error response
+  const RegionNotFoundErrorSchema = {
+    description: 'Region not found error',
+    content: {
+      'application/json': {
+        schema: ResponseErrorSchema.extend({
+          message: z
+            .array(z.string())
+            .meta({
+              description: 'List of error messages',
+              example: ['Region not found']
+            })
+        })
+      }
+    }
+  }
+
   // API route: /regions
   const RegionListResponseSchema =
     RegionResponseSuccessSchema
@@ -137,7 +154,8 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
             schema: ResponseErrorSchema
           }
         }
-      }
+      },
+      404: RegionNotFoundErrorSchema
     }
   })
 
@@ -177,21 +195,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
           }
         }
       },
-      404: {
-        description: 'Region not found error',
-        content: {
-          'application/json': {
-            schema: ResponseErrorSchema.extend({
-              message: z
-                .array(z.string())
-                .meta({
-                  description: 'List of error messages',
-                  example: ['Region not found']
-                })
-            })
-          }
-        }
-      }
+      404: RegionNotFoundErrorSchema
     }
   })
 }

@@ -1,6 +1,6 @@
 ## ph-regions
 
-A RESTful API that serves **hierarchical location data** of the Philippines — including regions, provinces municipalities, and a **randomly generated number of barangays** per municipality.
+A RESTful API that serves **hierarchical location data** of the Philippines — including regions, provinces, municipalities, and a **randomly generated number of barangays** per municipality.
 
 > [!IMPORTANT]
 > This API is intended **for testing and simulating RESTful API requests** from client applications.<br>

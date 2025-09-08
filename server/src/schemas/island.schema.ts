@@ -15,6 +15,7 @@ export const IslandDataSchema = MongoDocsDefault.extend({
   name: z
     .string()
     .max(40)
+    .trim()
     .meta({
       description: 'Island name',
       example: 'Luzon'

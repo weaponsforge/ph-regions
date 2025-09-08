@@ -10,7 +10,7 @@ info:
   description: >-
     **💡About** 
 
-     A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces municipalities, and a randomly generated number of barangays per municipality for testing purposes. 
+     A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality for testing purposes. 
 
      **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. 
      **Note:** The location data may be outdated and does not reflect the most current official records. 
@@ -188,12 +188,12 @@ components:
                             example: 68bc452bf0a9414a4312e5b1
                           name:
                             type: string
-                            maxLength: 40
+                            maxLength: 80
                             description: Municipality name
                             example: Agoncillo
                           numDocs:
                             type: number
-                            description: Random number
+                            description: Document counter (for demo/testing)
                             example: 0
                         required:
                           - _id
@@ -250,12 +250,12 @@ components:
           example: 68bc452bf0a9414a4312e5b1
         name:
           type: string
-          maxLength: 40
+          maxLength: 80
           description: Municipality name
           example: Agoncillo
         numDocs:
           type: number
-          description: Random number
+          description: Document counter (for demo/testing)
           example: 0
       required:
         - _id
@@ -359,12 +359,12 @@ components:
                 example: 68bc452bf0a9414a4312e5b1
               name:
                 type: string
-                maxLength: 40
+                maxLength: 80
                 description: Municipality name
                 example: Agoncillo
               numDocs:
                 type: number
-                description: Random number
+                description: Document counter (for demo/testing)
                 example: 0
             required:
               - _id
@@ -488,12 +488,12 @@ components:
                       example: 68bc452bf0a9414a4312e5b1
                     name:
                       type: string
-                      maxLength: 40
+                      maxLength: 80
                       description: Municipality name
                       example: Agoncillo
                     numDocs:
                       type: number
-                      description: Random number
+                      description: Document counter (for demo/testing)
                       example: 0
                   required:
                     - _id
@@ -905,6 +905,36 @@ paths:
                   - message
                   - status
                 description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example:
+                      - Island not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
   /api/regions:
     get:
       description: List of region names in the Philippines
@@ -1256,12 +1286,12 @@ paths:
                                       example: 68bc452bf0a9414a4312e5b1
                                     name:
                                       type: string
-                                      maxLength: 40
+                                      maxLength: 80
                                       description: Municipality name
                                       example: Agoncillo
                                     numDocs:
                                       type: number
-                                      description: Random number
+                                      description: Document counter (for demo/testing)
                                       example: 0
                                   required:
                                     - _id
@@ -1451,6 +1481,36 @@ paths:
                   - message
                   - status
                 description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: &a2
+                      - Region not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
   /api/regions/{id}/provinces:
     get:
       description: Retrieves region data by ID including all provinces and municipalities
@@ -1586,12 +1646,12 @@ paths:
                                     example: 68bc452bf0a9414a4312e5b1
                                   name:
                                     type: string
-                                    maxLength: 40
+                                    maxLength: 80
                                     description: Municipality name
                                     example: Agoncillo
                                   numDocs:
                                     type: number
-                                    description: Random number
+                                    description: Document counter (for demo/testing)
                                     example: 0
                                 required:
                                   - _id
@@ -1663,8 +1723,7 @@ paths:
                     items:
                       type: string
                     description: List of error messages
-                    example:
-                      - Region not found
+                    example: *a2
                   status:
                     type: number
                     description: HTTP error status code
@@ -1897,12 +1956,12 @@ paths:
                                 example: 68bc452bf0a9414a4312e5b1
                               name:
                                 type: string
-                                maxLength: 40
+                                maxLength: 80
                                 description: Municipality name
                                 example: Agoncillo
                               numDocs:
                                 type: number
-                                description: Random number
+                                description: Document counter (for demo/testing)
                                 example: 0
                             required:
                               - _id
@@ -2169,12 +2228,12 @@ paths:
                               example: 68bc452bf0a9414a4312e5b1
                             name:
                               type: string
-                              maxLength: 40
+                              maxLength: 80
                               description: Municipality name
                               example: Agoncillo
                             numDocs:
                               type: number
-                              description: Random number
+                              description: Document counter (for demo/testing)
                               example: 0
                           required:
                             - _id
@@ -2312,12 +2371,12 @@ paths:
                           example: 68bc452bf0a9414a4312e5b1
                         name:
                           type: string
-                          maxLength: 40
+                          maxLength: 80
                           description: Municipality name
                           example: Agoncillo
                         numDocs:
                           type: number
-                          description: Random number
+                          description: Document counter (for demo/testing)
                           example: 0
                       required:
                         - _id
@@ -2441,12 +2500,12 @@ paths:
                         example: 68bc452bf0a9414a4312e5b1
                       name:
                         type: string
-                        maxLength: 40
+                        maxLength: 80
                         description: Municipality name
                         example: Agoncillo
                       numDocs:
                         type: number
-                        description: Random number
+                        description: Document counter (for demo/testing)
                         example: 0
                     required:
                       - _id

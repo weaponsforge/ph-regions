@@ -17,7 +17,8 @@ export const MunicipalityDataSchema = MongoDocsDefault.extend({
 
   name: z
     .string()
-    .max(40)
+    .max(80)
+    .trim()
     .meta({
       description: 'Municipality name',
       example: 'Agoncillo'
@@ -26,7 +27,7 @@ export const MunicipalityDataSchema = MongoDocsDefault.extend({
   numDocs: z
     .number()
     .meta({
-      description: 'Random number',
+      description: 'Document counter (for demo/testing)',
       example: 0
     })
 })
