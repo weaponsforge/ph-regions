@@ -1,6 +1,6 @@
 ## ph-regions
 
-A RESTful API that serves **hierarchical location data** of the Philippines — including regions, provinces municipalities, and a **randomly generated number of barangays** per municipality.
+A RESTful API that serves **hierarchical location data** of the Philippines — including regions, provinces, municipalities, and a **randomly generated number of barangays** per municipality.
 
 > [!IMPORTANT]
 > This API is intended **for testing and simulating RESTful API requests** from client applications.<br>
@@ -18,6 +18,18 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 <br>
 
+### Table of Contents
+
+- [Requirements](#-requirements)
+- [Core Libraries/Frameworks](#-core-librariesframeworks)
+- [Project Folder Structure](#-project-folder-structure)
+- [Installation](#️-installation)
+- [Usage](#-usage)
+- [Available Scripts](#-available-scripts)
+- [Docker Scripts](#-docker-scripts)
+- [Adding New Endpoints](#️-adding-new-endpoints)
+- [References](#references)
+
 ### 📋 Requirements
 
 1. NodeJS LTS >= v20
@@ -25,17 +37,18 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 ### 📦 Core Libraries/Frameworks
 
-The server app uses the following libraries and frameworks.
+The server app uses the following core libraries and frameworks.
 
 | Library | Version | Description |
 | --- | --- | --- |
-| express | `v5.1.0` |  Node.js web framework for building APIs and web servers. |
-| mongoose | `v8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
-| zod | `v4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
-| nodemon | `v3.1.10` | Development tool that automatically restarts the server on file changes. |
-| tsx | `v4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
-| tsc-alias | `v1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
-| eslint | `v9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
+| express | `5.1.0` |  Node.js web framework for building APIs and web servers. |
+| mongoose | `8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| zod | `4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
+| nodemon | `3.1.10` | Development tool that automatically restarts the server on file changes. |
+| tsx | `4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
+| tsc-alias | `1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
+| eslint | `9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
+| @asteasolutions/zod-to-openapi | `8.1.0` | Generates an OpenAPI yaml file from Zod schemas. |
 
 ## 📚 Project Folder Structure
 
@@ -49,6 +62,7 @@ The main app is inside the `📂 server/src` folder.
 - 🪧 **routes** - Contains API endpoint definitions and route bindings.
 - 📐 **schemas** - Contains Zod validation schemas.
 - 📜 **scripts** - Contains utility scripts for setup and maintenance tasks.
+- 🌐 **openapi** - Contains OpenAPI definitions using Zod schemas (folder: `/scripts/openapi/docs`)
 - 🧾 **types** - Contains shared TypeScript types and interfaces
 - 🛠️ **utils** - Contains general-purpose helper functions.
 - 📱 `app.ts` - Sets up the Express app and middleware.
@@ -77,6 +91,7 @@ The main app is inside the `📂 server/src` folder.
    | ALLOWED_ORIGINS | IP/domain origins in comma-separated values that are allowed to access the API if `ALLOW_CORS=1`.<br> Include `http://localhost:3000` by default to allow CORS access to the **/client** app. |
    | DEPLOYMENT_PLATFORM | This variable refers to the backend `server`'s hosting platform, defaulting to `DEPLOYMENT_PLATFORM=regular`<br>for full-server NodeJS express apps.<br><br>Valid values are:<br>`regular` - for traditional full-server NodeJS express apps<br>`vercel` - for Vercel (serverless) |
    | MONGO_URI | MongoDB connection string.<br>Default value uses the Docker MongoDB connection string (defined in the docker compose file). |
+   | BASE_API_URL | Server base API url minus the forward slash |
    | CHOKIDAR_USEPOLLING | Enables hot reload on `nodemon` running inside Docker containers on a Windows host. Set it to `true` if running Docker Desktop with WSL2 on a Windows OS. |
    | CHOKIDAR_INTERVAL | Chokidar polling interval. Set it along with `CHOKIDAR_USEPOLLING=true` if running Docker Desktop with WSL2 on a Windows OS. The default value is `1000`. |
 
@@ -119,12 +134,15 @@ The main app is inside the `📂 server/src` folder.
    // -- mongodb-ph-regions (Mongo DB service)
    ```
 
-4. Access the local APIs at:<br>
-   ```sh
+4. 💡 Launch the API documentation to view available endpoints.
+
+   ```text
+   # Main API docs
    http://localhost:3001
+
+   # Alternate API docs (interactive)
+   http://localhost:3001/api/docs
    ```
-   - > 💡 **INFO:**<br>
-     > Browse through the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 5. Stop the containers to exit.<br>
    ```sh
@@ -139,7 +157,7 @@ The main app is inside the `📂 server/src` folder.
 > When using a different MongoDB service or installation (other than the one provided in the Docker Compose setup), ensure the `MONGO_URI` variable in the `.env` file is properly configured.
 
 <details>
-<summary>View usage instructions</summary>
+<summary>👉 View usage instructions</summary>
 <br>
 
 1. Run the API for local development.<br>
@@ -152,12 +170,15 @@ The main app is inside the `📂 server/src` folder.
    npm run seed
    ```
 
-3. Access the local APIs at:<br>
-   ```sh
+3. 💡 Launch the API documentation to view available endpoints.
+
+   ```text
+   # Main API docs
    http://localhost:3001
+
+   # Alternate API docs (interactive)
+   http://localhost:3001/api/docs
    ```
-   - > 💡 **INFO:**<br>
-     > Browse through the available API routes within the `📂 /server/src/routes` directory to view the available routes for now.
 
 </details>
 <br>
@@ -167,7 +188,7 @@ The main app is inside the `📂 server/src` folder.
 These scripts, compatible with running in Node and Docker, run various TypeScript scripts and tests.
 
 <details>
-<summary>Click to expand the list of available scripts</summary>
+<summary>👉 Click to expand the list of available scripts</summary>
 
 ### `npm start`
 
@@ -201,6 +222,14 @@ Fixes lint errors in TypeScript files.
 
 Runs the database seeder script, inserting initial data contents to the database.
 
+### `npm run docs:gen`
+
+Generates the OpenAPI `openapi.yaml` (YAML) and `openapi.json` (JSON) files into the `/server/public` directory.
+
+### `npm run docs:build`
+
+Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/index.html` file.
+
 </details>
 
 ## 📦 Docker Scripts
@@ -208,7 +237,7 @@ Runs the database seeder script, inserting initial data contents to the database
 These scripts allow optional Docker-related processes, such as enabling file watching in Docker containers running in Windows WSL2 and others.
 
 <details>
-<summary>Click to expand the list of available scripts</summary>
+<summary>👉 Click to expand the list of available scripts</summary>
 
 ### Docker run command
 
@@ -236,7 +265,58 @@ docker exec -it weaponsforge-ph-regions npm run docker:seed:debug
 Watches file changes in `.ts` files using the `tsc --watch` option with `dynamicPriorityPolling` in Docker containers running in Windows WSL2.
 
 </details>
+
+## 🗂️ Adding New Endpoints
+
+Follow the steps for adding (or editing) new endpoints to the API.
+
+<details>
+<summary>👉 Click to view the guidelines</summary>
+
+1. **Create a Zod schema**<br>
+Follow the patterns in the `📐 schemas` directory (e.g., `province.schema.ts`).
+
+2. **Create a Mongoose model**<br>
+Follow the patterns in the `🧊 models` directory (e.g., `province.model.ts`).
+
+3. **Set up routes (API endpoints)**<br>
+Add new routes for the model in the `🪧 routes` directory (e.g., `/routes/province.ts`) **without input validation** for now.
+
+4. **Define query, response, and request schemas**<br>
+Create Zod schemas for query, response, params, and body in:<br>
+`server/src/scripts/openapi/docs/api.schema.ts`
+
+   > **INFO**<br>
+   Follow the existing schema patterns in this file.
+
+5. **Add validation middleware**<br>
+   - Implement `🔗 validation` middleware for the routes (from **step 3**) using the Zod schemas from **step 4**.
+   - Attach this middleware to the routes.
+
+6. **Document with OpenAPI**<br>
+Create OpenAPI documentation for the model in the `🌐 openapi` directory (e.g., `/scripts/openapi/docs/province.doc.ts`) and **register it** in `main.ts`.
+
+7. **Create a controller**<br>
+Add model-specific business logic in the `⚙️ controllers` directory (e.g., `/controllers/province.ts`) and connect it to the routes.
+
+8. **Test the endpoints**<br>
+Perform manual tests to ensure everything works correctly.
+
+</details>
 <br>
 
+## References
+
+- [OpenAPI Specification](https://swagger.io/specification/)
+- [Redocly - Introduction to OpenAPI](https://redocly.com/learn/openapi/learning-openapi)
+- [Redocly - API Governance](https://redocly.com/api-governance)
+- [Redocly Configuration](https://redocly.com/docs/redoc/config)
+- [Redocly CLI](https://www.npmjs.com/package/@redocly/cli)
+- [Redocly CLI Cookbook](https://github.com/Redocly/redocly-cli-cookbook)
+- [Redoc Demo](https://redocly.github.io/redoc/)
+- [Swagger Editor (Online)](https://swagger.io/tools/swagger-editor/)
+
 @weaponsforge<br>
-20250711
+20250711<br>
+20250908
+

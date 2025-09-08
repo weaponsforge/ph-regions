@@ -3,7 +3,7 @@ import Municipality from '@/models/municipality.model.js'
 import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
-import { fullApiMetaData } from '@/utils/constants.js'
+import { FULL_API_METADATA } from '@/utils/constants.js'
 
 const MunicipalityInstance = new MongoCrudClass(Municipality)
 const description = 'List of Philippine municipalities'
@@ -30,7 +30,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: { ...fullApiMetaData, description },
+      metadata: { ...FULL_API_METADATA, description },
       data
     })
   } catch (err) {
@@ -52,7 +52,7 @@ export const getMunicipalityById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: { ...fullApiMetaData, description },
+      metadata: { ...FULL_API_METADATA, description },
       data
     })
   } catch (err: unknown) {

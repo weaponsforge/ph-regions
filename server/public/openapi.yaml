@@ -1,0 +1,2780 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: PH Regions API
+  contact:
+    name: PH Regions
+    url: https://github.com/weaponsforge/ph-regions
+  license:
+    name: MIT
+  description: >-
+    **💡About** 
+
+     A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality for testing purposes. 
+
+     **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. 
+     **Note:** The location data may be outdated and does not reflect the most current official records. 
+
+     **🧩 Alternate Docs** <ul><li>Interactive API documentation (Swagger UI): [http://localhost:3001/api/docs](http://localhost:3001/api/docs)</li></ul>
+  x-logo:
+    url: ./assets/images/logo_ph_regions_01.png
+    altText: PH Regions logo
+tags:
+  - name: Islands
+    description: REST APIs for retrieving Philippine islands location data
+  - name: Regions
+    description: REST APIs for retrieving Philippine regional location data
+  - name: Provinces
+    description: REST APIs for retrieving Philippine provincial location data
+  - name: Municipalities
+    description: REST APIs for retrieving Philippine municipal location data
+  - name: Stats
+    description: REST APIs for retrieving random test data for each **Municipality**
+x-tagGroups:
+  - name: Location
+    tags:
+      - Islands
+      - Regions
+      - Provinces
+      - Municipalities
+    description: API endpoints for retrieving Philippine location data
+    x-displayName: Location data
+  - name: Random
+    description: API endpoints for retrieving random data with Municipalities
+    tags:
+      - Stats
+    x-displayName: Random data
+servers:
+  - url: http://localhost:3001/
+    description: Development server
+components:
+  schemas:
+    Island:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Island document ID
+          example: 68bc452af0a9414a4312e589
+        __v:
+          type: number
+          description: Mongoose version key
+          example: 0
+        createdAt:
+          type: string
+          format: date
+          description: MongoDB document creation date
+          example: 2025-09-06T14:28:58.985Z
+        updatedAt:
+          type: string
+          format: date
+          description: MongoDB document last update/edit date
+          example: 2025-09-06T14:28:58.985Z
+        name:
+          type: string
+          maxLength: 40
+          description: Island name
+          example: Luzon
+        regions:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Region ID
+                example: 68bc452bf0a9414a4312e591
+              __v:
+                type: number
+                description: Mongoose version key
+                example: 0
+              createdAt:
+                type: string
+                format: date
+                description: MongoDB document creation date
+                example: 2025-09-06T14:28:58.985Z
+              updatedAt:
+                type: string
+                format: date
+                description: MongoDB document last update/edit date
+                example: 2025-09-06T14:28:58.985Z
+              islandId:
+                type: string
+                description: Island document ID
+                example: 68bc452af0a9414a4312e589
+              name:
+                type: string
+                maxLength: 40
+                description: Region name
+                example: Region IV-A
+              abbrev:
+                type: string
+                nullable: true
+                maxLength: 20
+                description: Abbreviation name or code
+                example: CALABARZON
+              regionalName:
+                type: string
+                description: Long-form regional name
+                example: CALABARZON
+              regionalCode:
+                type: string
+                nullable: true
+                maxLength: 5
+                description: Region code
+                example: 4A
+              provinces:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: Province ID
+                      example: 68bc452bf0a9414a4312e5b1
+                    __v:
+                      type: number
+                      description: Mongoose version key
+                      example: 0
+                    createdAt:
+                      type: string
+                      format: date
+                      description: MongoDB document creation date
+                      example: 2025-09-06T14:28:58.985Z
+                    updatedAt:
+                      type: string
+                      format: date
+                      description: MongoDB document last update/edit date
+                      example: 2025-09-06T14:28:58.985Z
+                    regionId:
+                      type: string
+                      description: Region ID
+                      example: 68bc452bf0a9414a4312e591
+                    name:
+                      type: string
+                      maxLength: 40
+                      description: Province name
+                      example: Batangas
+                    municipalities:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            description: Municipality ID
+                            example: 68bc452bf0a9414a4312e753
+                          __v:
+                            type: number
+                            description: Mongoose version key
+                            example: 0
+                          createdAt:
+                            type: string
+                            format: date
+                            description: MongoDB document creation date
+                            example: 2025-09-06T14:28:58.985Z
+                          updatedAt:
+                            type: string
+                            format: date
+                            description: MongoDB document last update/edit date
+                            example: 2025-09-06T14:28:58.985Z
+                          regionId:
+                            type: string
+                            description: Region ID
+                            example: 68bc452bf0a9414a4312e591
+                          provinceId:
+                            type: string
+                            description: Province ID
+                            example: 68bc452bf0a9414a4312e5b1
+                          name:
+                            type: string
+                            maxLength: 80
+                            description: Municipality name
+                            example: Agoncillo
+                          numDocs:
+                            type: number
+                            description: Document counter (for demo/testing)
+                            example: 0
+                        required:
+                          - _id
+                          - regionId
+                          - provinceId
+                          - name
+                          - numDocs
+                      description: Municipalities under this province
+                  required:
+                    - _id
+                    - regionId
+                    - name
+                maxItems: 40
+                description: Provinces under this region
+            required:
+              - _id
+              - islandId
+              - name
+              - abbrev
+              - regionalCode
+          maxItems: 40
+          description: Regions under this island
+      required:
+        - _id
+        - name
+    Municipality:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Municipality ID
+          example: 68bc452bf0a9414a4312e753
+        __v:
+          type: number
+          description: Mongoose version key
+          example: 0
+        createdAt:
+          type: string
+          format: date
+          description: MongoDB document creation date
+          example: 2025-09-06T14:28:58.985Z
+        updatedAt:
+          type: string
+          format: date
+          description: MongoDB document last update/edit date
+          example: 2025-09-06T14:28:58.985Z
+        regionId:
+          type: string
+          description: Region ID
+          example: 68bc452bf0a9414a4312e591
+        provinceId:
+          type: string
+          description: Province ID
+          example: 68bc452bf0a9414a4312e5b1
+        name:
+          type: string
+          maxLength: 80
+          description: Municipality name
+          example: Agoncillo
+        numDocs:
+          type: number
+          description: Document counter (for demo/testing)
+          example: 0
+      required:
+        - _id
+        - regionId
+        - provinceId
+        - name
+        - numDocs
+    Stats:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Stats `id` is the same as `municipalityId`
+          example: 68bc452bf0a9414a4312e753
+        __v:
+          type: number
+          description: Mongoose version key
+          example: 0
+        createdAt:
+          type: string
+          format: date
+          description: MongoDB document creation date
+          example: 2025-09-06T14:28:58.985Z
+        updatedAt:
+          type: string
+          format: date
+          description: MongoDB document last update/edit date
+          example: 2025-09-06T14:28:58.985Z
+        municipalityId:
+          type: string
+          description: Municipality ID
+          example: 68bc452bf0a9414a4312e753
+        numBrgy:
+          type: number
+          description: Random number of barangays within the municipality
+          example: 97
+      required:
+        - _id
+        - municipalityId
+        - numBrgy
+    Province:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Province ID
+          example: 68bc452bf0a9414a4312e5b1
+        __v:
+          type: number
+          description: Mongoose version key
+          example: 0
+        createdAt:
+          type: string
+          format: date
+          description: MongoDB document creation date
+          example: 2025-09-06T14:28:58.985Z
+        updatedAt:
+          type: string
+          format: date
+          description: MongoDB document last update/edit date
+          example: 2025-09-06T14:28:58.985Z
+        regionId:
+          type: string
+          description: Region ID
+          example: 68bc452bf0a9414a4312e591
+        name:
+          type: string
+          maxLength: 40
+          description: Province name
+          example: Batangas
+        municipalities:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Municipality ID
+                example: 68bc452bf0a9414a4312e753
+              __v:
+                type: number
+                description: Mongoose version key
+                example: 0
+              createdAt:
+                type: string
+                format: date
+                description: MongoDB document creation date
+                example: 2025-09-06T14:28:58.985Z
+              updatedAt:
+                type: string
+                format: date
+                description: MongoDB document last update/edit date
+                example: 2025-09-06T14:28:58.985Z
+              regionId:
+                type: string
+                description: Region ID
+                example: 68bc452bf0a9414a4312e591
+              provinceId:
+                type: string
+                description: Province ID
+                example: 68bc452bf0a9414a4312e5b1
+              name:
+                type: string
+                maxLength: 80
+                description: Municipality name
+                example: Agoncillo
+              numDocs:
+                type: number
+                description: Document counter (for demo/testing)
+                example: 0
+            required:
+              - _id
+              - regionId
+              - provinceId
+              - name
+              - numDocs
+          description: Municipalities under this province
+      required:
+        - _id
+        - regionId
+        - name
+    Region:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Region ID
+          example: 68bc452bf0a9414a4312e591
+        __v:
+          type: number
+          description: Mongoose version key
+          example: 0
+        createdAt:
+          type: string
+          format: date
+          description: MongoDB document creation date
+          example: 2025-09-06T14:28:58.985Z
+        updatedAt:
+          type: string
+          format: date
+          description: MongoDB document last update/edit date
+          example: 2025-09-06T14:28:58.985Z
+        islandId:
+          type: string
+          description: Island document ID
+          example: 68bc452af0a9414a4312e589
+        name:
+          type: string
+          maxLength: 40
+          description: Region name
+          example: Region IV-A
+        abbrev:
+          type: string
+          nullable: true
+          maxLength: 20
+          description: Abbreviation name or code
+          example: CALABARZON
+        regionalName:
+          type: string
+          description: Long-form regional name
+          example: CALABARZON
+        regionalCode:
+          type: string
+          nullable: true
+          maxLength: 5
+          description: Region code
+          example: 4A
+        provinces:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Province ID
+                example: 68bc452bf0a9414a4312e5b1
+              __v:
+                type: number
+                description: Mongoose version key
+                example: 0
+              createdAt:
+                type: string
+                format: date
+                description: MongoDB document creation date
+                example: 2025-09-06T14:28:58.985Z
+              updatedAt:
+                type: string
+                format: date
+                description: MongoDB document last update/edit date
+                example: 2025-09-06T14:28:58.985Z
+              regionId:
+                type: string
+                description: Region ID
+                example: 68bc452bf0a9414a4312e591
+              name:
+                type: string
+                maxLength: 40
+                description: Province name
+                example: Batangas
+              municipalities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: Municipality ID
+                      example: 68bc452bf0a9414a4312e753
+                    __v:
+                      type: number
+                      description: Mongoose version key
+                      example: 0
+                    createdAt:
+                      type: string
+                      format: date
+                      description: MongoDB document creation date
+                      example: 2025-09-06T14:28:58.985Z
+                    updatedAt:
+                      type: string
+                      format: date
+                      description: MongoDB document last update/edit date
+                      example: 2025-09-06T14:28:58.985Z
+                    regionId:
+                      type: string
+                      description: Region ID
+                      example: 68bc452bf0a9414a4312e591
+                    provinceId:
+                      type: string
+                      description: Province ID
+                      example: 68bc452bf0a9414a4312e5b1
+                    name:
+                      type: string
+                      maxLength: 80
+                      description: Municipality name
+                      example: Agoncillo
+                    numDocs:
+                      type: number
+                      description: Document counter (for demo/testing)
+                      example: 0
+                  required:
+                    - _id
+                    - regionId
+                    - provinceId
+                    - name
+                    - numDocs
+                description: Municipalities under this province
+            required:
+              - _id
+              - regionId
+              - name
+          maxItems: 40
+          description: Provinces under this region
+      required:
+        - _id
+        - islandId
+        - name
+        - abbrev
+        - regionalCode
+  parameters: {}
+paths:
+  /api/islands:
+    get:
+      description: List of main island group names in the Philippines
+      summary: List islands
+      tags:
+        - Islands
+      parameters:
+        - schema:
+            type: string
+            maxLength: 40
+            description: Island name
+            example: Luzon
+          required: false
+          description: Island name
+          name: name
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object with Philippine main island group names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Main Island groups geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Island document ID
+                          example: 68bc452af0a9414a4312e589
+                        name:
+                          type: string
+                          maxLength: 40
+                          description: Island name
+                          example: Luzon
+                      required:
+                        - _id
+                        - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: &a1
+                      - "Unrecognized key: test"
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/islands/full:
+    get:
+      description: Full list of main island groups in the Philippines including regions
+      summary: List full islands
+      tags:
+        - Islands
+      parameters:
+        - schema:
+            type: string
+            maxLength: 40
+            description: Island name
+            example: Luzon
+          required: false
+          description: Island name
+          name: name
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing Philippine main island groups including regions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Main Island groups geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Island document ID
+                          example: 68bc452af0a9414a4312e589
+                        name:
+                          type: string
+                          maxLength: 40
+                          description: Island name
+                          example: Luzon
+                        regions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                type: string
+                                description: Region ID
+                                example: 68bc452bf0a9414a4312e591
+                              islandId:
+                                type: string
+                                description: Island document ID
+                                example: 68bc452af0a9414a4312e589
+                              name:
+                                type: string
+                                maxLength: 40
+                                description: Region name
+                                example: Region IV-A
+                              abbrev:
+                                type: string
+                                nullable: true
+                                maxLength: 20
+                                description: Abbreviation name or code
+                                example: CALABARZON
+                              regionalName:
+                                type: string
+                                description: Long-form regional name
+                                example: CALABARZON
+                              regionalCode:
+                                type: string
+                                nullable: true
+                                maxLength: 5
+                                description: Region code
+                                example: 4A
+                            required:
+                              - _id
+                              - islandId
+                              - name
+                              - abbrev
+                              - regionalCode
+                      required:
+                        - _id
+                        - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/islands/{id}:
+    get:
+      description: Get an island data by ID
+      summary: Get island by ID
+      tags:
+        - Islands
+      parameters:
+        - schema:
+            type: string
+            description: Island document ID
+            example: 68bc452af0a9414a4312e589
+          required: true
+          description: Island document ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing Philippine main island groups including regions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Main Island groups geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Island document ID
+                        example: 68bc452af0a9414a4312e589
+                      name:
+                        type: string
+                        maxLength: 40
+                        description: Island name
+                        example: Luzon
+                    required:
+                      - _id
+                      - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example:
+                      - Island not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
+  /api/regions:
+    get:
+      description: List of regions in the Philippines (excluding provinces and
+        municipalities)
+      summary: List regions
+      tags:
+        - Regions
+      parameters:
+        - schema:
+            type: string
+            description: Island document ID
+            example: 68bc452af0a9414a4312e589
+          required: false
+          description: Island document ID
+          name: islandId
+          in: query
+        - schema:
+            type: string
+            maxLength: 40
+            description: Region name
+            example: Region IV-A
+          required: false
+          description: Region name
+          name: name
+          in: query
+        - schema:
+            type: string
+            nullable: true
+            maxLength: 20
+            description: Abbreviation name or code
+            example: CALABARZON
+          required: false
+          description: Abbreviation name or code
+          name: abbrev
+          in: query
+        - schema:
+            type: string
+            description: Long-form regional name
+            example: CALABARZON
+          required: false
+          description: Long-form regional name
+          name: regionalName
+          in: query
+        - schema:
+            type: string
+            nullable: true
+            maxLength: 5
+            description: Region code
+            example: 4A
+          required: false
+          description: Region code
+          name: regionalCode
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing regions (without provinces/municipalities)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Regional geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Region ID
+                          example: 68bc452bf0a9414a4312e591
+                        islandId:
+                          type: string
+                          description: Island document ID
+                          example: 68bc452af0a9414a4312e589
+                        name:
+                          type: string
+                          maxLength: 40
+                          description: Region name
+                          example: Region IV-A
+                        abbrev:
+                          type: string
+                          nullable: true
+                          maxLength: 20
+                          description: Abbreviation name or code
+                          example: CALABARZON
+                        regionalName:
+                          type: string
+                          description: Long-form regional name
+                          example: CALABARZON
+                        regionalCode:
+                          type: string
+                          nullable: true
+                          maxLength: 5
+                          description: Region code
+                          example: 4A
+                      required:
+                        - _id
+                        - islandId
+                        - name
+                        - abbrev
+                        - regionalCode
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/regions/full:
+    get:
+      description: Full list of regions data in the Philippines including provinces
+        and municipalities
+      summary: List full regions
+      tags:
+        - Regions
+      parameters:
+        - schema:
+            type: string
+            description: Island document ID
+            example: 68bc452af0a9414a4312e589
+          required: false
+          description: Island document ID
+          name: islandId
+          in: query
+        - schema:
+            type: string
+            maxLength: 40
+            description: Region name
+            example: Region IV-A
+          required: false
+          description: Region name
+          name: name
+          in: query
+        - schema:
+            type: string
+            nullable: true
+            maxLength: 20
+            description: Abbreviation name or code
+            example: CALABARZON
+          required: false
+          description: Abbreviation name or code
+          name: abbrev
+          in: query
+        - schema:
+            type: string
+            description: Long-form regional name
+            example: CALABARZON
+          required: false
+          description: Long-form regional name
+          name: regionalName
+          in: query
+        - schema:
+            type: string
+            nullable: true
+            maxLength: 5
+            description: Region code
+            example: 4A
+          required: false
+          description: Region code
+          name: regionalCode
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing Philippine regions including provinces and
+            municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Regional geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Region ID
+                          example: 68bc452bf0a9414a4312e591
+                        islandId:
+                          type: string
+                          description: Island document ID
+                          example: 68bc452af0a9414a4312e589
+                        name:
+                          type: string
+                          maxLength: 40
+                          description: Region name
+                          example: Region IV-A
+                        abbrev:
+                          type: string
+                          nullable: true
+                          maxLength: 20
+                          description: Abbreviation name or code
+                          example: CALABARZON
+                        regionalName:
+                          type: string
+                          description: Long-form regional name
+                          example: CALABARZON
+                        regionalCode:
+                          type: string
+                          nullable: true
+                          maxLength: 5
+                          description: Region code
+                          example: 4A
+                        provinces:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                type: string
+                                description: Province ID
+                                example: 68bc452bf0a9414a4312e5b1
+                              regionId:
+                                type: string
+                                description: Region ID
+                                example: 68bc452bf0a9414a4312e591
+                              name:
+                                type: string
+                                maxLength: 40
+                                description: Province name
+                                example: Batangas
+                              municipalities:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    _id:
+                                      type: string
+                                      description: Municipality ID
+                                      example: 68bc452bf0a9414a4312e753
+                                    regionId:
+                                      type: string
+                                      description: Region ID
+                                      example: 68bc452bf0a9414a4312e591
+                                    provinceId:
+                                      type: string
+                                      description: Province ID
+                                      example: 68bc452bf0a9414a4312e5b1
+                                    name:
+                                      type: string
+                                      maxLength: 80
+                                      description: Municipality name
+                                      example: Agoncillo
+                                    numDocs:
+                                      type: number
+                                      description: Document counter (for demo/testing)
+                                      example: 0
+                                  required:
+                                    - _id
+                                    - regionId
+                                    - provinceId
+                                    - name
+                                    - numDocs
+                            required:
+                              - _id
+                              - regionId
+                              - name
+                      required:
+                        - _id
+                        - islandId
+                        - name
+                        - abbrev
+                        - regionalCode
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/regions/{id}:
+    get:
+      description: Retrieves region data by ID excluding provinces and municipalities
+      summary: Get region by ID
+      tags:
+        - Regions
+      parameters:
+        - schema:
+            type: string
+            description: Region ID
+            example: 68bc452bf0a9414a4312e591
+          required: true
+          description: Region ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing one (1) Philippine region data excluding
+            provinces and municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Regional geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Region ID
+                        example: 68bc452bf0a9414a4312e591
+                      islandId:
+                        type: string
+                        description: Island document ID
+                        example: 68bc452af0a9414a4312e589
+                      name:
+                        type: string
+                        maxLength: 40
+                        description: Region name
+                        example: Region IV-A
+                      abbrev:
+                        type: string
+                        nullable: true
+                        maxLength: 20
+                        description: Abbreviation name or code
+                        example: CALABARZON
+                      regionalName:
+                        type: string
+                        description: Long-form regional name
+                        example: CALABARZON
+                      regionalCode:
+                        type: string
+                        nullable: true
+                        maxLength: 5
+                        description: Region code
+                        example: 4A
+                    required:
+                      - _id
+                      - islandId
+                      - name
+                      - abbrev
+                      - regionalCode
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: &a2
+                      - Region not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
+  /api/regions/{id}/provinces:
+    get:
+      description: Retrieves region data by ID including all provinces and municipalities
+      summary: Get region by ID with provinces
+      tags:
+        - Regions
+      parameters:
+        - schema:
+            type: string
+            description: Region ID
+            example: 68bc452bf0a9414a4312e591
+          required: true
+          description: Region ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing a Philippine region data including provinces and
+            municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Regional geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Region ID
+                        example: 68bc452bf0a9414a4312e591
+                      islandId:
+                        type: string
+                        description: Island document ID
+                        example: 68bc452af0a9414a4312e589
+                      name:
+                        type: string
+                        maxLength: 40
+                        description: Region name
+                        example: Region IV-A
+                      abbrev:
+                        type: string
+                        nullable: true
+                        maxLength: 20
+                        description: Abbreviation name or code
+                        example: CALABARZON
+                      regionalName:
+                        type: string
+                        description: Long-form regional name
+                        example: CALABARZON
+                      regionalCode:
+                        type: string
+                        nullable: true
+                        maxLength: 5
+                        description: Region code
+                        example: 4A
+                      provinces:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              description: Province ID
+                              example: 68bc452bf0a9414a4312e5b1
+                            regionId:
+                              type: string
+                              description: Region ID
+                              example: 68bc452bf0a9414a4312e591
+                            name:
+                              type: string
+                              maxLength: 40
+                              description: Province name
+                              example: Batangas
+                            municipalities:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  _id:
+                                    type: string
+                                    description: Municipality ID
+                                    example: 68bc452bf0a9414a4312e753
+                                  regionId:
+                                    type: string
+                                    description: Region ID
+                                    example: 68bc452bf0a9414a4312e591
+                                  provinceId:
+                                    type: string
+                                    description: Province ID
+                                    example: 68bc452bf0a9414a4312e5b1
+                                  name:
+                                    type: string
+                                    maxLength: 80
+                                    description: Municipality name
+                                    example: Agoncillo
+                                  numDocs:
+                                    type: number
+                                    description: Document counter (for demo/testing)
+                                    example: 0
+                                required:
+                                  - _id
+                                  - regionId
+                                  - provinceId
+                                  - name
+                                  - numDocs
+                          required:
+                            - _id
+                            - regionId
+                            - name
+                    required:
+                      - _id
+                      - islandId
+                      - name
+                      - abbrev
+                      - regionalCode
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a2
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
+  /api/provinces:
+    get:
+      description: List of provinces in the Philippines (excluding municipalities)
+      summary: List provinces
+      tags:
+        - Provinces
+      parameters:
+        - schema:
+            type: string
+            description: Region ID
+            example: 68bc452bf0a9414a4312e591
+          required: false
+          description: Region ID
+          name: regionId
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing a list of Philippine provinces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Provincial geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Province ID
+                          example: 68bc452bf0a9414a4312e5b1
+                        regionId:
+                          type: string
+                          description: Region ID
+                          example: 68bc452bf0a9414a4312e591
+                        name:
+                          type: string
+                          maxLength: 40
+                          description: Province name
+                          example: Batangas
+                      required:
+                        - _id
+                        - regionId
+                        - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/provinces/full:
+    get:
+      description: Full list of provinces in the Philippines including municipalities
+      summary: List full provinces
+      tags:
+        - Provinces
+      parameters:
+        - schema:
+            type: string
+            description: Region ID
+            example: 68bc452bf0a9414a4312e591
+          required: false
+          description: Region ID
+          name: regionId
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing Philippine regions including provinces and
+            municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Provincial geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Province ID
+                          example: 68bc452bf0a9414a4312e5b1
+                        regionId:
+                          type: string
+                          description: Region ID
+                          example: 68bc452bf0a9414a4312e591
+                        name:
+                          type: string
+                          maxLength: 40
+                          description: Province name
+                          example: Batangas
+                        municipalities:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                type: string
+                                description: Municipality ID
+                                example: 68bc452bf0a9414a4312e753
+                              regionId:
+                                type: string
+                                description: Region ID
+                                example: 68bc452bf0a9414a4312e591
+                              provinceId:
+                                type: string
+                                description: Province ID
+                                example: 68bc452bf0a9414a4312e5b1
+                              name:
+                                type: string
+                                maxLength: 80
+                                description: Municipality name
+                                example: Agoncillo
+                              numDocs:
+                                type: number
+                                description: Document counter (for demo/testing)
+                                example: 0
+                            required:
+                              - _id
+                              - regionId
+                              - provinceId
+                              - name
+                              - numDocs
+                      required:
+                        - _id
+                        - regionId
+                        - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/provinces/{id}:
+    get:
+      description: Get province data by ID excluding municipalities
+      summary: Get province by ID
+      tags:
+        - Provinces
+      parameters:
+        - schema:
+            type: string
+            description: Province ID
+            example: 68bc452bf0a9414a4312e5b1
+          required: true
+          description: Province ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing one (1) Philippine province data excluding
+            municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Provincial geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Province ID
+                        example: 68bc452bf0a9414a4312e5b1
+                      regionId:
+                        type: string
+                        description: Region ID
+                        example: 68bc452bf0a9414a4312e591
+                      name:
+                        type: string
+                        maxLength: 40
+                        description: Province name
+                        example: Batangas
+                    required:
+                      - _id
+                      - regionId
+                      - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: &a3
+                      - Province not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
+  /api/provinces/{id}/municipalities:
+    get:
+      description: Get province data by ID including its municipalities
+      summary: Get province by ID with municipalities
+      tags:
+        - Provinces
+      parameters:
+        - schema:
+            type: string
+            description: Province ID
+            example: 68bc452bf0a9414a4312e5b1
+          required: true
+          description: Province ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing one (1) Philippine province data including its
+            municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Provincial geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Province ID
+                        example: 68bc452bf0a9414a4312e5b1
+                      regionId:
+                        type: string
+                        description: Region ID
+                        example: 68bc452bf0a9414a4312e591
+                      name:
+                        type: string
+                        maxLength: 40
+                        description: Province name
+                        example: Batangas
+                      municipalities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              description: Municipality ID
+                              example: 68bc452bf0a9414a4312e753
+                            regionId:
+                              type: string
+                              description: Region ID
+                              example: 68bc452bf0a9414a4312e591
+                            provinceId:
+                              type: string
+                              description: Province ID
+                              example: 68bc452bf0a9414a4312e5b1
+                            name:
+                              type: string
+                              maxLength: 80
+                              description: Municipality name
+                              example: Agoncillo
+                            numDocs:
+                              type: number
+                              description: Document counter (for demo/testing)
+                              example: 0
+                          required:
+                            - _id
+                            - regionId
+                            - provinceId
+                            - name
+                            - numDocs
+                    required:
+                      - _id
+                      - regionId
+                      - name
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a3
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
+  /api/municipalities:
+    get:
+      description: List of municipalities in the Philippines by region or province
+      summary: List municipalities
+      tags:
+        - Municipalities
+      parameters:
+        - schema:
+            type: string
+            description: Region ID
+            example: 68bc452bf0a9414a4312e591
+          required: false
+          description: Region ID
+          name: regionId
+          in: query
+        - schema:
+            type: string
+            description: Province ID
+            example: 68bc452bf0a9414a4312e5b1
+          required: false
+          description: Province ID
+          name: provinceId
+          in: query
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing a list of Philippine municipalities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Municipal geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: Municipality ID
+                          example: 68bc452bf0a9414a4312e753
+                        regionId:
+                          type: string
+                          description: Region ID
+                          example: 68bc452bf0a9414a4312e591
+                        provinceId:
+                          type: string
+                          description: Province ID
+                          example: 68bc452bf0a9414a4312e5b1
+                        name:
+                          type: string
+                          maxLength: 80
+                          description: Municipality name
+                          example: Agoncillo
+                        numDocs:
+                          type: number
+                          description: Document counter (for demo/testing)
+                          example: 0
+                      required:
+                        - _id
+                        - regionId
+                        - provinceId
+                        - name
+                        - numDocs
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+  /api/municipalities/{id}:
+    get:
+      description: Retrieves municipality data by ID
+      summary: Get municipality by ID
+      tags:
+        - Municipalities
+      parameters:
+        - schema:
+            type: string
+            description: Municipality ID
+            example: 68bc452bf0a9414a4312e753
+          required: true
+          description: Municipality ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing one (1) Philippine municipality data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  total:
+                    type: number
+                    description: Total number of items in the `data[]` array
+                    example: 1
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Municipal geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and
+                          10-Day Weather Forecast Excel file (provinces and
+                          municipalities)
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Municipality ID
+                        example: 68bc452bf0a9414a4312e753
+                      regionId:
+                        type: string
+                        description: Region ID
+                        example: 68bc452bf0a9414a4312e591
+                      provinceId:
+                        type: string
+                        description: Province ID
+                        example: 68bc452bf0a9414a4312e5b1
+                      name:
+                        type: string
+                        maxLength: 80
+                        description: Municipality name
+                        example: Agoncillo
+                      numDocs:
+                        type: number
+                        description: Document counter (for demo/testing)
+                        example: 0
+                    required:
+                      - _id
+                      - regionId
+                      - provinceId
+                      - name
+                      - numDocs
+                required:
+                  - total
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Municipality data not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example:
+                      - Municipality not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
+  /api/stats/{id}:
+    get:
+      description: Retrieves municipality stats data by ID
+      summary: Get municipality stats by ID
+      tags:
+        - Stats
+      parameters:
+        - schema:
+            type: string
+            description: Municipality ID
+            example: 68bc452bf0a9414a4312e753
+          required: true
+          description: Municipality ID
+          name: id
+          in: path
+        - schema:
+            type: boolean
+            nullable: true
+            default: false
+            description: Flag to include the Mongo meta fields (eg., `createdAt`,
+              `updatedAt`) in the response
+            example: false
+          required: false
+          description: Flag to include the Mongo meta fields (eg., `createdAt`,
+            `updatedAt`) in the response
+          name: includeMeta
+          in: query
+      responses:
+        "200":
+          description: Object containing one (1) random Philippine municipality stat data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: Server query success flag
+                  metadata:
+                    type: object
+                    properties:
+                      description:
+                        type: string
+                        description: Summary describing the data set
+                        example: Random barangay geographic location data of the Philippines
+                      source:
+                        type: string
+                        description: Data source description
+                        example: n/a
+                      dateCreated:
+                        type: string
+                        description: Date the data set was originally fetched from source(s) in
+                          YYYY/MM/DD format
+                        example: 2022/08/03
+                    required:
+                      - description
+                      - source
+                      - dateCreated
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Stats `id` is the same as `municipalityId`
+                        example: 68bc452bf0a9414a4312e753
+                      municipalityId:
+                        type: string
+                        description: Municipality ID
+                        example: 68bc452bf0a9414a4312e753
+                      numBrgy:
+                        type: number
+                        description: Random number of barangays within the municipality
+                        example: 97
+                    required:
+                      - _id
+                      - municipalityId
+                      - numBrgy
+                required:
+                  - metadata
+                  - data
+        "400":
+          description: Query parameter validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a1
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status
+                description: Server error response information
+        "404":
+          description: Stats data for municipality not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example:
+                      - Municipality stats not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 400
+                required:
+                  - error
+                  - message
+                  - status

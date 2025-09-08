@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { MunicipalityApiSchema } from '@/schemas/municipality.schema.js'
+import { MunicipalityQuerySchema } from '@/scripts/openapi/docs/api.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
@@ -8,12 +8,12 @@ import {
 } from '@/controllers/municipality.js'
 
 const router = Router()
-const validateMunicipalityParams = validate(MunicipalityApiSchema)
+const validateMunicipalityQuery = validate(MunicipalityQuerySchema)
 
-/** Fetch all provinces */
-router.get('/municipalities', validateMunicipalityParams, getMunicipalities)
+/** Fetch all municipalities */
+router.get('/municipalities', validateMunicipalityQuery, getMunicipalities)
 
 /** Fetch a municipality by ID */
-router.get('/municipalities/:id', validateMunicipalityParams, getMunicipalityById)
+router.get('/municipalities/:id', validateMunicipalityQuery, getMunicipalityById)
 
 export default router

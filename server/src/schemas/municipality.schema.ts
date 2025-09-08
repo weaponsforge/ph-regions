@@ -1,30 +1,50 @@
 import { z } from 'zod'
 import { Types } from '@/types/types.js'
-import { ObjectIdSchema, BooleanValueSchema } from './common.schema.js'
 
-// Zod schemas for query parameters
+import { ObjectIdSchema } from './common.schema.js'
+import { MongoDocsDefault } from './mongodoc.schema.js'
 
-export const MunicipalityDataSchema = z.object({
-  _id: z.string().optional(),
-  __v: z.number().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-  regionId: z.instanceof(Types.ObjectId).or(z.string()),
-  provinceId: z.instanceof(Types.ObjectId).or(z.string()),
-  name: z.string().max(40),
-  numDocs: z.number()
+// Main Zod schema
+
+export const MunicipalityDataSchema = MongoDocsDefault.extend({
+  _id: ObjectIdSchema.meta({
+    description: 'Municipality ID',
+    example: '68bc452bf0a9414a4312e753'
+  }),
+
+  regionId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
+  provinceId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
+
+  name: z
+    .string()
+    .max(80)
+    .trim()
+    .meta({
+      description: 'Municipality name',
+      example: 'Agoncillo'
+    }),
+
+  numDocs: z
+    .number()
+    .meta({
+      description: 'Document counter (for demo/testing)',
+      example: 0
+    })
 })
 
-export const MunicipalityApiSchema = MunicipalityDataSchema.pick({
-  regionId: true,
-  provinceId: true,
-  name: true
-}).extend({
-  regionId: ObjectIdSchema,
-  provinceId: ObjectIdSchema,
-  includeMeta: BooleanValueSchema
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
+export const MunicipalityDocSchema = MunicipalityDataSchema.extend({
+  // includeMeta: BooleanValueSchema,
+
+  regionId: ObjectIdSchema.meta({
+    description: 'Region ID',
+    example: '68bc452bf0a9414a4312e591'
+  }),
+
+  provinceId: ObjectIdSchema.meta({
+    description: 'Province ID',
+    example: '68bc452bf0a9414a4312e5b1'
+  })
 })
-  .partial()
-  .strict()
 
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>

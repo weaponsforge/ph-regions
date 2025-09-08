@@ -1,19 +1,39 @@
 import { z } from 'zod'
 import { Types } from '@/types/types.js'
 
-import { BooleanValueSchema } from './common.schema.js'
+import { ObjectIdSchema } from './common.schema.js'
+import { MongoDocsDefault } from './mongodoc.schema.js'
 
-export const StatsDataSchema = z.object({
-  _id: z.string().optional(),
-  __v: z.number().optional(),
-  municipalityId: z.instanceof(Types.ObjectId).or(z.string()),
-  numBrgy: z.number()
-})
+// Main Zod schema
 
-export const StatsApiSchema = StatsDataSchema.extend({
-  includeMeta: BooleanValueSchema
+export const StatsDataSchema = MongoDocsDefault.extend({
+  _id: ObjectIdSchema.meta({
+    description: 'Stats `id` is the same as `municipalityId`',
+    example: '68bc452bf0a9414a4312e753'
+  }),
+
+  municipalityId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
+
+  numBrgy: z
+    .number()
+    .meta({
+      description: 'Random number of barangays within the municipality',
+      example: 97
+    })
 })
-  .partial()
-  .strict()
+  .meta({
+    id: 'Stats',
+    description: 'Municipality stats schema'
+  })
+
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
+export const StatsDocSchema = StatsDataSchema.extend({
+  // includeMeta: BooleanValueSchema,
+
+  municipalityId: ObjectIdSchema.meta({
+    description: 'Municipality ID',
+    example: '68bc452bf0a9414a4312e753'
+  })
+})
 
 export type TStatsData = z.infer<typeof StatsDataSchema>

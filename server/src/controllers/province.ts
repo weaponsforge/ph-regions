@@ -4,7 +4,7 @@ import { buildExcludedMetaFields } from '@/utils/constants.js'
 import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
-import { fullApiMetaData } from '@/utils/constants.js'
+import { FULL_API_METADATA } from '@/utils/constants.js'
 
 const ProvinceInstance = new MongoCrudClass(Province)
 const description = 'List of Philippine provinces and their municipalities'
@@ -21,7 +21,7 @@ export const getProvinces: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: { ...fullApiMetaData, description },
+      metadata: { ...FULL_API_METADATA, description },
       data
     })
   } catch (err) {
@@ -50,7 +50,7 @@ export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: { ...fullApiMetaData, description },
+      metadata: { ...FULL_API_METADATA, description },
       data
     })
   } catch (err) {
@@ -72,7 +72,7 @@ export const getProvinceById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: { ...fullApiMetaData, description },
+      metadata: { ...FULL_API_METADATA, description },
       data
     })
   } catch (err: unknown) {
@@ -98,12 +98,12 @@ export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next)
       .exec()
 
     if (!data) {
-      throw new ServerError('Region not found', 404)
+      throw new ServerError('Province not found', 404)
     }
 
     return res.status(200).json({
       success: true,
-      metadata: { ...fullApiMetaData, description },
+      metadata: { ...FULL_API_METADATA, description },
       data
     })
   } catch (err) {
