@@ -114,16 +114,21 @@ The main app is inside the `📂 server/src` folder.
 
 ### A. Use Pre-Built Development Docker Image
 
-https://hub.docker.com/r/weaponsforge/ph-regions
+See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/ph-regions)
 
 1. Pull the development Docker image from Docker Hub using one of the options.<br>
    - `docker pull weaponsforge/ph-regions:latest`
    - `docker compose pull` (using Docker compose from the root project directory)
 
-2. Navigate to the project directory using the command line. Create a `.env` file inside the **/docs** directory with reference to the `.env.example` file.
+2. Navigate to the project directory. Create a `.env` file at **server/.env** using **server/.env.example** as reference.
    - See [Installation](#️-installation) - **step # 3** for more information.
 
 3. Run the development Docker image.
+
+   - ```sh
+     docker compose up
+     ```
+
    - Proceed to **Build the Development Docker Image - step # 2** for more information.
 
 ### B. Build the Development Docker Image
