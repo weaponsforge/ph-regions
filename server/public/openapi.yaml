@@ -519,7 +519,7 @@ paths:
   /api/islands:
     get:
       description: List of main island group names in the Philippines
-      summary: Get islands
+      summary: List islands
       tags:
         - Islands
       parameters:
@@ -637,7 +637,7 @@ paths:
   /api/islands/full:
     get:
       description: Full list of main island groups in the Philippines including regions
-      summary: Get full islands
+      summary: List full islands
       tags:
         - Islands
       parameters:
@@ -930,15 +930,16 @@ paths:
                   status:
                     type: number
                     description: HTTP error status code
-                    example: 400
+                    example: 404
                 required:
                   - error
                   - message
                   - status
   /api/regions:
     get:
-      description: List of region names in the Philippines
-      summary: Get regions
+      description: List of regions in the Philippines (excluding provinces and
+        municipalities)
+      summary: List regions
       tags:
         - Regions
       parameters:
@@ -1001,7 +1002,7 @@ paths:
           in: query
       responses:
         "200":
-          description: Object with Philippine region names
+          description: Object containing regions (without provinces/municipalities)
           content:
             application/json:
               schema:
@@ -1115,7 +1116,7 @@ paths:
     get:
       description: Full list of regions data in the Philippines including provinces
         and municipalities
-      summary: Get full regions
+      summary: List full regions
       tags:
         - Regions
       parameters:
@@ -1506,7 +1507,7 @@ paths:
                   status:
                     type: number
                     description: HTTP error status code
-                    example: 400
+                    example: 404
                 required:
                   - error
                   - message
@@ -1727,7 +1728,7 @@ paths:
                   status:
                     type: number
                     description: HTTP error status code
-                    example: 400
+                    example: 404
                 required:
                   - error
                   - message
@@ -1735,7 +1736,7 @@ paths:
   /api/provinces:
     get:
       description: List of provinces in the Philippines (excluding municipalities)
-      summary: Get province names
+      summary: List provinces
       tags:
         - Provinces
       parameters:
@@ -1856,7 +1857,7 @@ paths:
   /api/provinces/full:
     get:
       description: Full list of provinces in the Philippines including municipalities
-      summary: Get full provinces
+      summary: List full provinces
       tags:
         - Provinces
       parameters:
@@ -2127,6 +2128,36 @@ paths:
                   - message
                   - status
                 description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: &a3
+                      - Province not found
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
   /api/provinces/{id}/municipalities:
     get:
       description: Get province data by ID including its municipalities
@@ -2279,10 +2310,39 @@ paths:
                   - message
                   - status
                 description: Server error response information
+        "404":
+          description: Region not found error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: Server query failure flag
+                  error:
+                    type: string
+                    description: Common error message text
+                    example: Validation Error
+                  message:
+                    type: array
+                    items:
+                      type: string
+                    description: List of error messages
+                    example: *a3
+                  status:
+                    type: number
+                    description: HTTP error status code
+                    example: 404
+                required:
+                  - error
+                  - message
+                  - status
   /api/municipalities:
     get:
       description: List of municipalities in the Philippines by region or province
-      summary: Get municipalities
+      summary: List municipalities
       tags:
         - Municipalities
       parameters:
@@ -2572,7 +2632,7 @@ paths:
                   status:
                     type: number
                     description: HTTP error status code
-                    example: 400
+                    example: 404
                 required:
                   - error
                   - message

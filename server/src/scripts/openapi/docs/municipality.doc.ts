@@ -39,7 +39,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/municipalities',
     description: 'List of municipalities in the Philippines by region or province',
-    summary: 'Get municipalities',
+    summary: 'List municipalities',
     tags: ['Municipalities'],
     request: {
       query: MunicipalityQuerySchema
@@ -107,6 +107,7 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
         content: {
           'application/json': {
             schema: ResponseErrorSchema.extend({
+              status: ResponseErrorSchema.shape.status.meta({ example: 404 }),
               message: z
                 .array(z.string())
                 .meta({

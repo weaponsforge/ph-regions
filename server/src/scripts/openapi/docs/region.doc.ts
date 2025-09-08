@@ -34,6 +34,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     content: {
       'application/json': {
         schema: ResponseErrorSchema.extend({
+          status: ResponseErrorSchema.shape.status.meta({ example: 404 }),
           message: z
             .array(z.string())
             .meta({
@@ -55,15 +56,15 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
   registry.registerPath({
     method: 'get',
     path: '/api/regions',
-    description: 'List of region names in the Philippines',
-    summary: 'Get regions',
+    description: 'List of regions in the Philippines (excluding provinces and municipalities)',
+    summary: 'List regions',
     tags: ['Regions'],
     request: {
       query: RegionQuerySchema
     },
     responses: {
       200: {
-        description: 'Object with Philippine region names',
+        description: 'Object containing regions (without provinces/municipalities)',
         content: {
           'application/json': {
             schema: RegionListResponseSchema
@@ -92,7 +93,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/regions/full',
     description: 'Full list of regions data in the Philippines including provinces and municipalities',
-    summary: 'Get full regions',
+    summary: 'List full regions',
     tags: ['Regions'],
     request: {
       query: RegionQuerySchema

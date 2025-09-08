@@ -34,6 +34,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     content: {
       'application/json': {
         schema: ResponseErrorSchema.extend({
+          status: ResponseErrorSchema.shape.status.meta({ example: 404 }),
           message: z
             .array(z.string())
             .meta({
@@ -56,7 +57,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/islands',
     description: 'List of main island group names in the Philippines',
-    summary: 'Get islands',
+    summary: 'List islands',
     tags: ['Islands'],
     request: {
       query: IslandQuerySchema
@@ -92,7 +93,7 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     method: 'get',
     path: '/api/islands/full',
     description: 'Full list of main island groups in the Philippines including regions',
-    summary: 'Get full islands',
+    summary: 'List full islands',
     tags: ['Islands'],
     request: {
       query: IslandQuerySchema
