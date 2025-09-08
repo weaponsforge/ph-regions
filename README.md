@@ -25,6 +25,8 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 - [Project Folder Structure](#-project-folder-structure)
 - [Installation](#️-installation)
 - [Usage](#-usage)
+   - [Using Docker](#-using-docker)
+   - [Alternate Usage Using Node](#-alternate-usage-using-node)
 - [Available Scripts](#-available-scripts)
 - [Docker Scripts](#-docker-scripts)
 - [Adding New Endpoints](#️-adding-new-endpoints)
@@ -110,7 +112,7 @@ The main app is inside the `📂 server/src` folder.
 
 ### 🐳 Using Docker
 
-### Use Pre-Built Development Docker Image
+### A. Use Pre-Built Development Docker Image
 
 https://hub.docker.com/r/weaponsforge/ph-regions
 
@@ -124,7 +126,7 @@ https://hub.docker.com/r/weaponsforge/ph-regions
 3. Run the development Docker image.
    - Proceed to **Build the Development Docker Image - step # 2** for more information.
 
-### Build the Development Docker Image
+### B. Build the Development Docker Image
 
 1. Build the image.<br>
    ```sh
