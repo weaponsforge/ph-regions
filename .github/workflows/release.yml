@@ -27,4 +27,4 @@ jobs:
           docker compose -f docker-compose.yml build
 
       - name: Push Image to Docker Hub
-        run: docker compose -f docker-compose.yml
+        run: docker compose -f docker-compose.yml push
