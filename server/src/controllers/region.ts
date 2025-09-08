@@ -4,7 +4,7 @@ import { buildExcludedMetaFields } from '@/utils/constants.js'
 import { ServerError } from '@/utils/error.js'
 
 import type { ExpressFnParams } from '@/types/types.js'
-import { fullApiMetaData } from '@/utils/constants.js'
+import { FULL_API_METADATA } from '@/utils/constants.js'
 
 const RegionInstance = new MongoCrudClass(Region)
 
@@ -20,7 +20,7 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: fullApiMetaData,
+      metadata: FULL_API_METADATA,
       data
     })
   } catch (err) {
@@ -53,7 +53,7 @@ export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       total,
-      metadata: fullApiMetaData,
+      metadata: FULL_API_METADATA,
       data
     })
   } catch (err) {
@@ -75,7 +75,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: fullApiMetaData,
+      metadata: FULL_API_METADATA,
       data
     })
   } catch (err: unknown) {
@@ -110,7 +110,7 @@ export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      metadata: fullApiMetaData,
+      metadata: FULL_API_METADATA,
       data
     })
   } catch (err) {

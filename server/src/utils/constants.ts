@@ -9,7 +9,11 @@ export const buildExcludedMetaFields = (isIncludeMeta: boolean = false): string 
     : '-__v -createdAt -updatedAt'
 }
 
-export const fullApiMetaData = {
-  description: 'List of hierarchical (regions, provinces municipalities) location data of the Philippines',
-  source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)'
+export const FULL_API_METADATA = {
+  description: 'List of hierarchical (regions, provinces, municipalities) location data of the Philippines',
+  source: 'PAGASA Seasonal Rainfall Analysis Table (regions and provinces) and 10-Day Weather Forecast Excel file (provinces and municipalities)',
+  dateCreated: '2022/08/03'
 }
+
+/** Field constants for omitting common MongoDB doc fields */
+export const COMMON_FIELDS_TO_OMIT = ['__v', 'createdAt', 'updatedAt'] as const

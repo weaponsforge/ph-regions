@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { IslandApiSchema } from '@/schemas/island.schema.js'
+import { IslandQuerySchema } from '@/scripts/openapi/docs/api.schema.js'
 import { validate } from '@/middlewares/validate.js'
 
 import {
@@ -9,7 +9,7 @@ import {
 } from '@/controllers/island.js'
 
 const router = Router()
-const validateIslandsList = validate(IslandApiSchema)
+const validateIslandsList = validate(IslandQuerySchema)
 
 /** Fetch all islands groups */
 router.get('/islands', validateIslandsList, getIslands)

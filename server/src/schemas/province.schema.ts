@@ -1,32 +1,50 @@
 import { z } from 'zod'
+
+import { ObjectIdSchema } from './common.schema.js'
+import { MongoDocsDefault } from './mongodoc.schema.js'
+import { MunicipalityDataSchema, MunicipalityDocSchema } from './municipality.schema.js'
+
 import { Types } from '@/types/types.js'
-import { BooleanValueSchema, ObjectIdSchema } from './common.schema.js'
-import { MunicipalityDataSchema } from './municipality.schema.js'
 
-// Zod schemas for query parameters
+// Main Zod schema
 
-export const ProvinceDataSchema = z.object({
-  _id: z.string().optional(),
-  __v: z.number().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-  regionId: z.instanceof(Types.ObjectId).or(z.string()),
-  name: z.string().max(40),
-  municipalities: z.array(MunicipalityDataSchema).optional()
+export const ProvinceDataSchema = MongoDocsDefault.extend({
+  _id: ObjectIdSchema.meta({
+    description: 'Province ID',
+    example: '68bc452bf0a9414a4312e5b1'
+  }),
+
+  regionId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
+
+  name: z
+    .string()
+    .max(40)
+    .trim()
+    .meta({
+      description: 'Province name',
+      example: 'Batangas'
+    }),
+
+  municipalities: z
+    .array(MunicipalityDataSchema)
+    .optional()
 })
 
-export const ProvinceApiSchema = ProvinceDataSchema.pick({
-  regionId: true
-}).extend({
-  regionId: ObjectIdSchema.optional(),
-  includeMeta: z.string().optional()
-}).strict()
+// Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
+export const ProvinceDocSchema = ProvinceDataSchema.extend({
+  // includeMeta: BooleanValueSchema,
 
-export const ProvinceApiFullSchema = ProvinceDataSchema.pick({
-  regionId: true
-}).extend({
-  regionId: ObjectIdSchema,
-  includeMeta: BooleanValueSchema
-}).strict()
+  regionId: ObjectIdSchema.meta({
+    description: 'Region ID',
+    example: '68bc452bf0a9414a4312e591'
+  }),
+
+  municipalities: z
+    .array(MunicipalityDocSchema)
+    .optional()
+    .meta({
+      description: 'Municipalities under this province'
+    })
+})
 
 export type TProvinceData = z.infer<typeof ProvinceDataSchema>
