@@ -31,6 +31,7 @@ CMD ["npm", "run", "docker:dev"]
 FROM base AS production
 ENV NODE_ENV production
 COPY package*.json ./
+COPY public ./public
 RUN npm ci --only=production && npm cache clean --force
 
 # Copy build output

@@ -2,7 +2,7 @@ services:
   # Express server running in development mode
   weaponsforge-ph-regions:
     container_name: weaponsforge-ph-regions
-    image: weaponsforge/ph-regions
+    image: weaponsforge/ph-regions:latest
     env_file:
       - ./server/.env
     build:

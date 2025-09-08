@@ -286,7 +286,7 @@ Add new routes for the model in the `🪧 routes` directory (e.g., `/routes/prov
 Create Zod schemas for query, response, params, and body in:<br>
 `server/src/scripts/openapi/docs/api.schema.ts`
 
-   > **INFO**<br>
+   > 💡 **INFO**<br>
    Follow the existing schema patterns in this file.
 
 5. **Add validation middleware**<br>
