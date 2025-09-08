@@ -9,7 +9,7 @@ COPY package*.json ./
 FROM base AS build
 RUN npm install
 COPY . ./
-RUN npm run transpile
+RUN npm run transpile && npm run docs:build
 
 # DEVELOPMENT SETUP
 FROM base AS development-setup
