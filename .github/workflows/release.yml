@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
 
       - name: Use NodeJS v22.14.0
         uses: actions/setup-node@v4
