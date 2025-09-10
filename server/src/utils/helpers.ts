@@ -1,6 +1,8 @@
-import { z } from 'zod'
-import path, { dirname } from 'path'
+import { promises as fs } from 'node:fs'
+import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'url'
+
+import { z } from 'zod'
 import { COMMON_FIELDS_TO_OMIT } from './constants.js'
 import { BooleanValueSchema } from '@/schemas/common.schema.js'
 
@@ -54,4 +56,19 @@ export const buildQuerySchema = <T extends z.ZodObject<z.ZodRawShape>>(
     .extend({ includeMeta: BooleanValueSchema })
     .partial()
     .strict()
+}
+
+/**
+ * Copies files to an output directory
+ * @param outDir File path to the output directory
+ * @param files Array containing a list of file paths
+ */
+export const copyFiles = async (outDir: string, files: string[]) => {
+  await fs.mkdir(outDir, { recursive: true })
+
+  for (const src of files) {
+    const dest = path.join(outDir, path.basename(src))
+    await fs.copyFile(src, dest)
+    console.log(`Copied to ${dest}`)
+  }
 }
