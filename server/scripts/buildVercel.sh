@@ -6,6 +6,3 @@
 # Copy the "normal" build files to the vercel build output
 cp -r dist/. .vercel/output/functions/index.func/src
 cp -r public/ .vercel/output/functions/index.func
-
-chmod u+x scripts/copyFiles.sh
-./scripts/copyFiles.sh
