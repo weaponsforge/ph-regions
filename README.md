@@ -260,7 +260,7 @@ Standard NPM build script that runs transpile, builds OpenAPI docs, and copies S
 
 ### `npm run copySwaggerFiles`
 
-Builds the Swagger UI API documentation by copying only relevant CSS and JavaScript files from `node_modules` into the `/public/docs` directory.
+Copies the minimal Swagger UI assets (CSS/JS) from `node_modules` into `/public/docs`. The page `public/docs/index.html` references these assets and the generated OpenAPI spec in `/public/openapi.json`
 
 </details>
 
