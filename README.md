@@ -169,7 +169,9 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    http://localhost:3001/api/docs
    ```
 
-5. Stop the containers to exit.<br>
+5. View the [Available Scripts](#-available-scripts) to run.
+
+6. Stop the containers to exit.<br>
    ```sh
    docker compose down
    ```
@@ -209,6 +211,8 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    # Alternate API docs (interactive)
    http://localhost:3001/api/docs
    ```
+
+5. View the [Available Scripts](#-available-scripts) to run.
 
 </details>
 <br>
