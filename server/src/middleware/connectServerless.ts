@@ -1,6 +1,4 @@
-import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-dotenv.config()
 
 import type { Request, Response, NextFunction } from 'express'
 import { ServerError } from '@/utils/error.js'

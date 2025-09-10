@@ -1,6 +1,6 @@
-import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-dotenv.config()
+import { initializeConfig } from './initEnv.js'
+initializeConfig()
 
 /** MongoDB connection */
 const db = mongoose.connection

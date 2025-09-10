@@ -9,7 +9,7 @@ COPY package*.json ./
 FROM base AS build
 RUN npm install
 COPY --chown=node:node . ./
-RUN npm run transpile && npm run docs:build && npm run copySwaggerFiles
+RUN npm run build
 
 # DEVELOPMENT SETUP
 FROM base AS development-setup
@@ -22,12 +22,10 @@ EXPOSE 3001 9229
 
 # DEVELOPMENT PROFILE TARGET
 FROM development-setup AS development
-USER node
 CMD ["npm", "run", "dev"]
 
 # DEBUGGING PROFILE TARGET
 FROM development-setup AS debug
-USER node
 CMD ["npm", "run", "docker:dev"]
 
 # PRODUCTION PROFILE TARGET

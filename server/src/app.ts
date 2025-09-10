@@ -1,5 +1,4 @@
 import path from 'path'
-import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
@@ -8,12 +7,14 @@ import 'mongoose'
 import type { ExpressFnParamsFull, ExpressFnParams } from './types/types.js'
 import { errorHasStatus, typedCatchError } from './utils/error.js'
 import { corsOptions } from './utils/corsOptions.js'
+
 import { directory } from './utils/helpers.js'
+import { initializeConfig } from './utils/initEnv.js'
 import { connectDbServerless } from '@/middleware/connectServerless.js'
 
 import apiRoutes from './routes/index.js'
 
-dotenv.config()
+initializeConfig()
 const app = express()
 const _dirname = directory(import.meta.url)
 
