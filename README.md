@@ -357,6 +357,8 @@ https://hub.docker.com/r/weaponsforge/ph-regions
 | VERCEL_ORG_ID | Vercel app's organization ID |
 | VERCEL_PROJECT_ID | Vercel app's project ID |
 | VERCEL_TOKEN | Vercel personal/token used by the CLI for auth in CI |
+| BASE_API_URL | The Vercel server base API url minus the forward slash |
+| DEPLOYMENT_PLATFORM | Target deployment platform of the backend server. Value is `vercel` |
 
 #### GitHub Variables
 
