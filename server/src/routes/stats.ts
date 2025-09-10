@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { validate } from '@/middlewares/validate.js'
+import { validate } from '@/middleware/validate.js'
 
 import { getStatsById } from '@/controllers/stats.js'
 import { StatsQuerySchema } from '@/scripts/openapi/docs/api.schema.js'

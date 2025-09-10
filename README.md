@@ -60,7 +60,7 @@ The main app is inside the `📂 server/src` folder.
 - 📂 **dist** - Contains the compiled JavaScript output from TypeScript.
 - 🧩 **classes** - Contains reusable class-based logic and services.
 - ⚙️ **controllers** - Contains scripts for handling incoming HTTP requests and responses.
-- 🔗 **middlewares** - Contains functions that process HTTP requests before controllers.
+- 🔗 **middleware** - Contains functions that process HTTP requests before controllers.
 - 🧊 **models** - Contains MongoDB database models and schema definitions using Mongoose.
 - 🪧 **routes** - Contains API endpoint definitions and route bindings.
 - 📐 **schemas** - Contains Zod validation schemas.

@@ -8,7 +8,7 @@ import type { ExpressFnParamsFull, ExpressFnParams } from './types/types.js'
 import { errorHasStatus, typedCatchError } from './utils/error.js'
 import { corsOptions } from './utils/corsOptions.js'
 import { directory } from './utils/helpers.js'
-import { connectDbServerless } from '@/middlewares/connectServerless.js'
+import { connectDbServerless } from '@/middleware/connectServerless.js'
 
 import './utils/db.js'
 import apiRoutes from './routes/index.js'
