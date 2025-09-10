@@ -1,17 +1,20 @@
 import path from 'path'
-import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import 'mongoose'
 
 import type { ExpressFnParamsFull, ExpressFnParams } from './types/types.js'
 import { errorHasStatus, typedCatchError } from './utils/error.js'
 import { corsOptions } from './utils/corsOptions.js'
+
 import { directory } from './utils/helpers.js'
+import { initializeConfig } from './utils/initEnv.js'
+import { connectDbServerless } from '@/middleware/connectServerless.js'
 
 import apiRoutes from './routes/index.js'
 
-dotenv.config()
+initializeConfig()
 const app = express()
 const _dirname = directory(import.meta.url)
 
@@ -21,8 +24,17 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.resolve(_dirname, '../public')))
 
-if (process.env.ALLOW_CORS === '1') {
+if (process.env.ALLOW_ALL_ORIGINS === '1') {
+  // Allow requests from all origins
+  app.use(cors({ origin: '*' }))
+} else if (process.env.ALLOW_CORS === '1') {
+  // CORS-enabled routes with whitelisted domains
   app.use(cors(corsOptions))
+}
+
+// Ensure consistent MongoDB connection in serverless platforms
+if (process.env.DEPLOYMENT_PLATFORM === 'vercel') {
+  app.use('/api', connectDbServerless)
 }
 
 // Not found 404 route handler

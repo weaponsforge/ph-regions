@@ -1,9 +1,27 @@
-import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-dotenv.config()
 
 /** MongoDB connection */
 const db = mongoose.connection
+
+/**
+ * Logs the status of MongoDB connections
+ */
+async function checkConnections() {
+  // Print the total number of connections Mongoose is managing
+  console.log(`Total connections: ${mongoose.connections.length}`)
+
+  // Loop through each connection
+  mongoose.connections.forEach((conn: mongoose.Connection, index: number) => {
+    let state = 'unknown'
+    switch (conn.readyState) {
+    case 0: state = 'disconnected'; break
+    case 1: state = 'connected'; break
+    case 2: state = 'connecting'; break
+    case 3: state = 'disconnecting'; break
+    }
+    console.log(`Connection no. ${index}: ${state}`)
+  })
+}
 
 /**
  * Initializes a connection to the MongoDB.
@@ -28,9 +46,9 @@ const connectDb = async () => {
     })
 
     db
-      .on('connected', () => console.log('✅ Mongoose connected to MongoDB'))
       .on('error', (err) => console.error('❌ Mongoose connection error:', err))
       .on('disconnected', () => console.log('⚠️  Mongoose disconnected from MongoDB'))
+      .once('open', () => console.log('✅ Mongoose connected to MongoDB'))
 
     process.on('SIGINT', async () => {
       await db.close()
@@ -39,6 +57,7 @@ const connectDb = async () => {
     })
 
     console.log('✅ MongoDB connected')
+    checkConnections()
   } catch (_error) {
     console.error('❌ MongoDB connection error', _error)
     throw _error

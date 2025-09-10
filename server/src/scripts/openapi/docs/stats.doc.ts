@@ -73,6 +73,7 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
         content: {
           'application/json': {
             schema: ResponseErrorSchema.extend({
+              status: ResponseErrorSchema.shape.status.meta({ example: 404 }),
               message: z
                 .array(z.string())
                 .meta({

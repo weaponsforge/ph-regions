@@ -1,5 +1,11 @@
 node_modules/
 dist/
+public/*
+.vercel
+
 .env
 *.yaml
-public/
+
+!public/openapi.json
+!public/openapi.yaml
+!public/docs/index.html

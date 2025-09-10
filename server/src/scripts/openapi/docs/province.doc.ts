@@ -30,7 +30,7 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
 
   // Schema for 404 not found error response
   const ProvinceNotFoundErrorSchema = {
-    description: 'Region not found error',
+    description: 'Province not found error',
     content: {
       'application/json': {
         schema: ResponseErrorSchema.extend({
