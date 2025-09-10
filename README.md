@@ -86,7 +86,7 @@ The main app is inside the `📂 server/src` folder.
    | Variable Name | Description |
    | --- | --- |
    | ALLOW_ALL_ORIGINS | Flag to allow HTTP requests from all origins (domains). When set to `1` (default), enables CORS for all domains. When set to `0`, restricts access to domains specified in `ALLOWED_ORIGINS`. |
-   | ALLOW_CORS | Enable Cross-Origin Resource Sharing (CORS) on the API endpoints from whitelisted domains, if `ALLOW_ALL_ORIGINS=0`.<br><br>`ALLOW_CORS=1` enables CORS for specified `ALLOWED_ORIGINS` and restricts access to those domains.<br> `ALLOW_CORS=0` applies CORS, restricting access to requests from all domains. |
+   | ALLOW_CORS | Enable Cross-Origin Resource Sharing (CORS) on the API endpoints from whitelisted domains, if `ALLOW_ALL_ORIGINS=0`.<br><br>`ALLOW_CORS=1` enables CORS for specified `ALLOWED_ORIGINS` and restricts access to those domains.<br> `ALLOW_CORS=0` disables CORS restrictions, allowing all domains including Postman. |
    | ALLOWED_ORIGINS | IP/domain origins in comma-separated values that are allowed to access the API if `ALLOW_CORS=1` and `ALLOW_ALL_ORIGINS=0`.<br> Include `http://localhost:3000` by default to allow CORS access to the **/client** app. |
    | DEPLOYMENT_PLATFORM | This variable refers to the backend `server`'s hosting platform, defaulting to `DEPLOYMENT_PLATFORM=regular`<br>for full-server NodeJS express apps.<br><br>Valid values are:<br>`regular` - for traditional full-server NodeJS express apps<br>`vercel` - for Vercel (serverless) |
    | MONGO_URI | MongoDB connection string.<br>Default value uses the Docker MongoDB connection string (defined in the docker compose file). |
