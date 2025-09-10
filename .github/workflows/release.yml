@@ -26,6 +26,11 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@47.0.6
 
+      - name: Install Dependencies
+        run: |
+          cd server
+          npm install
+
       - name: Pull Vercel Environment Information
         run: |
           cd server

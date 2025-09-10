@@ -1,6 +1,4 @@
 import mongoose from 'mongoose'
-import { initializeConfig } from './initEnv.js'
-initializeConfig()
 
 /** MongoDB connection */
 const db = mongoose.connection

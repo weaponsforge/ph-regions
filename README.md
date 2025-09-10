@@ -161,7 +161,7 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    http://localhost:3001
 
    # Alternate API docs (interactive)
-   http://localhost:3001/api/docs
+   http://localhost:3001/docs
    ```
 
 5. View the [Available Scripts](#-available-scripts) to run.
@@ -182,32 +182,27 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
 <summary>👉 View usage instructions</summary>
 <br>
 
-1. Build the Swagger UI API docs.<br>
-   ```sh
-   npm run copySwaggerFiles
-   ```
-
-2. Run the API for local development.<br>
+1. Run the API for local development.<br>
    ```sh
    npm run dev
    ```
 
-3. Run the seeder script only once.<br>
+2. Run the seeder script only once.<br>
    ```sh
    npm run seed
    ```
 
-4. 💡 Launch the API documentation to view available endpoints.
+3. 💡 Launch the API documentation to view available endpoints.
 
    ```text
    # Main API docs
    http://localhost:3001
 
    # Alternate API docs (interactive)
-   http://localhost:3001/api/docs
+   http://localhost:3001/docs
    ```
 
-5. View the [Available Scripts](#-available-scripts) to run.
+4. View the [Available Scripts](#-available-scripts) to run.
 
 </details>
 <br>
@@ -261,7 +256,7 @@ Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/packa
 
 ### `npm run build`
 
-Standard NPM build script that runs the transpilation process (calls `npm run transpile`).
+Standard NPM build script that runs transpile, builds OpenAPI docs, and copies Swagger UI assets (`transpile` + `docs:build` + `copySwaggerFiles`).
 
 ### `npm run copySwaggerFiles`
 
@@ -361,7 +356,7 @@ https://hub.docker.com/r/weaponsforge/ph-regions
 | DOCKERHUB_TOKEN | Deploy token for the Docker Hub account |
 | VERCEL_ORG_ID | Vercel app's organization ID |
 | VERCEL_PROJECT_ID | Vercel app's project ID |
-| VERCEL_TOKEN | Vercel app's project ID |
+| VERCEL_TOKEN | Vercel personal/token used by the CLI for auth in CI |
 
 #### GitHub Variables
 

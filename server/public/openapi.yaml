@@ -2773,7 +2773,7 @@ paths:
                   status:
                     type: number
                     description: HTTP error status code
-                    example: 400
+                    example: 404
                 required:
                   - error
                   - message
