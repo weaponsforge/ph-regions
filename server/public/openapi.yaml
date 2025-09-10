@@ -906,7 +906,7 @@ paths:
                   - status
                 description: Server error response information
         "404":
-          description: Region not found error
+          description: Island not found error
           content:
             application/json:
               schema:
@@ -2129,7 +2129,7 @@ paths:
                   - status
                 description: Server error response information
         "404":
-          description: Region not found error
+          description: Province not found error
           content:
             application/json:
               schema:
@@ -2311,7 +2311,7 @@ paths:
                   - status
                 description: Server error response information
         "404":
-          description: Region not found error
+          description: Province not found error
           content:
             application/json:
               schema:

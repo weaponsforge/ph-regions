@@ -1166,7 +1166,7 @@
             }
           },
           "404": {
-            "description": "Region not found error",
+            "description": "Island not found error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2773,7 +2773,7 @@
             }
           },
           "404": {
-            "description": "Region not found error",
+            "description": "Province not found error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3014,7 +3014,7 @@
             }
           },
           "404": {
-            "description": "Region not found error",
+            "description": "Province not found error",
             "content": {
               "application/json": {
                 "schema": {

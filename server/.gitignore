@@ -1,10 +1,11 @@
 node_modules/
 dist/
-public
+public/*
 .vercel
 
 .env
 *.yaml
-public/*.js
-public/*.css
-public/*.png
+
+!public/openapi.json
+!public/openapi.yaml
+!public/docs/index.html
