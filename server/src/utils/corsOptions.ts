@@ -1,3 +1,6 @@
+import { initializeConfig } from './initEnv.js'
+initializeConfig()
+
 const whitelist = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')
   : ['http://localhost:3000']

@@ -1,3 +1,5 @@
+export const BASE_API_URL = process.env.BASE_API_URL || 'http://localhost:3001'
+
 /**
  * Builds a string containing MongoDB metadata fields to exclude from a query result
  * @param isIncludeMeta Flag to include or exclude the MongoDB metadata fields

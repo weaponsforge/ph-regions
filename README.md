@@ -6,17 +6,12 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 > This API is intended **for testing and simulating RESTful API requests** from client applications.<br>
 > **Note:** The location data may be outdated and does **not** reflect the most current official records.
 
-<sup>
-<b>Data Source</b><br>
-&nbsp; &nbsp; - Provinces and Municipalities: <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA 10-Day weather forecast Excel files</a><br>
-&nbsp; &nbsp; - Regions and Provinces: <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/seasonal-forecast">PAGASA Seasonal Forecast Rainfall Analysis Table</a><br>
-</sup>
+### Online URLs
 
-<sup>
-<b>Data Set Forecast Date:</b> 2022/08/03
-</sup>
-
-<br>
+- REST API: <https://ph-regions.vercel.app/api>
+- API documentation:
+   - <https://ph-regions.vercel.app/>
+   - <https://ph-regions.vercel.app/docs/>
 
 ### Table of Contents
 
@@ -35,7 +30,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 ### 📋 Requirements
 
-1. NodeJS LTS >= v20
+1. NodeJS LTS >= v22
 2. Docker
 
 ### 📦 Core Libraries/Frameworks
@@ -60,7 +55,7 @@ The main app is inside the `📂 server/src` folder.
 - 📂 **dist** - Contains the compiled JavaScript output from TypeScript.
 - 🧩 **classes** - Contains reusable class-based logic and services.
 - ⚙️ **controllers** - Contains scripts for handling incoming HTTP requests and responses.
-- 🔗 **middlewares** - Contains functions that process HTTP requests before controllers.
+- 🔗 **middleware** - Contains functions that process HTTP requests before controllers.
 - 🧊 **models** - Contains MongoDB database models and schema definitions using Mongoose.
 - 🪧 **routes** - Contains API endpoint definitions and route bindings.
 - 📐 **schemas** - Contains Zod validation schemas.
@@ -90,8 +85,9 @@ The main app is inside the `📂 server/src` folder.
 
    | Variable Name | Description |
    | --- | --- |
-   | ALLOW_CORS | Enable Cross-Origin Resource Sharing (CORS) on the API endpoints.<br><br>`ALLOW_CORS=1` enables CORS for specified `ALLOWED_ORIGINS` and restricts access to those domains.<br> `ALLOW_CORS=0` disables CORS restrictions, allowing all domains including Postman. |
-   | ALLOWED_ORIGINS | IP/domain origins in comma-separated values that are allowed to access the API if `ALLOW_CORS=1`.<br> Include `http://localhost:3000` by default to allow CORS access to the **/client** app. |
+   | ALLOW_ALL_ORIGINS | Flag to allow HTTP requests from all origins (domains). When set to `1` (default), enables CORS for all domains. When set to `0`, restricts access to domains specified in `ALLOWED_ORIGINS`. |
+   | ALLOW_CORS | Enable Cross-Origin Resource Sharing (CORS) on the API endpoints from whitelisted domains, if `ALLOW_ALL_ORIGINS=0`.<br><br>`ALLOW_CORS=1` enables CORS for specified `ALLOWED_ORIGINS` and restricts access to those domains.<br> `ALLOW_CORS=0` disables CORS restrictions, allowing all domains including Postman. |
+   | ALLOWED_ORIGINS | IP/domain origins in comma-separated values that are allowed to access the API if `ALLOW_CORS=1` and `ALLOW_ALL_ORIGINS=0`.<br> Include `http://localhost:3000` by default to allow CORS access to the **/client** app. |
    | DEPLOYMENT_PLATFORM | This variable refers to the backend `server`'s hosting platform, defaulting to `DEPLOYMENT_PLATFORM=regular`<br>for full-server NodeJS express apps.<br><br>Valid values are:<br>`regular` - for traditional full-server NodeJS express apps<br>`vercel` - for Vercel (serverless) |
    | MONGO_URI | MongoDB connection string.<br>Default value uses the Docker MongoDB connection string (defined in the docker compose file). |
    | BASE_API_URL | Server base API url minus the forward slash |
@@ -165,10 +161,12 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    http://localhost:3001
 
    # Alternate API docs (interactive)
-   http://localhost:3001/api/docs
+   http://localhost:3001/docs
    ```
 
-5. Stop the containers to exit.<br>
+5. View the [Available Scripts](#-available-scripts) to run.
+
+6. Stop the containers to exit.<br>
    ```sh
    docker compose down
    ```
@@ -201,8 +199,10 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    http://localhost:3001
 
    # Alternate API docs (interactive)
-   http://localhost:3001/api/docs
+   http://localhost:3001/docs
    ```
+
+4. View the [Available Scripts](#-available-scripts) to run.
 
 </details>
 <br>
@@ -253,6 +253,14 @@ Generates the OpenAPI `openapi.yaml` (YAML) and `openapi.json` (JSON) files into
 ### `npm run docs:build`
 
 Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/index.html` file.
+
+### `npm run build`
+
+Standard NPM build script that runs transpile, builds OpenAPI docs, and copies Swagger UI assets (`transpile` + `docs:build` + `copySwaggerFiles`).
+
+### `npm run copySwaggerFiles`
+
+Copies the minimal Swagger UI assets (CSS/JS) from `node_modules` into `/public/docs`. The page `public/docs/index.html` references these assets and the generated OpenAPI spec in `/public/openapi.json`
 
 </details>
 
@@ -341,10 +349,15 @@ https://hub.docker.com/r/weaponsforge/ph-regions
 
 #### GitHub Secrets
 
-| GitHub Secret | Description |
+| GitHub Secrets | Description |
 | --- | --- |
+| BASE_API_URL | The Vercel server base URL of the production ph-regions API minus the forward slash. |
 | DOCKERHUB_USERNAME | Docker Hub username |
 | DOCKERHUB_TOKEN | Deploy token for the Docker Hub account |
+| VERCEL_ORG_ID | Vercel app's organization ID |
+| VERCEL_PROJECT_ID | Vercel app's project ID |
+| VERCEL_TOKEN | Vercel personal/token used by the CLI for auth in CI |
+| DEPLOYMENT_PLATFORM | Target deployment platform of the backend server. Value is `vercel` |
 
 #### GitHub Variables
 

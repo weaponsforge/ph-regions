@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { ProvinceQuerySchema } from '@/scripts/openapi/docs/api.schema.js'
-import { validate } from '@/middlewares/validate.js'
+import { validate } from '@/middleware/validate.js'
 
 import {
   getProvinces,
