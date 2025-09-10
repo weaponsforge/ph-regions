@@ -14,7 +14,7 @@ services:
     volumes:
       - ./server:/opt/server
       - /opt/server/node_modules
-      - /opt/server/public/docs
+      - /opt/server/public
     ports:
       - "3001:3001"
       - "9229:9229"
