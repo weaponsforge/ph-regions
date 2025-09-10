@@ -14,6 +14,7 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      DEPLOYMENT_PLATFORM: ${{ secrets.DEPLOYMENT_PLATFORM }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -26,10 +27,11 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@47.0.6
 
-      - name: Install Dependencies
+      - name: Build API docs
         run: |
           cd server
           npm install
+          npm run build
 
       - name: Pull Vercel Environment Information
         run: |
