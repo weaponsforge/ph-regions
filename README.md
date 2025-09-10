@@ -6,17 +6,12 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 > This API is intended **for testing and simulating RESTful API requests** from client applications.<br>
 > **Note:** The location data may be outdated and does **not** reflect the most current official records.
 
-<sup>
-<b>Data Source</b><br>
-&nbsp; &nbsp; - Provinces and Municipalities: <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast">PAGASA 10-Day weather forecast Excel files</a><br>
-&nbsp; &nbsp; - Regions and Provinces: <a href="https://www.pagasa.dost.gov.ph/climate/climate-prediction/seasonal-forecast">PAGASA Seasonal Forecast Rainfall Analysis Table</a><br>
-</sup>
+### Online URLs
 
-<sup>
-<b>Data Set Forecast Date:</b> 2022/08/03
-</sup>
-
-<br>
+- REST API: https://ph-regions.vercel.app/api
+- API documentation:
+   - https://ph-regions.vercel.app/
+   - https://ph-regions.vercel.app/docs
 
 ### Table of Contents
 
@@ -35,7 +30,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 ### 📋 Requirements
 
-1. NodeJS LTS >= v20
+1. NodeJS LTS >= v22
 2. Docker
 
 ### 📦 Core Libraries/Frameworks
