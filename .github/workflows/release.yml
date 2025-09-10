@@ -33,7 +33,7 @@ jobs:
       - name: Build API docs
         run: |
           cd server
-          npm install
+          npm ci
           npm run build
 
       - name: Pull Vercel Environment Information
