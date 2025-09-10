@@ -1,18 +1,14 @@
 name: Deploy to Production Environment
 
 on:
-  # release:
-  #  types: [published]
-  push:
-    branches:
-      feat/weaponsforge-3
-
+  release:
+  types: [published]
 
 jobs:
   # Deploy server to Vercel
   deploy-vercel:
     name: Deploy Server to Vercel
-    # if: github.event.release.target_commitish == 'master'
+    if: github.event.release.target_commitish == 'master'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
