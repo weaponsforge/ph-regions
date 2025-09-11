@@ -26,8 +26,10 @@ To ensure a smooth contribution process for everyone, please follow these guidel
    git checkout -b feat/your-new-feature-name
    ```
 
-2. **Add Your Content:** Make your changes or additions to the project. If you're adding new content, ensure it's placed in the correct directory, follows intuitive file, variables, and TypeScript naming conventions, and passes the `"npm run lint"` and `"npm run transpile:noemit"` scripts. Furthermore, ensure proper middleware validation and API documentation to continue promoting predictable and documented API input and responses.
-   - > **INFO:** Key guidelines are also available in the project's root README file under the [**Project Folder Structure**](https://github.com/weaponsforge/ph-regions?tab=readme-ov-file#-project-folder-structure) and [**Adding New Endpoints**](https://github.com/weaponsforge/ph-regions?tab=readme-ov-file#%EF%B8%8F-adding-new-endpoints) sections.
+2. **Add Your Content:** Make your changes or additions to the project.
+   - If you're adding new content, ensure it's placed in the correct directory, follows intuitive file, variables, and TypeScript naming conventions, and passes the `"npm run lint"` and `"npm run transpile:noemit"` scripts. Furthermore, ensure proper **middleware validation** and **API documentation** to continue promoting predictable and documented API input and responses.
+   - > 🔔 **INFO**<br>
+     > Key guidelines are also available in the project's root README file under the [**Project Folder Structure**](https://github.com/weaponsforge/ph-regions?tab=readme-ov-file#-project-folder-structure) and [**Adding New Endpoints**](https://github.com/weaponsforge/ph-regions?tab=readme-ov-file#%EF%B8%8F-adding-new-endpoints) sections.
 
 3. **Commit Your Changes:** After making your changes, commit them to your branch. Use clear and concise commit messages to describe your updates.
    ```

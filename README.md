@@ -39,7 +39,8 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 
 ### 📦 Core Libraries/Frameworks
 
-The server app uses the following core libraries and frameworks.
+<details>
+<summary>👉 The server app uses the following core libraries and frameworks.</summary>
 
 | Library | Version | Description |
 | --- | --- | --- |
@@ -53,6 +54,9 @@ The server app uses the following core libraries and frameworks.
 | @asteasolutions/zod-to-openapi | `8.1.0` | Generates an OpenAPI yaml file from Zod schemas. |
 | @redocly/cli | `2.1.0` | Generates an API documentation using an OpenAPI yaml input. |
 | swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI json input. |
+
+</details>
+<br>
 
 ## 📚 Project Folder Structure
 
