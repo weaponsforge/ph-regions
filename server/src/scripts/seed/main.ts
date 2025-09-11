@@ -1,6 +1,7 @@
 import { ExcelFactory } from 'ph-municipalities'
 import { connectDb, disconnectDb } from '@/utils/db.js'
 
+import Island from '@/models/island.model.js'
 import Region from '@/models/region.model.js'
 import Province from '@/models/province.model.js'
 import Municipality from '@/models/municipality.model.js'
@@ -18,23 +19,26 @@ import {
 import { seed, type SeedingResult } from './lib/seed.js'
 import { generateBarangayCounts } from './lib/generateCounts.js'
 import type { TMunicipality } from '@/schemas/municipality.schema.js'
-import Island from '@/models/island.model.js'
 
 import islandsData from './data/islands.json' with { type: 'json' }
 import { typedCatchError } from '@/utils/error.js'
+let errorSeeding: string | null = null
 
 // TO-DO: seed using transactions and sessions in a replica set
 connectDb().then(async () => {
+  const dataSet = new ExcelFactory()
+
+  // Normalize and transform raw data
+  const islands = [ ...islandsData.data ]
+  const regions = normalizeRegions(dataSet)
+  let provinces = normalizeProvinces(dataSet, regions)
+  let municipalities = normalizeMunicipalities(dataSet, provinces)
+  let statsBarangays: DStats[] = []
+
+  let regionKeyIDs = {}
+  let provinceKeyIDs = {}
+
   try {
-    const dataSet = new ExcelFactory()
-
-    // Normalize and transform raw data
-    const regions = normalizeRegions(dataSet)
-    const islands = [ ...islandsData.data ]
-    let provinces = normalizeProvinces(dataSet, regions)
-    let municipalities = normalizeMunicipalities(dataSet, provinces)
-    let statsBarangays: DStats[] = []
-
     // Seed the main island groups
     const islandGroupIDs = await seed(
       Island,
@@ -49,18 +53,28 @@ connectDb().then(async () => {
         region.islandId = islandGroupIDs[island.name] || '-'
       })
     }
+  } catch (err: unknown) {
+    const errMsg = typedCatchError(err)
+    throw new Error(`Seeding Islands - ${errMsg}`)
+  }
 
+  try {
     // [1] Seed regions collection
-    const regionKeyIDs = await seed(
+    regionKeyIDs = await seed(
       Region,
       regions,
       { isReturnMapping: true }
     ) as SeedingResult
 
     provinces = replaceId(provinces, regionKeyIDs, 'regionId')
+  } catch (err: unknown) {
+    const errMsg = typedCatchError(err)
+    throw new Error(`Seeding Regions - ${errMsg}`)
+  }
 
+  try {
     // [2] Seed provinces collection
-    const provinceKeyIDs = await seed(
+    provinceKeyIDs = await seed(
       Province,
       provinces,
       { isReturnMapping: true }
@@ -69,7 +83,12 @@ connectDb().then(async () => {
     // Replace placeholder `regionId` and `provinceId` IDs in the local municipalities
     municipalities = replaceId(municipalities, regionKeyIDs, 'regionId') as DMunicipality[]
     municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
+  } catch (err: unknown) {
+    const errMsg = typedCatchError(err)
+    throw new Error(`Seeding Municipalities - ${errMsg}`)
+  }
 
+  try {
     // [3] Seed municipalities collection
     const municipalityKeyIds = await seed(
       Municipality,
@@ -82,8 +101,17 @@ connectDb().then(async () => {
     await seed(Stats, statsBarangays)
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    console.log('[ERROR]: Seeding error', errMsg)
-  } finally {
-    await disconnectDb()
+    throw new Error(`Seeding Stats - ${errMsg}`)
   }
+}).catch((error: undefined) => {
+  const errMsg = typedCatchError(error)
+  errorSeeding = `[ERROR]: ${errMsg}`
+}).finally(() => {
+  disconnectDb()
+
+  const logSuccess = errorSeeding ?? '[SUCCESS] Seeeding success'
+  const processExitCode = errorSeeding ? 1 : 0
+
+  console.log(logSuccess, processExitCode)
+  process.exit(processExitCode)
 })
