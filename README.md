@@ -28,7 +28,11 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 - [Usage with GitHub Actions](#usage-with-github-actions)
 - [References](#references)
 
-### 📋 Requirements
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+## 📋 Requirements
 
 1. NodeJS LTS >= v22
 2. Docker
