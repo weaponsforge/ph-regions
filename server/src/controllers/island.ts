@@ -71,6 +71,7 @@ export const getIslandById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
+      total: data ? 1 : 0,
       metadata: islandsData.metadata,
       data
     })

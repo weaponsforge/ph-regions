@@ -52,6 +52,7 @@ export const getMunicipalityById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
+      total: data ? 1 : 0,
       metadata: { ...FULL_API_METADATA, description },
       data
     })
