@@ -22,8 +22,8 @@ class MongoCrudClass<T> {
   readonly model: Model<T> | null
 
   /**
-   * @constructor Initializes the `MongoCrudClass` with a Mongoose Model and a Zod Schema
-   * @param model - Mongoose Moodel
+   * @constructor Initializes the `MongoCrudClass` with a Mongoose Model
+   * @param model - Mongoose Model
    */
   constructor (model: Model<T>) {
     if (!model) {

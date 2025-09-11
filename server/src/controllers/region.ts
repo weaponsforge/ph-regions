@@ -28,7 +28,7 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
   }
 }
 
-/** Returns a collection of regions `provinces[]` and `municipalities[]` */
+/** Returns a collection of regions with nested `provinces[]` and `municipalities[]` */
 export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
   const { includeMeta } = req.options
   const { includeMeta: _, ...rest } = req.query
@@ -75,6 +75,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
+      total: 1,
       metadata: FULL_API_METADATA,
       data
     })
@@ -83,7 +84,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
   }
 }
 
-/** Returns a region by ID including its `provinces[]` and `municipalities[]` */
+/** Returns a region by ID including its nested `provinces[]` and `municipalities[]` */
 export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
   const { includeMeta } = req.options
   const { id: regionId } = req.params
@@ -110,6 +111,7 @@ export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
+      total: 1,
       metadata: FULL_API_METADATA,
       data
     })
