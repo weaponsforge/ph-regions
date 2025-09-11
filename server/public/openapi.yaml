@@ -15,7 +15,7 @@ info:
      **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. 
      **Note:** The location data may be outdated and does not reflect the most current official records. 
 
-     **🧩 Alternate Docs!!!** <ul><li>Interactive API documentation (Swagger UI): [http://localhost:3001/docs](http://localhost:3001/docs)</li></ul>
+     **🧩 Alternate Docs** <ul><li>Interactive API documentation (Swagger UI): [http://localhost:3001/docs](http://localhost:3001/docs)</li></ul>
   x-logo:
     url: ./assets/images/logo_ph_regions_01.png
     altText: PH Regions logo

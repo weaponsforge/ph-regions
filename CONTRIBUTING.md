@@ -10,19 +10,19 @@ To ensure a smooth contribution process for everyone, please follow these guidel
 1. **Fork the Repository:** Start by forking the repository's `"dev"` branch to your GitHub account. This creates your own copy of the project where you can make changes.
 
 2. **Clone Your Fork:** Clone your forked repository to your local machine using Git. This allows you to work on the files locally.
-   ```
+   ```sh
    git clone https://github.com/yourusername/ph-regions.git
    ```
 
 3. **Set Upstream Remote:** Add the original repository as an upstream remote to your local clone. This helps you to keep your fork up to date.
-   ```
+   ```sh
    git remote add upstream https://github.com/weaponsforge/ph-regions.git
    ```
 
 ## Making Changes
 
 1. **Create a New Branch:** Always work on a new branch for your changes. This keeps your contributions organized and separate from the main branch.
-   ```
+   ```sh
    git checkout -b feat/your-new-feature-name
    ```
 
@@ -32,13 +32,13 @@ To ensure a smooth contribution process for everyone, please follow these guidel
      > Key guidelines are also available in the project's root README file under the [**Project Folder Structure**](https://github.com/weaponsforge/ph-regions?tab=readme-ov-file#-project-folder-structure) and [**Adding New Endpoints**](https://github.com/weaponsforge/ph-regions?tab=readme-ov-file#%EF%B8%8F-adding-new-endpoints) sections.
 
 3. **Commit Your Changes:** After making your changes, commit them to your branch. Use clear and concise commit messages to describe your updates.
-   ```
+   ```sh
    git add .
    git commit -m "Add a brief description of your changes"
    ```
 
 4. **Keep Your Fork Updated:** Regularly sync your fork's `"dev"` branch with the upstream repository to keep it up to date. This reduces potential merge conflicts.
-   ```
+   ```sh
    git fetch upstream
    git checkout dev
    git merge upstream/dev
@@ -48,7 +48,7 @@ To ensure a smooth contribution process for everyone, please follow these guidel
 ## Submitting Contributions
 
 1. **Push Your Changes:** Push your changes to your fork on GitHub.
-   ```
+   ```sh
    git push origin feat/your-new-feature-name
    ```
 

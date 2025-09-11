@@ -23,7 +23,7 @@ class MongoCrudClass<T> {
 
   /**
    * @constructor Initializes the `MongoCrudClass` with a Mongoose Model
-   * @param model - Mongoose Moodel
+   * @param model - Mongoose Model
    */
   constructor (model: Model<T>) {
     if (!model) {

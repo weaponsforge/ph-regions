@@ -15,8 +15,9 @@ services:
       - ./server:/opt/server
       - /opt/server/node_modules
       # NOTE: [public folder volume]
-      # Comment-out the next line to enable updating the "openapi.json" and "openapi.yaml" files
-      # during development. Restore it when running `docker compose build`
+      # During local development: comment out the next line so edits to server/public
+      # (openapi.json|openapi.yaml) in the container are visible on the host.
+      # Remove the comment when running `docker compose build`
       - /opt/server/public
     ports:
       - "3001:3001"
