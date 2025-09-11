@@ -37,6 +37,7 @@ connectDb().then(async () => {
 
   let regionKeyIDs = {}
   let provinceKeyIDs = {}
+  let municipalityKeyIds = []
 
   try {
     // Seed the main island groups
@@ -85,17 +86,22 @@ connectDb().then(async () => {
     municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    throw new Error(`Seeding Municipalities - ${errMsg}`)
+    throw new Error(`Seeding Provinces - ${errMsg}`)
   }
 
   try {
     // [3] Seed municipalities collection
-    const municipalityKeyIds = await seed(
+    municipalityKeyIds = await seed(
       Municipality,
       municipalities,
       { isReturnRaw: true }
     ) as unknown as TMunicipality[]
+  } catch (err: unknown) {
+    const errMsg = typedCatchError(err)
+    throw new Error(`Seeding Municipalities - ${errMsg}`)
+  }
 
+  try {
     // [4] Seed the random barangay counts per municipality
     statsBarangays = generateBarangayCounts(municipalityKeyIds)
     await seed(Stats, statsBarangays)
@@ -103,13 +109,13 @@ connectDb().then(async () => {
     const errMsg = typedCatchError(err)
     throw new Error(`Seeding Stats - ${errMsg}`)
   }
-}).catch((error: undefined) => {
+}).catch((error: unknown) => {
   const errMsg = typedCatchError(error)
   errorSeeding = `[ERROR]: ${errMsg}`
 }).finally(() => {
   disconnectDb()
 
-  const logSuccess = errorSeeding ?? '[SUCCESS] Seeeding success'
+  const logSuccess = errorSeeding ?? '[SUCCESS] Seeding success'
   const processExitCode = errorSeeding ? 1 : 0
 
   console.log(logSuccess, processExitCode)
