@@ -24,8 +24,8 @@
     "docker:seed:debug": "tsx --inspect=0.0.0.0:9229 ./src/scripts/seed/main.ts",
     "docker:watch:win": "tsc -p tsconfig.json --watch --watchFile dynamicPriorityPolling --watchDirectory dynamicPriorityPolling"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "weaponsforge",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
