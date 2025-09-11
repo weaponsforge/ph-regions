@@ -72,6 +72,7 @@ export const getProvinceById: ExpressFnParams = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
+      total: 1,
       metadata: { ...FULL_API_METADATA, description },
       data
     })
@@ -103,6 +104,7 @@ export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next)
 
     return res.status(200).json({
       success: true,
+      total: 1,
       metadata: { ...FULL_API_METADATA, description },
       data
     })

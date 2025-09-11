@@ -181,7 +181,7 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     },
     responses: {
       200: {
-        description: 'Object containing a Philippine region data including provinces and municipalities',
+        description: 'Object containing one (1) Philippine region data including provinces and municipalities',
         content: {
           'application/json': {
             schema: RegionDetailFullResponseSchema

@@ -16,7 +16,7 @@ FROM base AS development-setup
 ENV NODE_ENV development
 RUN npm install
 COPY --chown=node:node . .
-RUN npm run docs:build && npm run copySwaggerFiles
+RUN npm run docs:build && npm run docs:swagger
 USER node
 EXPOSE 3001 9229
 
