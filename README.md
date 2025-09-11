@@ -9,9 +9,9 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 ### Online URLs
 
 - REST API: <https://ph-regions.vercel.app/api>
-- API documentation:
-   - <https://ph-regions.vercel.app/>
-   - <https://ph-regions.vercel.app/docs/>
+- API documentation
+   - Static: <https://ph-regions.vercel.app/>
+   - Interactive: <https://ph-regions.vercel.app/docs>
 
 ### Table of Contents
 
@@ -39,14 +39,16 @@ The server app uses the following core libraries and frameworks.
 
 | Library | Version | Description |
 | --- | --- | --- |
-| express | `5.1.0` |  Node.js web framework for building APIs and web servers. |
-| mongoose | `8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
-| zod | `4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
-| nodemon | `3.1.10` | Development tool that automatically restarts the server on file changes. |
+| Express | `5.1.0` |  Node.js web framework for building APIs and web servers. |
+| Mongoose | `8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| Zod | `4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
+| Nodemon | `3.1.10` | Development tool that automatically restarts the server on file changes. |
 | tsx | `4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
 | tsc-alias | `1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
-| eslint | `9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
+| ESlint | `9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
 | @asteasolutions/zod-to-openapi | `8.1.0` | Generates an OpenAPI yaml file from Zod schemas. |
+| @redocly/cli | `2.1.0` | Generates an API documentation using an OpenAPI yaml input. |
+| swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI json input. |
 
 ## 📚 Project Folder Structure
 
@@ -72,13 +74,13 @@ The main app is inside the `📂 server/src` folder.
 1. Clone the repository.<br>
 `git clone https://github.com/weaponsforge/ph-regions.git`
 
-2. Install dependencies.<br>
+2. This repository promotes the use of Docker (See [Using Docker](#-using-docker)) to run the local app. Install dependencies only when proceeding to use the [**"Alternate Usage Using Node"**](#-alternate-usage-using-node) option.<br>
    ```sh
    cd server
    npm install
    ```
 
-3. Create a `.env` file from the `.env.example` file using its default values. Edit the variables and values as needed.
+3. Create a `.env` file from the `.env.example` file using its default values in the `/server` directory. Edit the variables and values as needed.
 
    <details>
    <summary>👉 List of Environment Variables</summary>
@@ -97,8 +99,8 @@ The main app is inside the `📂 server/src` folder.
    </details>
 
 4. Seed (create) the initial data set.<br>
-   - This step requires running the `npm run seed` script.
-   - Proceed to the [Using Docker](#-using-docker) section for more information.
+   - This step requires running the `"npm run seed"` script.
+   - Proceed to the [**"Using Docker"**](#-using-docker) section for more information on running the app using Docker.
    - Run the command after successfully running the server app from **Usage - Using Docker - step # 3**.
       ```sh
       docker exec -it weaponsforge-ph-regions npm run seed
@@ -182,9 +184,15 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
 <summary>👉 View usage instructions</summary>
 <br>
 
-1. Run the API for local development.<br>
+1. Build the API documentation.<br>
    ```sh
-   npm run dev
+   # Builds the Redocly API documentation
+   npm run docs:build
+   ```
+
+   ```sh
+   # Builds the Swagger UI API documentation
+   npm run docs:swagger
    ```
 
 2. Run the seeder script only once.<br>
@@ -192,7 +200,12 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    npm run seed
    ```
 
-3. 💡 Launch the API documentation to view available endpoints.
+3. Run the API for local development.<br>
+   ```sh
+   npm run dev
+   ```
+
+4. 💡 Launch the API documentation to view available endpoints.
 
    ```text
    # Main API docs
@@ -202,14 +215,14 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    http://localhost:3001/docs
    ```
 
-4. View the [Available Scripts](#-available-scripts) to run.
+5. View the [Available Scripts](#-available-scripts) to run.
 
 </details>
 <br>
 
 ## 📜 Available Scripts
 
-These scripts, compatible with running in Node and Docker, run various TypeScript scripts and tests.
+These scripts, defined in the `"/server/package.json"` file, are compatible with running in Node and Docker. They run various TypeScript scripts, tests, and processes for code base management.
 
 <details>
 <summary>👉 Click to expand the list of available scripts</summary>
@@ -250,19 +263,26 @@ Runs the database seeder script, inserting initial data contents to the database
 
 Generates the OpenAPI `openapi.yaml` (YAML) and `openapi.json` (JSON) files into the `/server/public` directory.
 
+> 💡 **NOTE:** Comment out **Line #20, [public folder volume]** in the `docker-compose.yml` file to update the `"/server/public/openapi.yaml"` and `"/server/public/openapi.json"` files in the host volume.
+
 ### `npm run docs:build`
 
 Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/index.html` file.
 
 ### `npm run build`
 
-Standard NPM build script that runs transpile, builds OpenAPI docs, and copies Swagger UI assets (`transpile` + `docs:build` + `copySwaggerFiles`).
+Standard NPM build script that runs transpile, builds OpenAPI docs, and copies Swagger UI assets (`transpile` + `docs:build` + `docs:swagger`).
 
-### `npm run copySwaggerFiles`
+> 💡 **NOTE:** Comment out **Line #20 under [public folder volume]** in the `docker-compose.yml` file when running this script via Docker to resolve `EACCES: permission denied` errors.
+
+### `npm run docs:swagger`
 
 Copies the minimal Swagger UI assets (CSS/JS) from `node_modules` into `/public/docs`. The page `public/docs/index.html` references these assets and the generated OpenAPI spec in `/public/openapi.json`
 
+> 💡 **NOTE:** Comment out **Line #20, [public folder volume]** in the `docker-compose.yml` file when running this script via Docker to resolve `EACCES: permission denied` errors.
+
 </details>
+<br>
 
 ## 📦 Docker Scripts
 
@@ -297,6 +317,7 @@ docker exec -it weaponsforge-ph-regions npm run docker:seed:debug
 Watches file changes in `.ts` files using the `tsc --watch` option with `dynamicPriorityPolling` in Docker containers running in Windows WSL2.
 
 </details>
+<br>
 
 ## 🗂️ Adding New Endpoints
 
@@ -339,14 +360,6 @@ Perform manual tests to ensure everything works correctly.
 
 ## Usage with GitHub Actions
 
-### Deployment to Docker Hub
-
-This repository deploys the latest development Docker image `weaponsforge/ph-regions:latest` to Docker Hub on the creation of new Tags/Releases with GitHub Actions. Supply the following GitHub Secrets and Variable to enable deployment to Docker Hub. It requires a Docker Hub account.
-
-The Docker Hub image is available at:
-
-https://hub.docker.com/r/weaponsforge/ph-regions
-
 #### GitHub Secrets
 
 | GitHub Secrets | Description |
@@ -364,6 +377,21 @@ https://hub.docker.com/r/weaponsforge/ph-regions
 | GitHub Variable | Description |
 | --- | --- |
 | DOCKERHUB_USERNAME | Docker Hub username |
+
+### Deployment to Docker Hub
+
+This repository deploys the latest development Docker image `weaponsforge/ph-regions:latest` to Docker Hub after creating new Tags/Releases with GitHub Actions. Supply the above-mentioned GitHub Secrets and Variables to enable deployment to Docker Hub. It requires a **Docker Hub account**.
+
+The Docker Hub image is available at:
+
+https://hub.docker.com/r/weaponsforge/ph-regions
+
+### Deployment to Vercel
+
+This repository deploys the latest production API and documentation to Vercel after creating new Tags/Releases with GitHub Actions. Supply the above-mentioned GitHub Secrets and Variables to enable deployment to Vercel. It also requires the following:
+
+- An Express app initialized in a **Vercel project**
+- **MongoDB Atlas** database (for the `MONGO_URI` environment variable in the Vercel project)
 
 ## References
 
