@@ -30,6 +30,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 - [Requirements](#-requirements)
 - [Core Libraries/Frameworks](#-core-librariesframeworks)
 - [Project Folder Structure](#-project-folder-structure)
+- [Quickstart](#-quickstart)
 - [Installation](#️-installation)
 - [Usage](#-usage)
    - [Using Docker](#-using-docker)
@@ -63,9 +64,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 | tsx | `4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
 | tsc-alias | `1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
 | ESlint | `9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
-| @asteasolutions/zod-to-openapi | `8.1.0` | Generates an OpenAPI yaml file from Zod schemas. |
-| @redocly/cli | `2.1.0` | Generates an API documentation using an OpenAPI yaml input. |
-| swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI json input. |
+| @asteasolutions/zod-to-openapi | `8.1.0` | Generates OpenAPI YAML and JSON files from Zod schemas. |
+| @redocly/cli | `2.1.0` | Generates an API documentation using an OpenAPI YAML input. |
+| swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI JSON input. |
 
 </details>
 <br>
@@ -89,6 +90,25 @@ The main app is inside the `📂 server/src` folder.
 - 🖥️ `server.ts` - Starts the server and listens for requests
 
 <br>
+
+## 🆕 Quickstart
+
+Follow these steps to set up and use the code repository easily. Read the [Installation](#️-installation) section for detailed setup and usage instructions.
+
+1. Create a `.env` file in the `/server` directory, copying the contents of the `.env.example` file.
+
+2. Build the development images.<br>
+`docker compose build`
+
+3. Run the development containers.<br>
+`docker compose up`
+
+4. Create initial data.<br>
+`docker exec -it weaponsforge-ph-regions npm run seed`
+
+5. Access the available resources:
+   - REST API documentation: http://localhost:3001
+   - REST API endpoints: http://localhost:3001/api
 
 ## 🛠️ Installation
 
@@ -121,8 +141,8 @@ The main app is inside the `📂 server/src` folder.
 
 4. Seed (create) the initial data set.<br>
    - This step requires running the `"npm run seed"` script.
-   - Proceed to the [**"Using Docker"**](#-using-docker) section for more information on running the app using Docker.
-   - Run the command after successfully running the server app from **Usage - Using Docker - step # 3**.
+   - Proceed to the [**"Using Docker"**](#-using-docker) section for more information on running the app first using Docker.
+   - Run the command after successfully running the server app using Docker from [A. Use Pre-Built Development Docker Image](#a-use-pre-built-development-docker-image) or [B. Build the Development Docker Image](#b-build-the-development-docker-image).
       ```sh
       docker exec -it weaponsforge-ph-regions npm run seed
       ```
@@ -285,7 +305,7 @@ Runs the database seeder script, inserting initial data contents to the database
 
 Generates the OpenAPI `openapi.yaml` (YAML) and `openapi.json` (JSON) files into the `/server/public` directory.
 
-> 💡 **NOTE:** Comment out **Line #20, [public folder volume]** in the `docker-compose.yml` file to update the `"/server/public/openapi.yaml"` and `"/server/public/openapi.json"` files in the host volume.
+> 💡 **NOTE:** Comment out **Line #21, under [public folder volume]** in the `docker-compose.yml` file to update the `"/server/public/openapi.yaml"` and `"/server/public/openapi.json"` files in the host volume.
 
 ### `npm run docs:build`
 
@@ -295,13 +315,13 @@ Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/packa
 
 Standard NPM build script that runs transpile, builds OpenAPI docs, and copies Swagger UI assets (`transpile` + `docs:build` + `docs:swagger`).
 
-> 💡 **NOTE:** Comment out **Line #20 under [public folder volume]** in the `docker-compose.yml` file when running this script via Docker to resolve `EACCES: permission denied` errors.
+> 💡 **NOTE:** Comment out **Line #21 under [public folder volume]** in the `docker-compose.yml` file when running this script via Docker to resolve `EACCES: permission denied` errors.
 
 ### `npm run docs:swagger`
 
 Copies the minimal Swagger UI assets (CSS/JS) from `node_modules` into `/public/docs`. The page `public/docs/index.html` references these assets and the generated OpenAPI spec in `/public/openapi.json`
 
-> 💡 **NOTE:** Comment out **Line #20, [public folder volume]** in the `docker-compose.yml` file when running this script via Docker to resolve `EACCES: permission denied` errors.
+> 💡 **NOTE:** Comment out **Line #21, under [public folder volume]** in the `docker-compose.yml` file when running this script via Docker to resolve `EACCES: permission denied` errors.
 
 </details>
 <br>
@@ -348,17 +368,18 @@ Follow the steps for adding (or editing) new endpoints to the API.
 <details>
 <summary>👉 Click to view the guidelines</summary>
 
-1. **Create a Zod schema**<br>
-Follow the patterns in the `📐 schemas` directory (e.g., `province.schema.ts`).
-
-2. **Create a Mongoose model**<br>
-Follow the patterns in the `🧊 models` directory (e.g., `province.model.ts`).
+1. **Create a Zod schema**
+   - Follow the patterns in the `📐 schemas` directory (e.g., `province.schema.ts`).
+   - Ensure each schema field has a Zod `.meta()` attached, with a `description` key containing a short description of the field, and an `example`.
+2. **Create a Mongoose model**
+   - Follow the patterns in the `🧊 models` directory (e.g., `province.model.ts`).
+   - The Zod-inferred type (`z.infer()`) of the **Zod Schema** created in **step # 1** should be used to type-cast this model's **Mongoose Schema**.
 
 3. **Set up routes (API endpoints)**<br>
 Add new routes for the model in the `🪧 routes` directory (e.g., `/routes/province.ts`) **without input validation** for now.
 
 4. **Define query, response, and request schemas**<br>
-Create Zod schemas for query, response, params, and body in:<br>
+Create Zod schemas for HTTP query, response, params, and body in:<br>
 `server/src/scripts/openapi/docs/api.schema.ts`
 
    > 💡 **INFO**<br>
