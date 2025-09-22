@@ -1,6 +1,6 @@
 {
   "name": "ph-regions",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality.",
   "main": "dist/server.js",
