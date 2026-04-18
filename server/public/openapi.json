@@ -82,13 +82,13 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document creation date",
             "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document last update/edit date",
             "example": "2025-09-06T14:28:58.985Z"
           },
@@ -115,13 +115,13 @@
                 },
                 "createdAt": {
                   "type": "string",
-                  "format": "date",
+                  "format": "date-time",
                   "description": "MongoDB document creation date",
                   "example": "2025-09-06T14:28:58.985Z"
                 },
                 "updatedAt": {
                   "type": "string",
-                  "format": "date",
+                  "format": "date-time",
                   "description": "MongoDB document last update/edit date",
                   "example": "2025-09-06T14:28:58.985Z"
                 },
@@ -172,13 +172,13 @@
                       },
                       "createdAt": {
                         "type": "string",
-                        "format": "date",
+                        "format": "date-time",
                         "description": "MongoDB document creation date",
                         "example": "2025-09-06T14:28:58.985Z"
                       },
                       "updatedAt": {
                         "type": "string",
-                        "format": "date",
+                        "format": "date-time",
                         "description": "MongoDB document last update/edit date",
                         "example": "2025-09-06T14:28:58.985Z"
                       },
@@ -210,13 +210,13 @@
                             },
                             "createdAt": {
                               "type": "string",
-                              "format": "date",
+                              "format": "date-time",
                               "description": "MongoDB document creation date",
                               "example": "2025-09-06T14:28:58.985Z"
                             },
                             "updatedAt": {
                               "type": "string",
-                              "format": "date",
+                              "format": "date-time",
                               "description": "MongoDB document last update/edit date",
                               "example": "2025-09-06T14:28:58.985Z"
                             },
@@ -295,13 +295,13 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document creation date",
             "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document last update/edit date",
             "example": "2025-09-06T14:28:58.985Z"
           },
@@ -350,13 +350,13 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document creation date",
             "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document last update/edit date",
             "example": "2025-09-06T14:28:58.985Z"
           },
@@ -392,13 +392,13 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document creation date",
             "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document last update/edit date",
             "example": "2025-09-06T14:28:58.985Z"
           },
@@ -430,13 +430,13 @@
                 },
                 "createdAt": {
                   "type": "string",
-                  "format": "date",
+                  "format": "date-time",
                   "description": "MongoDB document creation date",
                   "example": "2025-09-06T14:28:58.985Z"
                 },
                 "updatedAt": {
                   "type": "string",
-                  "format": "date",
+                  "format": "date-time",
                   "description": "MongoDB document last update/edit date",
                   "example": "2025-09-06T14:28:58.985Z"
                 },
@@ -494,13 +494,13 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document creation date",
             "example": "2025-09-06T14:28:58.985Z"
           },
           "updatedAt": {
             "type": "string",
-            "format": "date",
+            "format": "date-time",
             "description": "MongoDB document last update/edit date",
             "example": "2025-09-06T14:28:58.985Z"
           },
@@ -551,13 +551,13 @@
                 },
                 "createdAt": {
                   "type": "string",
-                  "format": "date",
+                  "format": "date-time",
                   "description": "MongoDB document creation date",
                   "example": "2025-09-06T14:28:58.985Z"
                 },
                 "updatedAt": {
                   "type": "string",
-                  "format": "date",
+                  "format": "date-time",
                   "description": "MongoDB document last update/edit date",
                   "example": "2025-09-06T14:28:58.985Z"
                 },
@@ -589,13 +589,13 @@
                       },
                       "createdAt": {
                         "type": "string",
-                        "format": "date",
+                        "format": "date-time",
                         "description": "MongoDB document creation date",
                         "example": "2025-09-06T14:28:58.985Z"
                       },
                       "updatedAt": {
                         "type": "string",
-                        "format": "date",
+                        "format": "date-time",
                         "description": "MongoDB document last update/edit date",
                         "example": "2025-09-06T14:28:58.985Z"
                       },

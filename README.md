@@ -54,7 +54,12 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 
 ## 📋 Requirements
 
-1. NodeJS LTS >= v22
+1. NodeJS LTS >= v24
+   ```text
+   Recommended:
+   node: 24.11.0
+   npm: 11.6.1
+   ```
 2. Docker
 
 ### 📦 Core Libraries/Frameworks
@@ -64,15 +69,15 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 
 | Library | Version | Description |
 | --- | --- | --- |
-| Express | `5.1.0` |  Node.js web framework for building APIs and web servers. |
-| Mongoose | `8.16.5` | ODM for MongoDB that provides schema-based modeling and data interaction. |
-| Zod | `4.0.10` | TypeScript-first schema validation for request payloads and query parameters. |
-| Nodemon | `3.1.10` | Development tool that automatically restarts the server on file changes. |
-| tsx | `4.20.3` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
+| Express | `5.2.1` |  Node.js web framework for building APIs and web servers. |
+| Mongoose | `9.4.1` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| Zod | `4.3.6` | TypeScript-first schema validation for request payloads and query parameters. |
+| Nodemon | `3.1.14` | Development tool that automatically restarts the server on file changes. |
+| tsx | `4.21.0` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
 | tsc-alias | `1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
-| ESlint | `9.32.0` | Linting tool that enforces code style, quality, and formatting rules. |
-| @asteasolutions/zod-to-openapi | `8.1.0` | Generates OpenAPI YAML and JSON files from Zod schemas. |
-| @redocly/cli | `2.1.0` | Generates an API documentation using an OpenAPI YAML input. |
+| ESlint | `10.2.1` | Linting tool that enforces code style, quality, and formatting rules. |
+| @asteasolutions/zod-to-openapi | `8.5.0` | Generates OpenAPI YAML and JSON files from Zod schemas. |
+| @redocly/cli | `2.28.1` | Generates an API documentation using an OpenAPI YAML input. |
 | swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI JSON input. |
 
 </details>

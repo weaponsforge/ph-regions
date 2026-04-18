@@ -12,8 +12,7 @@ import {
   normalizeProvinces,
   normalizeMunicipalities,
   replaceId,
-  type DMunicipality,
-  type DStats
+  type DMunicipality
 } from './lib/normalize.js'
 
 import { seed, type SeedingResult } from './lib/seed.js'
@@ -33,11 +32,10 @@ connectDb().then(async () => {
   const regions = normalizeRegions(dataSet)
   let provinces = normalizeProvinces(dataSet, regions)
   let municipalities = normalizeMunicipalities(dataSet, provinces)
-  let statsBarangays: DStats[] = []
 
-  let regionKeyIDs = {}
-  let provinceKeyIDs = {}
-  let municipalityKeyIds = []
+  let regionKeyIDs: SeedingResult
+  let provinceKeyIDs: SeedingResult
+  let municipalityKeyIds: TMunicipality[]
 
   try {
     // Seed the main island groups
@@ -56,7 +54,7 @@ connectDb().then(async () => {
     }
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    throw new Error(`Seeding Islands - ${errMsg}`)
+    throw new Error(`Seeding Islands - ${errMsg}`, { cause: err })
   }
 
   try {
@@ -70,7 +68,7 @@ connectDb().then(async () => {
     provinces = replaceId(provinces, regionKeyIDs, 'regionId')
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    throw new Error(`Seeding Regions - ${errMsg}`)
+    throw new Error(`Seeding Regions - ${errMsg}`, { cause: err })
   }
 
   try {
@@ -86,7 +84,7 @@ connectDb().then(async () => {
     municipalities = replaceId(municipalities, provinceKeyIDs, 'provinceId') as DMunicipality[]
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    throw new Error(`Seeding Provinces - ${errMsg}`)
+    throw new Error(`Seeding Provinces - ${errMsg}`, { cause: err })
   }
 
   try {
@@ -98,16 +96,16 @@ connectDb().then(async () => {
     ) as unknown as TMunicipality[]
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    throw new Error(`Seeding Municipalities - ${errMsg}`)
+    throw new Error(`Seeding Municipalities - ${errMsg}`, { cause: err })
   }
 
   try {
     // [4] Seed the random barangay counts per municipality
-    statsBarangays = generateBarangayCounts(municipalityKeyIds)
+    const statsBarangays = generateBarangayCounts(municipalityKeyIds)
     await seed(Stats, statsBarangays)
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)
-    throw new Error(`Seeding Stats - ${errMsg}`)
+    throw new Error(`Seeding Stats - ${errMsg}`, { cause: err })
   }
 }).catch((error: unknown) => {
   const errMsg = typedCatchError(error)

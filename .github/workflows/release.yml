@@ -22,10 +22,10 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
 
-      - name: Use NodeJS v22.14.0
+      - name: Use NodeJS v24.11.0
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
+          node-version: 24.11.0
 
       - name: Install Vercel CLI
         run: npm install --global vercel@47.0.6
