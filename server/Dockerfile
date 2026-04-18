@@ -1,5 +1,5 @@
 # BASE PROFILE
-FROM node:22.14.0-alpine AS base
+FROM node:24.11.0-alpine AS base
 RUN mkdir -p /opt/server
 WORKDIR /opt/server
 RUN chown -R node:node /opt/server
