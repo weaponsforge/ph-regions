@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "nodemon",
+    "dev": "tsx watch src/server.ts",
     "transpile": "tsc -p tsconfig.json && tsc-alias",
     "transpile:noemit": "tsc -p tsconfig.json --noEmit",
     "docs:swagger": "tsx ./src/scripts/copyFiles/main.ts",
@@ -20,7 +20,7 @@
     "lint": "eslint \"src/**/*.ts\" *.mjs",
     "lint:fix": "eslint \"src/**/*.ts\" *.mjs --fix",
     "seed": "tsx ./src/scripts/seed/main.ts",
-    "docker:dev": "nodemon --config nodemon.debug.json",
+    "docker:dev": "tsx watch --inspect-brk=0.0.0.0:9229 src/server.ts",
     "docker:seed:debug": "tsx --inspect=0.0.0.0:9229 ./src/scripts/seed/main.ts",
     "docker:watch:win": "tsc -p tsconfig.json --watch --watchFile dynamicPriorityPolling --watchDirectory dynamicPriorityPolling",
     "info": "tsx ./src/scripts/envinfo.ts"
@@ -48,7 +48,6 @@
     "@types/swagger-ui-express": "^4.1.8",
     "eslint": "^10.2.1",
     "globals": "^17.5.0",
-    "nodemon": "^3.1.14",
     "ph-municipalities": "^1.4.7",
     "tsc-alias": "^1.8.16",
     "tsx": "^4.21.0",
