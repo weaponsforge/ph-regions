@@ -35,7 +35,7 @@ export const seed = async <
 >(
   model: Model<TDocument>,
   data: TInput[],
-  options: SeedOptions = {}
+  options: SeedOptions = {},
 ): Promise<SeedingResult | Document [] | void> => {
   const { isReturnMapping, isReturnRaw = false, session } = options
 
@@ -44,7 +44,7 @@ export const seed = async <
   const insertedDocs = await model.insertMany(data, {
     ordered: false,
     rawResult: true,
-    session
+    session,
   })
 
   console.log(`---inserted ${insertedDocs.insertedCount} ${model.modelName} docs`)
@@ -53,7 +53,7 @@ export const seed = async <
     return (insertedDocs.mongoose?.results as Document[]).map((doc: Document) =>
       'toObject' in doc
         ? doc.toObject()
-        : doc
+        : doc,
     ) as Document[]
   }
 
@@ -61,6 +61,7 @@ export const seed = async <
     return (insertedDocs?.mongoose?.results as TDocument[])?.reduce((list, item) => {
       if (!item?._id) return list
       if (!('name' in item) || typeof item.name !== 'string') return list
+
       return { ...list, [item.name]: item._id.toString() }
     }, {} as SeedingResult)
   }

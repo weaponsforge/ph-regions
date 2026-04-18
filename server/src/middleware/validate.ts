@@ -30,14 +30,14 @@ export const validate = (schema: ZodObject): RequestHandler =>
 
       if (!result.success) {
         const messages = (result?.error?.issues as ZodIssue[]).map(
-          (issue: ZodIssue) => `${issue.message?.replace(/"/g, '')} on ${issue.path.join('.')}`
+          (issue: ZodIssue) => `${issue.message?.replace(/"/g, '')} on ${issue.path.join('.')}`,
         )
 
         return res.status(400).json({
           success: false,
           error: 'Validation Error',
           message: messages,
-          status: 400
+          status: 400,
         } as ServerErrorMessage)
       }
 
@@ -54,6 +54,7 @@ export const validate = (schema: ZodObject): RequestHandler =>
     } catch (err: unknown) {
       if (err instanceof ZodError) {
         const errMsg = err.issues[0]?.message || 'Unknown validation error'
+
         return next(new ServerError(errMsg, 400))
       }
 

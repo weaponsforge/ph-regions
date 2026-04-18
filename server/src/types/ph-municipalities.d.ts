@@ -14,6 +14,6 @@ declare module 'ph-municipalities' {
   }
 
   export {
-    ExcelFactory
+    ExcelFactory,
   }
 }

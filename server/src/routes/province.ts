@@ -6,7 +6,7 @@ import {
   getProvinces,
   getProvinceById,
   getProvincesFull,
-  getProvinceMunicipalities
+  getProvinceMunicipalities,
 } from '@/controllers/province.js'
 
 const router = Router()

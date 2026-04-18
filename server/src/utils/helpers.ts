@@ -14,6 +14,7 @@ import { BooleanValueSchema } from '@/schemas/common.schema.js'
  */
 export const directory = (moduleFile: string): string => {
   const filePath = fileURLToPath(moduleFile)
+
   return dirname(filePath)
 }
 
@@ -35,10 +36,11 @@ export const file = (moduleFile: string, fileName: string) => {
  */
 export const omitCommonFields = <T extends z.ZodObject<z.ZodRawShape>>(
   schema: T,
-  additionalFields: string[] = []
+  additionalFields: string[] = [],
 ) => {
   const fieldsToOmit = [...COMMON_FIELDS_TO_OMIT, ...additionalFields]
   const mask = Object.fromEntries(fieldsToOmit.map((item) => [item, true])) as Record<string, true>
+
   return schema.omit(mask)
 }
 
@@ -50,7 +52,7 @@ export const omitCommonFields = <T extends z.ZodObject<z.ZodRawShape>>(
  */
 export const buildQuerySchema = <T extends z.ZodObject<z.ZodRawShape>>(
   schema: T,
-  omit: string[]
+  omit: string[],
 ) => {
   return omitCommonFields(schema, omit)
     .extend({ includeMeta: BooleanValueSchema })

@@ -43,5 +43,5 @@ class ServerError extends Error {
 export {
   errorHasStatus,
   typedCatchError,
-  ServerError
+  ServerError,
 }

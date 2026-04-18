@@ -5,31 +5,31 @@ const RegionSchema = new Schema<TRegionData>({
   islandId: {
     type: SchemaTypes.ObjectId,
     required: true,
-    ref: 'Island'
+    ref: 'Island',
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   abbrev: {
     type: String,
-    default: null
+    default: null,
   },
   regionalName: {
-    type: String
+    type: String,
   },
   regionalCode: {
-    type: String
-  }
+    type: String,
+  },
 },
 {
-  timestamps: true
+  timestamps: true,
 })
 
 RegionSchema.virtual('provinces', {
   ref: 'Province',
   localField: '_id',
-  foreignField: 'regionId'
+  foreignField: 'regionId',
 })
 
 RegionSchema.set('toJSON', { virtuals: true })

@@ -11,7 +11,7 @@ import { Types } from '@/types/types.js'
 export const ProvinceDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
     description: 'Province ID',
-    example: '68bc452bf0a9414a4312e5b1'
+    example: '68bc452bf0a9414a4312e5b1',
   }),
 
   regionId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
@@ -22,12 +22,12 @@ export const ProvinceDataSchema = MongoDocsDefault.extend({
     .trim()
     .meta({
       description: 'Province name',
-      example: 'Batangas'
+      example: 'Batangas',
     }),
 
   municipalities: z
     .array(MunicipalityDataSchema)
-    .optional()
+    .optional(),
 })
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
@@ -36,15 +36,15 @@ export const ProvinceDocSchema = ProvinceDataSchema.extend({
 
   regionId: ObjectIdSchema.meta({
     description: 'Region ID',
-    example: '68bc452bf0a9414a4312e591'
+    example: '68bc452bf0a9414a4312e591',
   }),
 
   municipalities: z
     .array(MunicipalityDocSchema)
     .optional()
     .meta({
-      description: 'Municipalities under this province'
-    })
+      description: 'Municipalities under this province',
+    }),
 })
 
 export type TProvinceData = z.infer<typeof ProvinceDataSchema>

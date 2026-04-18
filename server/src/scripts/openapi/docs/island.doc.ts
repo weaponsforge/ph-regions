@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
@@ -17,15 +16,15 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
   const IslandResponseSuccessSchema = ResponseSuccessSchema.extend({
     metadata: z.object({
       description: RESPONSE_SUCCESS_META.description.meta({
-        example: 'Main Island groups geographic location data of the Philippines'
+        example: 'Main Island groups geographic location data of the Philippines',
       }),
       source: RESPONSE_SUCCESS_META.source.meta({
-        example: FULL_API_METADATA.source
+        example: FULL_API_METADATA.source,
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: FULL_API_METADATA.dateCreated
-      })
-    })
+        example: FULL_API_METADATA.dateCreated,
+      }),
+    }),
   })
 
   // Schema for 404 not found error response
@@ -39,18 +38,18 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
             .array(z.string())
             .meta({
               description: 'List of error messages',
-              example: ['Island not found']
-            })
-        })
-      }
-    }
+              example: ['Island not found'],
+            }),
+        }),
+      },
+    },
   }
 
   // API route: /islands
   const IslandListResponseSchema =
     IslandResponseSuccessSchema
       .extend({
-        data: z.array(IslandResponseSchema.omit({ regions: true }))
+        data: z.array(IslandResponseSchema.omit({ regions: true })),
       })
 
   registry.registerPath({
@@ -60,33 +59,33 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     summary: 'List islands',
     tags: ['Islands'],
     request: {
-      query: IslandQuerySchema
+      query: IslandQuerySchema,
     },
     responses: {
       200: {
         description: 'Object with Philippine main island group names',
         content: {
           'application/json': {
-            schema: IslandListResponseSchema
-          }
-        }
+            schema: IslandListResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /islands/full
   const IslandListFullResponseSchema =
     IslandResponseSuccessSchema
       .extend({
-        data: z.array(IslandResponseSchema)
+        data: z.array(IslandResponseSchema),
       })
 
   registry.registerPath({
@@ -96,33 +95,33 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     summary: 'List full islands',
     tags: ['Islands'],
     request: {
-      query: IslandQuerySchema
+      query: IslandQuerySchema,
     },
     responses: {
       200: {
         description: 'Object containing Philippine main island groups including regions',
         content: {
           'application/json': {
-            schema: IslandListFullResponseSchema
-          }
-        }
+            schema: IslandListFullResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /islands/{id}
   const IslandDetailResponseSchema =
     IslandResponseSuccessSchema
       .extend({
-        data: IslandResponseSchema.omit({ regions: true })
+        data: IslandResponseSchema.omit({ regions: true }),
       })
 
   registry.registerPath({
@@ -133,30 +132,30 @@ export const buildIslandDocs = (registry: OpenAPIRegistry) => {
     tags: ['Islands'],
     request: {
       params: z.object({
-        id: IslandDocSchema.shape._id
+        id: IslandDocSchema.shape._id,
       }),
       query: z.object({
-        includeMeta: IslandQuerySchema.shape.includeMeta
-      })
+        includeMeta: IslandQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing Philippine main island groups including regions',
         content: {
           'application/json': {
-            schema: IslandDetailResponseSchema
-          }
-        }
+            schema: IslandDetailResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
-      404: IslandNotFoundErrorSchema
-    }
+      404: IslandNotFoundErrorSchema,
+    },
   })
 }

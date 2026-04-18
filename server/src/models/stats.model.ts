@@ -5,15 +5,15 @@ const StatsSchema = new Schema<TStatsData>({
   municipalityId: {
     type: SchemaTypes.ObjectId,
     required: true,
-    ref: 'Municipality'
+    ref: 'Municipality',
   },
   numBrgy: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 },
 {
-  timestamps: true
+  timestamps: true,
 })
 
 const Stats = mongoose.model<TStatsData>('Stats', StatsSchema)

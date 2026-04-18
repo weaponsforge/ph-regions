@@ -10,7 +10,7 @@ interface QueryOptionsLocal {
 
 const defaultOptions: QueryOptionsLocal = {
   isLean: false,
-  includeMeta: true
+  includeMeta: true,
 }
 
 /**
@@ -42,7 +42,7 @@ class MongoCrudClass<T> {
    */
   buildQuery <T, DocType>(
     query: Query<T, DocType>,
-    options: QueryOptionsLocal = defaultOptions
+    options: QueryOptionsLocal = defaultOptions,
   ): Query<T, DocType> {
     if (!options.includeMeta || false) {
       query.select({ __v: 0, createdAt: 0, updatedAt: 0 })
@@ -57,7 +57,7 @@ class MongoCrudClass<T> {
 
   async getDocById (
     id: string,
-    options: QueryOptionsLocal = defaultOptions
+    options: QueryOptionsLocal = defaultOptions,
   ): Promise<
     HydratedDocument<T> | Document<T> | null
   > {
@@ -69,7 +69,7 @@ class MongoCrudClass<T> {
 
   async getDocByParams (
     params: Partial<T>,
-    options: QueryOptionsLocal = defaultOptions
+    options: QueryOptionsLocal = defaultOptions,
   ): Promise<
     HydratedDocument<T> | Document<T> | null
   > {
@@ -90,7 +90,7 @@ class MongoCrudClass<T> {
    */
   async getDocs (
     params: Partial<T> = {},
-    options: QueryOptionsLocal = defaultOptions
+    options: QueryOptionsLocal = defaultOptions,
   ): Promise<
     HydratedDocument<T>[] | Document<T>[]
   > {

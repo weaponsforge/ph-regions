@@ -11,7 +11,7 @@ import { Types } from '@/types/types.js'
 export const RegionDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
     description: 'Region ID',
-    example: '68bc452bf0a9414a4312e591'
+    example: '68bc452bf0a9414a4312e591',
   }),
 
   islandId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
@@ -22,7 +22,7 @@ export const RegionDataSchema = MongoDocsDefault.extend({
     .trim()
     .meta({
       description: 'Region name',
-      example: 'Region IV-A'
+      example: 'Region IV-A',
     }),
 
   abbrev: z
@@ -31,7 +31,7 @@ export const RegionDataSchema = MongoDocsDefault.extend({
     .nullable()
     .meta({
       description: 'Abbreviation name or code',
-      example: 'CALABARZON'
+      example: 'CALABARZON',
     }),
 
   regionalName: z
@@ -39,7 +39,7 @@ export const RegionDataSchema = MongoDocsDefault.extend({
     .optional()
     .meta({
       description: 'Long-form regional name',
-      example: 'CALABARZON'
+      example: 'CALABARZON',
     }),
 
   regionalCode: z
@@ -48,13 +48,13 @@ export const RegionDataSchema = MongoDocsDefault.extend({
     .nullable()
     .meta({
       description: 'Region code',
-      example: '4A'
+      example: '4A',
     }),
 
   provinces: z
     .array(ProvinceDataSchema)
     .max(40)
-    .optional()
+    .optional(),
 })
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
@@ -63,7 +63,7 @@ export const RegionDocSchema = RegionDataSchema.extend({
 
   islandId: ObjectIdSchema.meta({
     description: 'Island document ID',
-    example: '68bc452af0a9414a4312e589'
+    example: '68bc452af0a9414a4312e589',
   }),
 
   provinces: z
@@ -71,8 +71,8 @@ export const RegionDocSchema = RegionDataSchema.extend({
     .max(40)
     .optional()
     .meta({
-      description: 'Provinces under this region'
-    })
+      description: 'Provinces under this region',
+    }),
 })
 
 export type TRegionData = z.infer<typeof RegionDataSchema>
