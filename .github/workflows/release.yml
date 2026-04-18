@@ -4,11 +4,15 @@ on:
   release:
     types: [published]
 
+  push:
+    branches-ignore:
+      - master
+
 jobs:
   # Deploy server to Vercel
   deploy-vercel:
     name: Deploy Server to Vercel
-    if: github.event.release.target_commitish == 'master'
+    # if: github.event.release.target_commitish == 'master'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -28,7 +32,7 @@ jobs:
           node-version: 24.11.0
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@47.0.6
+        run: npm install --global vercel@51.7.0
 
       - name: Build API docs
         run: |
