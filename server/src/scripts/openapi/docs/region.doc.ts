@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
@@ -17,15 +16,15 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
   const RegionResponseSuccessSchema = ResponseSuccessSchema.extend({
     metadata: z.object({
       description: RESPONSE_SUCCESS_META.description.meta({
-        example: 'Regional geographic location data of the Philippines'
+        example: 'Regional geographic location data of the Philippines',
       }),
       source: RESPONSE_SUCCESS_META.source.meta({
-        example: FULL_API_METADATA.source
+        example: FULL_API_METADATA.source,
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: FULL_API_METADATA.dateCreated
-      })
-    })
+        example: FULL_API_METADATA.dateCreated,
+      }),
+    }),
   })
 
   // Schema for 404 not found error response
@@ -39,18 +38,18 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
             .array(z.string())
             .meta({
               description: 'List of error messages',
-              example: ['Region not found']
-            })
-        })
-      }
-    }
+              example: ['Region not found'],
+            }),
+        }),
+      },
+    },
   }
 
   // API route: /regions
   const RegionListResponseSchema =
     RegionResponseSuccessSchema
       .extend({
-        data: z.array(RegionResponseSchema.omit({ provinces: true }))
+        data: z.array(RegionResponseSchema.omit({ provinces: true })),
       })
 
   registry.registerPath({
@@ -60,33 +59,33 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     summary: 'List regions',
     tags: ['Regions'],
     request: {
-      query: RegionQuerySchema
+      query: RegionQuerySchema,
     },
     responses: {
       200: {
         description: 'Object containing regions (without provinces/municipalities)',
         content: {
           'application/json': {
-            schema: RegionListResponseSchema
-          }
-        }
+            schema: RegionListResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /regions/full
   const RegionListFullResponseSchema =
     RegionResponseSuccessSchema
       .extend({
-        data: z.array(RegionResponseSchema)
+        data: z.array(RegionResponseSchema),
       })
 
   registry.registerPath({
@@ -96,33 +95,33 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     summary: 'List full regions',
     tags: ['Regions'],
     request: {
-      query: RegionQuerySchema
+      query: RegionQuerySchema,
     },
     responses: {
       200: {
         description: 'Object containing Philippine regions including provinces and municipalities',
         content: {
           'application/json': {
-            schema: RegionListFullResponseSchema
-          }
-        }
+            schema: RegionListFullResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /regions/{id}
   const RegionDetailResponseSchema =
     RegionResponseSuccessSchema
       .extend({
-        data: RegionResponseSchema.omit({ provinces: true })
+        data: RegionResponseSchema.omit({ provinces: true }),
       })
 
   registry.registerPath({
@@ -133,31 +132,31 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     tags: ['Regions'],
     request: {
       params: z.object({
-        id: RegionDocSchema.shape._id
+        id: RegionDocSchema.shape._id,
       }),
       query: z.object({
-        includeMeta: RegionQuerySchema.shape.includeMeta
-      })
+        includeMeta: RegionQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing one (1) Philippine region data excluding provinces and municipalities',
         content: {
           'application/json': {
-            schema: RegionDetailResponseSchema
-          }
-        }
+            schema: RegionDetailResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
-      404: RegionNotFoundErrorSchema
-    }
+      404: RegionNotFoundErrorSchema,
+    },
   })
 
   // API route: /regions/{id}/provinces
@@ -173,30 +172,30 @@ export const buildRegionDocs = (registry: OpenAPIRegistry) => {
     tags: ['Regions'],
     request: {
       params: z.object({
-        id: RegionDocSchema.shape._id
+        id: RegionDocSchema.shape._id,
       }),
       query: z.object({
-        includeMeta: RegionQuerySchema.shape.includeMeta
-      })
+        includeMeta: RegionQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing one (1) Philippine region data including provinces and municipalities',
         content: {
           'application/json': {
-            schema: RegionDetailFullResponseSchema
-          }
-        }
+            schema: RegionDetailFullResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
-      404: RegionNotFoundErrorSchema
-    }
+      404: RegionNotFoundErrorSchema,
+    },
   })
 }

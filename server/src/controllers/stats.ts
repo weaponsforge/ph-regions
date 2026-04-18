@@ -13,7 +13,7 @@ export const getStatsById: ExpressFnParams = async (req, res, next) => {
   try {
     const data = await StatsInstance.getDocByParams(
       { municipalityId },
-      { includeMeta, isLean: true }
+      { includeMeta, isLean: true },
     )
 
     if (!data) {
@@ -24,9 +24,9 @@ export const getStatsById: ExpressFnParams = async (req, res, next) => {
       success: true,
       metadata: {
         description: 'Municipality - barangay count stat (random count)',
-        source: 'n/a'
+        source: 'n/a',
       },
-      data
+      data,
     })
   } catch (err: unknown) {
     return next(err)

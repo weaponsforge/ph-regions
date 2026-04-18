@@ -16,7 +16,7 @@ const main = () => {
     path.join(nodeModulesPath, 'swagger-ui.css'),
     path.join(nodeModulesPath, 'swagger-ui-bundle.js'),
     path.join(nodeModulesPath, 'swagger-ui-standalone-preset.js'),
-    path.join(nodeModulesPath, 'favicon-32x32.png')
+    path.join(nodeModulesPath, 'favicon-32x32.png'),
   ])
 }
 

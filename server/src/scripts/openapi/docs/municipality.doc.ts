@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
@@ -17,22 +16,22 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
   const ResponseSuccessObject = ResponseSuccessSchema.extend({
     metadata: z.object({
       description: RESPONSE_SUCCESS_META.description.meta({
-        example: 'Municipal geographic location data of the Philippines'
+        example: 'Municipal geographic location data of the Philippines',
       }),
       source: RESPONSE_SUCCESS_META.source.meta({
-        example: FULL_API_METADATA.source
+        example: FULL_API_METADATA.source,
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: FULL_API_METADATA.dateCreated
-      })
-    })
+        example: FULL_API_METADATA.dateCreated,
+      }),
+    }),
   })
 
   // API route: /municipalities
   const MunicipalityListResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: z.array(MunicipalityResponseSchema)
+        data: z.array(MunicipalityResponseSchema),
       })
 
   registry.registerPath({
@@ -42,33 +41,33 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
     summary: 'List municipalities',
     tags: ['Municipalities'],
     request: {
-      query: MunicipalityQuerySchema
+      query: MunicipalityQuerySchema,
     },
     responses: {
       200: {
         description: 'Object containing a list of Philippine municipalities',
         content: {
           'application/json': {
-            schema: MunicipalityListResponseSchema
-          }
-        }
+            schema: MunicipalityListResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /municipalities/{id}
   const MunicipalityDetailResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: MunicipalityResponseSchema
+        data: MunicipalityResponseSchema,
       })
 
   registry.registerPath({
@@ -79,28 +78,28 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
     tags: ['Municipalities'],
     request: {
       params: z.object({
-        id: MunicipalityDocSchema.shape._id
+        id: MunicipalityDocSchema.shape._id,
       }),
       query: z.object({
-        includeMeta: MunicipalityQuerySchema.shape.includeMeta
-      })
+        includeMeta: MunicipalityQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing one (1) Philippine municipality data',
         content: {
           'application/json': {
-            schema: MunicipalityDetailResponseSchema
-          }
-        }
+            schema: MunicipalityDetailResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
       404: {
         description: 'Municipality data not found',
@@ -112,12 +111,12 @@ export const buildMunicipalityDocs = (registry: OpenAPIRegistry) => {
                 .array(z.string())
                 .meta({
                   description: 'List of error messages',
-                  example: ['Municipality not found']
-                })
-            })
-          }
-        }
-      }
-    }
+                  example: ['Municipality not found'],
+                }),
+            }),
+          },
+        },
+      },
+    },
   })
 }

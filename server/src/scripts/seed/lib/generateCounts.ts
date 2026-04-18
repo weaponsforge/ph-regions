@@ -13,7 +13,7 @@ export const generateBarangayCounts = (municipalities: TMunicipality[]): DStats[
 
     const item = {
       municipalityId: municipality._id.toString(),
-      numBrgy: Math.floor(Math.random() * (1000 - 100 + 1)) + 100
+      numBrgy: Math.floor(Math.random() * (1000 - 100 + 1)) + 100,
     }
 
     return [...list, item]

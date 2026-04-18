@@ -6,22 +6,22 @@ export const RESPONSE_SUCCESS_META = {
     .string()
     .meta({
       description: 'Summary describing the data set',
-      example: 'List of main island groups in the Philippines'
+      example: 'List of main island groups in the Philippines',
     }),
 
   source: z
     .string()
     .meta({
       description: 'Data source description',
-      example: 'ChatGPT'
+      example: 'ChatGPT',
     }),
 
   dateCreated: z
     .string()
     .meta({
       description: 'Date the data set was originally fetched from source(s) in YYYY/MM/DD format',
-      example: '2025/09/07'
-    })
+      example: '2025/09/07',
+    }),
 }
 
 /** API success response schema */
@@ -30,18 +30,18 @@ export const ResponseSuccessSchema = z.object({
     .boolean()
     .default(true)
     .meta({
-      description: 'Server query success flag'
+      description: 'Server query success flag',
     }),
 
   total: z
     .number()
     .meta({
       description: 'Total number of items in the `data[]` array',
-      example: 1
+      example: 1,
     }),
 
-  metadata: z.object(RESPONSE_SUCCESS_META)
+  metadata: z.object(RESPONSE_SUCCESS_META),
 })
   .meta({
-    description: 'Successful response with requested data'
+    description: 'Successful response with requested data',
   })

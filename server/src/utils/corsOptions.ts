@@ -8,7 +8,7 @@ const whitelist = process.env.ALLOWED_ORIGINS
 const corsOptions = {
   origin: function (
     origin: string | undefined,
-    callback: (err: Error | null, allow?: boolean) => void
+    callback: (err: Error | null, allow?: boolean) => void,
   ) {
     if (whitelist.includes(origin || '')) {
       callback(null, true)
@@ -17,10 +17,10 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'PATCH'],
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 }
 
 export {
   corsOptions,
-  whitelist
+  whitelist,
 }

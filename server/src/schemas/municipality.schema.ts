@@ -9,7 +9,7 @@ import { MongoDocsDefault } from './mongodoc.schema.js'
 export const MunicipalityDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
     description: 'Municipality ID',
-    example: '68bc452bf0a9414a4312e753'
+    example: '68bc452bf0a9414a4312e753',
   }),
 
   regionId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
@@ -21,15 +21,15 @@ export const MunicipalityDataSchema = MongoDocsDefault.extend({
     .trim()
     .meta({
       description: 'Municipality name',
-      example: 'Agoncillo'
+      example: 'Agoncillo',
     }),
 
   numDocs: z
     .number()
     .meta({
       description: 'Document counter (for demo/testing)',
-      example: 0
-    })
+      example: 0,
+    }),
 })
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
@@ -38,13 +38,13 @@ export const MunicipalityDocSchema = MunicipalityDataSchema.extend({
 
   regionId: ObjectIdSchema.meta({
     description: 'Region ID',
-    example: '68bc452bf0a9414a4312e591'
+    example: '68bc452bf0a9414a4312e591',
   }),
 
   provinceId: ObjectIdSchema.meta({
     description: 'Province ID',
-    example: '68bc452bf0a9414a4312e5b1'
-  })
+    example: '68bc452bf0a9414a4312e5b1',
+  }),
 })
 
 export type TMunicipality = z.infer<typeof MunicipalityDataSchema>

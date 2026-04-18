@@ -5,25 +5,25 @@ const MunicipalitySchema = new Schema<TMunicipality>({
   regionId: {
     type: SchemaTypes.ObjectId,
     required: true,
-    ref: 'Region'
+    ref: 'Region',
   },
   provinceId: {
     type: SchemaTypes.ObjectId,
     required: true,
-    ref: 'Province'
+    ref: 'Province',
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   numDocs: {
     type: Number,
     required: true,
-    default: 0
-  }
+    default: 0,
+  },
 },
 {
-  timestamps: true
+  timestamps: true,
 })
 
 MunicipalitySchema.set('toJSON', { virtuals: true })

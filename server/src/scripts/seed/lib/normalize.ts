@@ -30,7 +30,7 @@ export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
     name,
     abbrev: regionAbbrevs[index] || null,
     regionalName: regionalNames[index],
-    regionalCode: regionalNums[index] || null
+    regionalCode: regionalNums[index] || null,
   }))
 }
 
@@ -41,7 +41,7 @@ export const normalizeRegions = (dataSet: ExcelFactory): DRegion[] => {
  * @returns {DProvince[]} List of `DProvince[]`
  */
 export const normalizeProvinces = (
-  dataSet: ExcelFactory, regions: DRegion[]
+  dataSet: ExcelFactory, regions: DRegion[],
 ): DProvince[] => {
   const provinces: DProvince[] = []
 
@@ -51,7 +51,7 @@ export const normalizeProvinces = (
     provincesByRegion.forEach((province: string) => {
       provinces.push({
         regionId: region.name,
-        name: province
+        name: province,
       })
     })
   })
@@ -66,7 +66,7 @@ export const normalizeProvinces = (
  * @returns {DMunicipality[]} List of `DMunicipality[]`
  */
 export const normalizeMunicipalities = (
-  dataSet: ExcelFactory, provinces: DProvince[]
+  dataSet: ExcelFactory, provinces: DProvince[],
 ): DMunicipality[] => {
   const municipalities: DMunicipality[] = []
 
@@ -81,7 +81,7 @@ export const normalizeMunicipalities = (
         regionId,
         provinceId: name,
         name: municipality,
-        numDocs: 0
+        numDocs: 0,
       })
     })
   })
@@ -99,7 +99,7 @@ export const normalizeMunicipalities = (
 export const replaceId = (
   data: DProvince[] | DMunicipality[],
   keyValues: SeedingResult,
-  key: 'regionId' | 'provinceId'
+  key: 'regionId' | 'provinceId',
 ) => {
   return data.map(item => {
     const regionIdKey = item.regionId.toString()
@@ -108,7 +108,7 @@ export const replaceId = (
     return {
       ...item,
       ...(key === 'regionId' && regionIdStr),
-      ...(key === 'provinceId' && 'provinceId' in item && ({ provinceId: keyValues[item.provinceId.toString()] }))
+      ...(key === 'provinceId' && 'provinceId' in item && ({ provinceId: keyValues[item.provinceId.toString()] })),
     }
   })
 }

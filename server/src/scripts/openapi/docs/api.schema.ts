@@ -22,7 +22,7 @@ export const ProvinceResponseSchema = omitCommonFields(ProvinceDocSchema)
   .extend({
     municipalities: z
       .array(MunicipalityResponseSchema)
-      .optional()
+      .optional(),
   })
 
 // Region response schema with nested provinces
@@ -30,7 +30,7 @@ export const RegionResponseSchema = omitCommonFields(RegionDocSchema)
   .extend({
     provinces: z
       .array(ProvinceResponseSchema)
-      .optional()
+      .optional(),
   })
 
 // Island response schema with nested regions and provinces
@@ -38,7 +38,7 @@ export const IslandResponseSchema = omitCommonFields(IslandDocSchema)
   .extend({
     regions: z
       .array(RegionResponseSchema.omit({ provinces: true }))
-      .optional()
+      .optional(),
   })
 
 // Base stats response schema

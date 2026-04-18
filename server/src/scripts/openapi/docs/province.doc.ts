@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
@@ -17,15 +16,15 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
   const ResponseSuccessObject = ResponseSuccessSchema.extend({
     metadata: z.object({
       description: RESPONSE_SUCCESS_META.description.meta({
-        example: 'Provincial geographic location data of the Philippines'
+        example: 'Provincial geographic location data of the Philippines',
       }),
       source: RESPONSE_SUCCESS_META.source.meta({
-        example: FULL_API_METADATA.source
+        example: FULL_API_METADATA.source,
       }),
       dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-        example: FULL_API_METADATA.dateCreated
-      })
-    })
+        example: FULL_API_METADATA.dateCreated,
+      }),
+    }),
   })
 
   // Schema for 404 not found error response
@@ -39,18 +38,18 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
             .array(z.string())
             .meta({
               description: 'List of error messages',
-              example: ['Province not found']
-            })
-        })
-      }
-    }
+              example: ['Province not found'],
+            }),
+        }),
+      },
+    },
   }
 
   // API route: /provinces
   const ProvinceListResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: z.array(ProvinceResponseSchema.omit({ municipalities: true }))
+        data: z.array(ProvinceResponseSchema.omit({ municipalities: true })),
       })
 
   registry.registerPath({
@@ -60,33 +59,33 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     summary: 'List provinces',
     tags: ['Provinces'],
     request: {
-      query: ProvinceQuerySchema
+      query: ProvinceQuerySchema,
     },
     responses: {
       200: {
         description: 'Object containing a list of Philippine provinces',
         content: {
           'application/json': {
-            schema: ProvinceListResponseSchema
-          }
-        }
+            schema: ProvinceListResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /provinces/full
   const ProvinceListFullResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: z.array(ProvinceResponseSchema)
+        data: z.array(ProvinceResponseSchema),
       })
 
   registry.registerPath({
@@ -96,33 +95,33 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     summary: 'List full provinces',
     tags: ['Provinces'],
     request: {
-      query: ProvinceQuerySchema
+      query: ProvinceQuerySchema,
     },
     responses: {
       200: {
         description: 'Object containing Philippine regions including provinces and municipalities',
         content: {
           'application/json': {
-            schema: ProvinceListFullResponseSchema
-          }
-        }
+            schema: ProvinceListFullResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
-      }
-    }
+            schema: ResponseErrorSchema,
+          },
+        },
+      },
+    },
   })
 
   // API route: /provinces/{id}
   const ProvinceDetailResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: ProvinceResponseSchema.omit({ municipalities: true })
+        data: ProvinceResponseSchema.omit({ municipalities: true }),
       })
 
   registry.registerPath({
@@ -133,31 +132,31 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     tags: ['Provinces'],
     request: {
       params: z.object({
-        id: ProvinceDocSchema.shape._id
+        id: ProvinceDocSchema.shape._id,
       }),
       query: z.object({
-        includeMeta: ProvinceQuerySchema.shape.includeMeta
-      })
+        includeMeta: ProvinceQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing one (1) Philippine province data excluding municipalities',
         content: {
           'application/json': {
-            schema: ProvinceDetailResponseSchema
-          }
-        }
+            schema: ProvinceDetailResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
-      404: ProvinceNotFoundErrorSchema
-    }
+      404: ProvinceNotFoundErrorSchema,
+    },
   })
 
   // API route: /provinces/{id}/municipalities
@@ -173,30 +172,30 @@ export const buildProvinceDocs = (registry: OpenAPIRegistry) => {
     tags: ['Provinces'],
     request: {
       params: z.object({
-        id: ProvinceDocSchema.shape._id
+        id: ProvinceDocSchema.shape._id,
       }),
       query: z.object({
-        includeMeta: ProvinceQuerySchema.shape.includeMeta
-      })
+        includeMeta: ProvinceQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing one (1) Philippine province data including its municipalities',
         content: {
           'application/json': {
-            schema: ProvinceDetailFullResponseSchema
-          }
-        }
+            schema: ProvinceDetailFullResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
-      404: ProvinceNotFoundErrorSchema
-    }
+      404: ProvinceNotFoundErrorSchema,
+    },
   })
 }

@@ -11,7 +11,7 @@ let connectionPromise: Promise<unknown> | null = null
  * consistent MongoDB connection
  */
 export const connectDbServerless = async (
-  req: Request, res: Response, next: NextFunction
+  req: Request, res: Response, next: NextFunction,
 ): Promise<Response | void> => {
 
   try {
@@ -31,6 +31,7 @@ export const connectDbServerless = async (
     const errMsg = 'Database connection failed'
 
     console.error(`${errMsg}:`, error)
+
     return next(new ServerError(errMsg, 500))
   }
 }

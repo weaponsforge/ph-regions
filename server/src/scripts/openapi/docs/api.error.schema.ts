@@ -6,30 +6,30 @@ export const ResponseErrorSchema = z.object({
     .boolean()
     .default(false)
     .meta({
-      description: 'Server query failure flag'
+      description: 'Server query failure flag',
     }),
 
   error: z
     .string()
     .meta({
       description: 'Common error message text',
-      example: 'Validation Error'
+      example: 'Validation Error',
     }),
 
   message: z
     .array(z.string())
     .meta({
       description: 'List of error messages',
-      example: ['Unrecognized key: test']
+      example: ['Unrecognized key: test'],
     }),
 
   status: z
     .number()
     .meta({
       description: 'HTTP error status code',
-      example: 400
-    })
+      example: 400,
+    }),
 })
   .meta({
-    description: 'Server error response information'
+    description: 'Server error response information',
   })

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 
 import {
   OpenApiGeneratorV3,
-  OpenAPIRegistry
+  OpenAPIRegistry,
 } from '@asteasolutions/zod-to-openapi'
 
 // Zod OpenAPI compatible schemas
@@ -41,6 +41,7 @@ const registry = new OpenAPIRegistry()
  */
 const generateOpenApiDocs = () => {
   const generator = new OpenApiGeneratorV3(registry.definitions)
+
   return generator.generateDocument(API_INFO)
 }
 
@@ -80,12 +81,12 @@ const main = () => {
 
   // Generate a YML file
   fs.writeFileSync(docPathYML, fileContent, {
-    encoding: 'utf-8'
+    encoding: 'utf-8',
   })
 
   // Generate a JSON file
   fs.writeFileSync(docPathJSON, JSON.stringify(docs, null, 2), {
-    encoding: 'utf-8'
+    encoding: 'utf-8',
   })
 }
 

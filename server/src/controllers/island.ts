@@ -21,7 +21,7 @@ export const getIslands: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: islandsData.metadata,
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -39,7 +39,7 @@ export const getIslandsFull: ExpressFnParams = async (req, res, next) => {
       .find(rest, excludedMetaFields)
       .populate({
         path: 'regions',
-        select: excludedMetaFields
+        select: excludedMetaFields,
       })
       .lean()
       .exec()
@@ -50,7 +50,7 @@ export const getIslandsFull: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: islandsData.metadata,
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -73,7 +73,7 @@ export const getIslandById: ExpressFnParams = async (req, res, next) => {
       success: true,
       total: 1,
       metadata: islandsData.metadata,
-      data
+      data,
     })
   } catch (err: unknown) {
     return next(err)

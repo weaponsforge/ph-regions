@@ -6,9 +6,8 @@ import {
   getRegions,
   getRegionById,
   getRegionsFull,
-  getRegionProvinces
+  getRegionProvinces,
 } from '@/controllers/region.js'
-
 
 const router = Router()
 const validateRegionListParams = validate(RegionQuerySchema)
