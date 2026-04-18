@@ -12,7 +12,7 @@ import {
   normalizeProvinces,
   normalizeMunicipalities,
   replaceId,
-  type DMunicipality
+  type DMunicipality,
 } from './lib/normalize.js'
 
 import { seed, type SeedingResult } from './lib/seed.js'
@@ -42,7 +42,7 @@ connectDb().then(async () => {
     const islandGroupIDs = await seed(
       Island,
       islandsData.data.map(item => ({ name: item.name })),
-      { isReturnMapping: true }
+      { isReturnMapping: true },
     ) as SeedingResult
 
     // Use seeded island IDs in the regions data
@@ -62,7 +62,7 @@ connectDb().then(async () => {
     regionKeyIDs = await seed(
       Region,
       regions,
-      { isReturnMapping: true }
+      { isReturnMapping: true },
     ) as SeedingResult
 
     provinces = replaceId(provinces, regionKeyIDs, 'regionId')
@@ -76,7 +76,7 @@ connectDb().then(async () => {
     provinceKeyIDs = await seed(
       Province,
       provinces,
-      { isReturnMapping: true }
+      { isReturnMapping: true },
     ) as SeedingResult
 
     // Replace placeholder `regionId` and `provinceId` IDs in the local municipalities
@@ -92,7 +92,7 @@ connectDb().then(async () => {
     municipalityKeyIds = await seed(
       Municipality,
       municipalities,
-      { isReturnRaw: true }
+      { isReturnRaw: true },
     ) as unknown as TMunicipality[]
   } catch (err: unknown) {
     const errMsg = typedCatchError(err)

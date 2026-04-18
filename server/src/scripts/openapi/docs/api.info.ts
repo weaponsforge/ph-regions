@@ -14,49 +14,49 @@ export const API_INFO = {
 
     'x-logo': {
       url: './assets/images/logo_ph_regions_01.png',
-      altText: 'PH Regions logo'
-    }
+      altText: 'PH Regions logo',
+    },
   },
   tags: [
     {
       name: 'Islands',
-      description: 'REST APIs for retrieving Philippine islands location data'
+      description: 'REST APIs for retrieving Philippine islands location data',
     },
     {
       name: 'Regions',
-      description: 'REST APIs for retrieving Philippine regional location data'
+      description: 'REST APIs for retrieving Philippine regional location data',
     },
     {
       name: 'Provinces',
-      description: 'REST APIs for retrieving Philippine provincial location data'
+      description: 'REST APIs for retrieving Philippine provincial location data',
     },
     {
       name: 'Municipalities',
-      description: 'REST APIs for retrieving Philippine municipal location data'
+      description: 'REST APIs for retrieving Philippine municipal location data',
     },
     {
       name: 'Stats',
-      description: 'REST APIs for retrieving random test data for each **Municipality**'
-    }
+      description: 'REST APIs for retrieving random test data for each **Municipality**',
+    },
   ],
   'x-tagGroups': [
     {
       name: 'Location',
       tags: ['Islands', 'Regions', 'Provinces', 'Municipalities'],
       description: 'API endpoints for retrieving Philippine location data',
-      'x-displayName': 'Location data'
+      'x-displayName': 'Location data',
     },
     {
       name: 'Random',
       description: 'API endpoints for retrieving random data with Municipalities',
       tags: ['Stats'],
-      'x-displayName': 'Random data'
-    }
+      'x-displayName': 'Random data',
+    },
   ],
   servers: [
     {
       url: BASE_API_URL,
-      description: 'Development server'
-    }
-  ]
+      description: 'Development server',
+    },
+  ],
 }

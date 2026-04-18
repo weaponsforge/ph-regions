@@ -9,7 +9,7 @@ import { MongoDocsDefault } from './mongodoc.schema.js'
 export const StatsDataSchema = MongoDocsDefault.extend({
   _id: ObjectIdSchema.meta({
     description: 'Stats `id` is the same as `municipalityId`',
-    example: '68bc452bf0a9414a4312e753'
+    example: '68bc452bf0a9414a4312e753',
   }),
 
   municipalityId: z.instanceof(Types.ObjectId).or(ObjectIdSchema),
@@ -18,12 +18,12 @@ export const StatsDataSchema = MongoDocsDefault.extend({
     .number()
     .meta({
       description: 'Random number of barangays within the municipality',
-      example: 97
-    })
+      example: 97,
+    }),
 })
   .meta({
     id: 'Stats',
-    description: 'Municipality stats schema'
+    description: 'Municipality stats schema',
   })
 
 // Zod ID definitions for OpenAPI docs (accepts string instead of ObjectId)
@@ -32,8 +32,8 @@ export const StatsDocSchema = StatsDataSchema.extend({
 
   municipalityId: ObjectIdSchema.meta({
     description: 'Municipality ID',
-    example: '68bc452bf0a9414a4312e753'
-  })
+    example: '68bc452bf0a9414a4312e753',
+  }),
 })
 
 export type TStatsData = z.infer<typeof StatsDataSchema>

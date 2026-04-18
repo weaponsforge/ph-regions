@@ -21,7 +21,7 @@ export const getRegions: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: FULL_API_METADATA,
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -42,8 +42,8 @@ export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
         select: excludedMetaFields,
         populate: {
           path: 'municipalities',
-          select: excludedMetaFields
-        }
+          select: excludedMetaFields,
+        },
       })
       .lean()
       .exec()
@@ -54,7 +54,7 @@ export const getRegionsFull: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: FULL_API_METADATA,
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -77,7 +77,7 @@ export const getRegionById: ExpressFnParams = async (req, res, next) => {
       success: true,
       total: 1,
       metadata: FULL_API_METADATA,
-      data
+      data,
     })
   } catch (err: unknown) {
     return next(err)
@@ -99,8 +99,8 @@ export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
         select: excludedMetaFields,
         populate: {
           path: 'municipalities',
-          select: excludedMetaFields
-        }
+          select: excludedMetaFields,
+        },
       })
       .lean()
       .exec()
@@ -113,7 +113,7 @@ export const getRegionProvinces: ExpressFnParams = async (req, res, next) => {
       success: true,
       total: 1,
       metadata: FULL_API_METADATA,
-      data
+      data,
     })
   } catch (err) {
     return next(err)

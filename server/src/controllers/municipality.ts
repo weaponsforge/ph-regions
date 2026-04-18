@@ -20,7 +20,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
   const params = {
     ...rest,
     ...(regionId && ({ regionId: String(regionId) })),
-    ...(provinceId && ({ provinceId: String(provinceId) }))
+    ...(provinceId && ({ provinceId: String(provinceId) })),
   }
 
   try {
@@ -31,7 +31,7 @@ export const getMunicipalities: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: { ...FULL_API_METADATA, description },
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -54,7 +54,7 @@ export const getMunicipalityById: ExpressFnParams = async (req, res, next) => {
       success: true,
       total: 1,
       metadata: { ...FULL_API_METADATA, description },
-      data
+      data,
     })
   } catch (err: unknown) {
     return next(err)

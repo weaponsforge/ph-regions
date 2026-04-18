@@ -4,7 +4,7 @@ import { validate } from '@/middleware/validate.js'
 
 import {
   getMunicipalities,
-  getMunicipalityById
+  getMunicipalityById,
 } from '@/controllers/municipality.js'
 
 const router = Router()

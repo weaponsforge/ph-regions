@@ -22,7 +22,7 @@ export const getProvinces: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: { ...FULL_API_METADATA, description },
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -40,7 +40,7 @@ export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
       .find(rest, excludedMetaFields)
       .populate({
         path: 'municipalities',
-        select: excludedMetaFields
+        select: excludedMetaFields,
       })
       .lean()
       .exec()
@@ -51,7 +51,7 @@ export const getProvincesFull: ExpressFnParams = async (req, res, next) => {
       success: true,
       total,
       metadata: { ...FULL_API_METADATA, description },
-      data
+      data,
     })
   } catch (err) {
     return next(err)
@@ -74,7 +74,7 @@ export const getProvinceById: ExpressFnParams = async (req, res, next) => {
       success: true,
       total: 1,
       metadata: { ...FULL_API_METADATA, description },
-      data
+      data,
     })
   } catch (err: unknown) {
     return next(err)
@@ -93,7 +93,7 @@ export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next)
       .findById(provinceId, excludedMetaFields)
       .populate({
         path: 'municipalities',
-        select: excludedMetaFields
+        select: excludedMetaFields,
       })
       .lean()
       .exec()
@@ -106,7 +106,7 @@ export const getProvinceMunicipalities: ExpressFnParams = async (req, res, next)
       success: true,
       total: 1,
       metadata: { ...FULL_API_METADATA, description },
-      data
+      data,
     })
   } catch (err) {
     return next(err)

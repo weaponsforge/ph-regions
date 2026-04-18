@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 
@@ -19,22 +18,22 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
     .extend({
       metadata: z.object({
         description: RESPONSE_SUCCESS_META.description.meta({
-          example: 'Random barangay geographic location data of the Philippines'
+          example: 'Random barangay geographic location data of the Philippines',
         }),
         source: RESPONSE_SUCCESS_META.source.meta({
-          example: 'n/a'
+          example: 'n/a',
         }),
         dateCreated: RESPONSE_SUCCESS_META.dateCreated.meta({
-          example: FULL_API_METADATA.dateCreated
-        })
-      })
+          example: FULL_API_METADATA.dateCreated,
+        }),
+      }),
     })
 
   // API route: /stats/{id}
   const StatsDetailResponseSchema =
     ResponseSuccessObject
       .extend({
-        data: StatsResponseSchema
+        data: StatsResponseSchema,
       })
 
   registry.registerPath({
@@ -45,28 +44,28 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
     tags: ['Stats'],
     request: {
       params: z.object({
-        id: StatsDocSchema.shape.municipalityId
+        id: StatsDocSchema.shape.municipalityId,
       }),
       query: z.object({
-        includeMeta: StatsQuerySchema.shape.includeMeta
-      })
+        includeMeta: StatsQuerySchema.shape.includeMeta,
+      }),
     },
     responses: {
       200: {
         description: 'Object containing one (1) random Philippine municipality stat data',
         content: {
           'application/json': {
-            schema: StatsDetailResponseSchema
-          }
-        }
+            schema: StatsDetailResponseSchema,
+          },
+        },
       },
       400: {
         description: 'Query parameter validation error',
         content: {
           'application/json': {
-            schema: ResponseErrorSchema
-          }
-        }
+            schema: ResponseErrorSchema,
+          },
+        },
       },
       404: {
         description: 'Stats data for municipality not found',
@@ -78,12 +77,12 @@ export const buildStatsDocs = (registry: OpenAPIRegistry) => {
                 .array(z.string())
                 .meta({
                   description: 'List of error messages',
-                  example: ['Municipality stats not found']
-                })
-            })
-          }
-        }
-      }
-    }
+                  example: ['Municipality stats not found'],
+                }),
+            }),
+          },
+        },
+      },
+    },
   })
 }

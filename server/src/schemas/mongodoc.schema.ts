@@ -11,7 +11,7 @@ export const MongoDocsDefault = z.object({
     .optional()
     .meta({
       description: 'Mongoose version key',
-      example: 0
+      example: 0,
     }),
 
   // Zod schema for the Mongo "createdAt" field
@@ -20,7 +20,7 @@ export const MongoDocsDefault = z.object({
     .optional()
     .meta({
       description: 'MongoDB document creation date',
-      example: '2025-09-06T14:28:58.985Z'
+      example: '2025-09-06T14:28:58.985Z',
     }),
 
   // Zod schema for the Mongo "updatedAt" field
@@ -29,6 +29,6 @@ export const MongoDocsDefault = z.object({
     .optional()
     .meta({
       description: 'MongoDB document last update/edit date',
-      example: '2025-09-06T14:28:58.985Z'
-    })
+      example: '2025-09-06T14:28:58.985Z',
+    }),
 })

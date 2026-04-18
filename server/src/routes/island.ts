@@ -5,7 +5,7 @@ import { validate } from '@/middleware/validate.js'
 import {
   getIslandById,
   getIslands,
-  getIslandsFull
+  getIslandsFull,
 } from '@/controllers/island.js'
 
 const router = Router()
