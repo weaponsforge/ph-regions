@@ -4,15 +4,11 @@ on:
   release:
     types: [published]
 
-  push:
-    branches-ignore:
-      - master
-
 jobs:
   # Deploy server to Vercel
   deploy-vercel:
     name: Deploy Server to Vercel
-    # if: github.event.release.target_commitish == 'master'
+    if: github.event.release.target_commitish == 'master'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
