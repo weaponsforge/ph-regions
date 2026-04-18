@@ -301,6 +301,10 @@ Runs type-checking without generating the JavaScript or declaration files from t
 
 Watches file changes in `.ts` files using the `tsc --watch` option.
 
+### `npm run info`
+
+Logs the installed Node.js and npm version, environment platform, architecture and V8 version.
+
 ### `npm run lint`
 
 Lints TypeScript source codes.

@@ -22,7 +22,8 @@
     "seed": "tsx ./src/scripts/seed/main.ts",
     "docker:dev": "nodemon --config nodemon.debug.json",
     "docker:seed:debug": "tsx --inspect=0.0.0.0:9229 ./src/scripts/seed/main.ts",
-    "docker:watch:win": "tsc -p tsconfig.json --watch --watchFile dynamicPriorityPolling --watchDirectory dynamicPriorityPolling"
+    "docker:watch:win": "tsc -p tsconfig.json --watch --watchFile dynamicPriorityPolling --watchDirectory dynamicPriorityPolling",
+    "info": "tsx ./src/scripts/envinfo.ts"
   },
   "author": "weaponsforge",
   "license": "MIT",
