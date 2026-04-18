@@ -28,7 +28,7 @@ jobs:
           node-version: 24.11.0
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@47.0.6
+        run: npm install --global vercel@51.7.0
 
       - name: Build API docs
         run: |
