@@ -13,8 +13,10 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 - REST API: <https://ph-regions.vercel.app/api>
 - API documentation
-  - Static: <https://ph-regions.vercel.app>
-  - Interactive: <https://ph-regions.vercel.app/docs>
+  - Interactive (Scalar): <https://ph-regions.vercel.app>
+  - Interactive (Swagger UI): <https://ph-regions.vercel.app/docs>
+  - Static: <https://ph-regions.vercel.app/docs/redoc>
+
 
 <br>
 
