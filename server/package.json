@@ -14,7 +14,7 @@
     "transpile:noemit": "tsc -p tsconfig.json --noEmit",
     "docs:swagger": "tsx ./src/scripts/copyFiles/main.ts",
     "docs:gen": "tsx --import ./src/scripts/openapi/zod-extend.ts ./src/scripts/openapi/main.ts",
-    "docs:build": "npm run docs:gen && redocly build-docs ./public/openapi.yaml -o public/index.html",
+    "docs:build": "npm run docs:gen && redocly build-docs ./public/openapi.yaml -o public/docs/redoc/index.html",
     "build": "npm run transpile && npm run docs:build && npm run docs:swagger",
     "watch": "tsc -p tsconfig.json --watch",
     "lint": "eslint \"src/**/*.ts\" *.mjs",
