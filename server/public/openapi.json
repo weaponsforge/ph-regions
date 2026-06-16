@@ -10,7 +10,7 @@
     "license": {
       "name": "MIT"
     },
-    "description": "**💡About** \n\n A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality for testing purposes. \n\n **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. \n **Note:** The location data may be outdated and does not reflect the most current official records. \n\n **🧩 Alternate API Documentation** <ul><li>Scalar: [http://localhost:3001](http://localhost:3001)</li><li>Swagger UI: [http://localhost:3001/docs](http://localhost:3001/docs)</li><li>Redocly CLI: [http://localhost:3001/docs/redoc](http://localhost:3001/docs/redoc)</li></ul>",
+    "description": "**💡About** \n\n A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality for testing purposes. \n\n **⚠️ Important** <br><br> This API is intended for testing and simulating RESTful API requests from client applications. \n **Note:** The location data may be outdated and does not reflect the most current official records. \n\n **🧩 Alternate API Documentation**\n\n- Interactive (Scalar): [http://localhost:3001](http://localhost:3001)\n- Interactive (Swagger UI): [http://localhost:3001/docs](http://localhost:3001/docs)\n- Static (Redocly CLI): [http://localhost:3001/docs/redoc](http://localhost:3001/docs/redoc)",
     "x-logo": {
       "url": "../../assets/images/logo_ph_regions_01.png",
       "altText": "PH Regions logo"

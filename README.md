@@ -348,7 +348,7 @@ Generates the OpenAPI `openapi.yaml` (YAML) and `openapi.json` (JSON) files into
 
 ### `npm run docs:build`
 
-Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/index.html` file.
+Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/redoc/index.html` file.
 
 ### `npm run build`
 
