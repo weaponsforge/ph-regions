@@ -72,14 +72,13 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 | Library | Version | Description |
 | --- | --- | --- |
 | Express | `5.2.1` |  Node.js web framework for building APIs and web servers. |
-| Mongoose | `9.4.1` | ODM for MongoDB that provides schema-based modeling and data interaction. |
-| Zod | `4.3.6` | TypeScript-first schema validation for request payloads and query parameters. |
-| Nodemon | `3.1.14` | Development tool that automatically restarts the server on file changes. |
-| tsx | `4.21.0` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
-| tsc-alias | `1.8.16` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
-| ESlint | `10.2.1` | Linting tool that enforces code style, quality, and formatting rules. |
+| Mongoose | `9.7.0` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| Zod | `4.4.3` | TypeScript-first schema validation for request payloads and query parameters. |
+| tsx | `4.22.4` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
+| tsc-alias | `1.8.17` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
+| ESlint | `10.5.0` | Linting tool that enforces code style, quality, and formatting rules. |
 | @asteasolutions/zod-to-openapi | `8.5.0` | Generates OpenAPI YAML and JSON files from Zod schemas. |
-| @redocly/cli | `2.28.1` | Generates an API documentation using an OpenAPI YAML input. |
+| @redocly/cli | `2.32.2` | Generates an API documentation using an OpenAPI YAML input. |
 | swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI JSON input. |
 
 </details>
@@ -276,6 +275,28 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
 </details>
 <br>
 
+## 🔖 Other Notes
+
+### Updating Scalar API Documentation
+
+> [!IMPORTANT]
+> This project uses the HTML/CSS/JavaScript version of [Scalar](https://github.com/ScalaR/ScalaR) for API documentation.
+
+1. Check for the latest Scalar standalone script version:
+   - https://cdn.jsdelivr.net/npm/@scalar/api-reference
+2. Compare it with the version referenced in `/server/public/index.html`.
+3. If a newer version exists:
+   - Update the script URL.
+   - Generate a new SRI hash:
+
+     ```bash
+     /server/scripts/genSriHash <full-script-url>
+     ```
+
+   - Update the script's `integrity` attribute with the generated hash.
+
+<br>
+
 ## 📜 Available Scripts
 
 These scripts, defined in the `"/server/package.json"` file, are compatible with running in Node and Docker. They run various TypeScript scripts, tests, and processes for code base management.
@@ -464,6 +485,7 @@ This repository deploys the latest production API and documentation to Vercel af
 - [Redocly CLI Cookbook](https://github.com/Redocly/redocly-cli-cookbook)
 - [Redoc Demo](https://redocly.github.io/redoc/)
 - [Swagger Editor (Online)](https://swagger.io/tools/swagger-editor/)
+- [SRI Hash Generator](https://srihash.org/)
 
 @weaponsforge<br>
 20250711<br>
