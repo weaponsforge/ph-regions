@@ -290,7 +290,7 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    - Generate a new SRI hash:
 
      ```bash
-     /server/scripts/genSriHash <full-script-url>
+     /server/scripts/genSriHash.sh <full-script-url>
      ```
 
    - Update the script's `integrity` attribute with the generated hash.
@@ -348,7 +348,7 @@ Generates the OpenAPI `openapi.yaml` (YAML) and `openapi.json` (JSON) files into
 
 ### `npm run docs:build`
 
-Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/redoc/index.html` file.
+Builds the API documentation using the [Redocly CLI](https://www.npmjs.com/package/@redocly/cli) into the `/server/public/docs/redoc/index.html` file.
 
 ### `npm run build`
 
