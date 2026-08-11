@@ -478,6 +478,7 @@ This repository deploys the latest production API and documentation to Vercel af
 ## References
 
 - [OpenAPI Specification](https://swagger.io/specification/)
+- [Scalar](https://github.com/scalar/scalar)
 - [Redocly - Introduction to OpenAPI](https://redocly.com/learn/openapi/learning-openapi)
 - [Redocly - API Governance](https://redocly.com/api-governance)
 - [Redocly Configuration](https://redocly.com/docs/redoc/config)
