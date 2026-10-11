@@ -1,6 +1,7 @@
 node_modules/
 dist/
 public/*
+public/assets/*
 .vercel
 
 .env
@@ -9,3 +10,5 @@ public/*
 !public/openapi.json
 !public/openapi.yaml
 !public/docs/index.html
+!public/assets/
+!public/assets/architecture.tar.gz

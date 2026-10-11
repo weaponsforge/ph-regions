@@ -7,16 +7,16 @@ COPY package*.json ./
 
 # BUILD TARGET
 FROM base AS build
-RUN npm install
+RUN npm ci
 COPY --chown=node:node . ./
-RUN npm run build
+RUN npm run build && ./scripts/diagram.sh
 
 # DEVELOPMENT SETUP
 FROM base AS development-setup
 ENV NODE_ENV development
-RUN npm install
+RUN npm ci
 COPY --chown=node:node . .
-RUN npm run docs:build && npm run docs:swagger
+RUN npm run docs:build && npm run docs:swagger && ./scripts/diagram.sh
 USER node
 EXPOSE 3001 9229
 
@@ -32,6 +32,7 @@ CMD ["npm", "run", "docker:dev"]
 FROM base AS production
 ENV NODE_ENV production
 COPY --chown=node:node package*.json ./
+
 RUN npm ci --only=production && npm cache clean --force
 
 # Copy build output
