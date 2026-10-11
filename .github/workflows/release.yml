@@ -18,7 +18,7 @@ jobs:
       BASE_API_URL: ${{ secrets.BASE_API_URL }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.release.tag_name }}
 
@@ -46,7 +46,9 @@ jobs:
           cd server
           chmod u+x ./scripts/buildVercel.sh
           chmod u+x ./scripts/replace.sh
+          chmod u+x ./scripts/diagram.sh
           ./scripts/replace.sh
+          ./scripts/diagram.sh
           vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
           ./scripts/buildVercel.sh
 
@@ -73,7 +75,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.release.tag_name }}
 
@@ -84,3 +86,41 @@ jobs:
 
       - name: Push Image to Docker Hub
         run: docker compose -f docker-compose.yml push
+
+  publish-diagram:
+    name: Publish Diagram to GH Pages
+    if: github.event.release.target_commitish == 'master'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Prepare static files
+        run: |
+          cd server
+          chmod u+x scripts/diagram.sh
+          ./scripts/diagram.sh
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: server/public/architecture/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
