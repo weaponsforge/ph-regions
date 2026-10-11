@@ -72,15 +72,15 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 
 | Library | Version | Description |
 | --- | --- | --- |
-| Express | `5.2.1` |  Node.js web framework for building APIs and web servers. |
-| Mongoose | `9.7.0` | ODM for MongoDB that provides schema-based modeling and data interaction. |
-| Zod | `4.4.3` | TypeScript-first schema validation for request payloads and query parameters. |
-| tsx | `4.22.4` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
-| tsc-alias | `1.8.17` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
-| ESlint | `10.5.0` | Linting tool that enforces code style, quality, and formatting rules. |
-| @asteasolutions/zod-to-openapi | `8.5.0` | Generates OpenAPI YAML and JSON files from Zod schemas. |
-| @redocly/cli | `2.32.2` | Generates an API documentation using an OpenAPI YAML input. |
-| swagger-ui-express | `4.1.8` | Generates a Swagger UI API documentation using an OpenAPI JSON input. |
+| Express | `5.3.0` |  Node.js web framework for building APIs and web servers. |
+| Mongoose | `9.11.1` | ODM for MongoDB that provides schema-based modeling and data interaction. |
+| Zod | `4.6.5` | TypeScript-first schema validation for request payloads and query parameters. |
+| tsx | `4.23.15` | Executes TypeScript and TSX files directly, ideal for dev and script running. |
+| tsc-alias | `1.9.7` | Rewrites path aliases in compiled TypeScript output (`tsconfig` paths). |
+| ESlint | `10.12.0` | Linting tool that enforces code style, quality, and formatting rules. |
+| @asteasolutions/zod-to-openapi | `9.1.0` | Generates OpenAPI YAML and JSON files from Zod schemas. |
+| @redocly/cli | `2.62.1` | Generates an API documentation using an OpenAPI YAML input. |
+| swagger-ui-express | `5.0.1` | Generates a Swagger UI API documentation using an OpenAPI JSON input. |
 
 </details>
 <br>
