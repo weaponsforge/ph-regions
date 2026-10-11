@@ -9,14 +9,14 @@ COPY package*.json ./
 FROM base AS build
 RUN npm ci
 COPY --chown=node:node . ./
-RUN npm run build && ./scripts/diagram.sh
+RUN npm run build && sh ./scripts/diagram.sh
 
 # DEVELOPMENT SETUP
 FROM base AS development-setup
 ENV NODE_ENV development
 RUN npm ci
 COPY --chown=node:node . .
-RUN npm run docs:build && npm run docs:swagger && ./scripts/diagram.sh
+RUN npm run docs:build && npm run docs:swagger && sh ./scripts/diagram.sh
 USER node
 EXPOSE 3001 9229
 
