@@ -1,6 +1,6 @@
 {
   "name": "ph-regions",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "type": "module",
   "description": "A RESTful API that serves hierarchical location data of the Philippines — including regions, provinces, municipalities, and a randomly generated number of barangays per municipality.",
   "main": "dist/server.js",
@@ -30,29 +30,29 @@
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "express-rate-limit": "^8.6.2",
-    "mongoose": "^9.9.2",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "mongoose": "^9.11.1",
     "swagger-ui-express": "^5.0.1",
-    "zod": "^4.4.3"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^9.1.0",
     "@eslint/js": "^10.0.1",
-    "@redocly/cli": "^2.46.0",
+    "@redocly/cli": "^2.62.1",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.6.5",
     "@types/swagger-ui-express": "^4.1.8",
-    "eslint": "^10.8.1",
-    "globals": "^17.9.0",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
     "ph-municipalities": "^1.4.7",
-    "tsc-alias": "^1.9.1",
-    "tsx": "^4.23.12",
+    "tsc-alias": "^1.9.7",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.67.0",
-    "yaml": "^2.9.0"
+    "typescript-eslint": "^8.71.1",
+    "yaml": "^2.9.1"
   }
 }

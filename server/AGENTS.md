@@ -6,11 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **ph-regions** is a RESTful API serving hierarchical Philippine location data (islands → regions → provinces → municipalities → barangays). It supports testing/simulating RESTful API requests from client applications, with deployment targets for both regular Node.js and Vercel serverless.
 
-The codebase lives in `/server` — all development work happens there.
-
 ## Commands
-
-Run these from the `/server` directory:
 
 ```bash
 # Development
@@ -84,6 +80,44 @@ Error responses:
 ```json
 { "success": false, "error": "...", "message": ["..."], "status": 400 }
 ```
+
+### API Documentation
+
+The app serves three API documentation UIs. All three read the same generated OpenAPI spec (`server/public/openapi.yaml` / `server/public/openapi.json`), and `express.static` serves them from `server/public/`.
+
+| UI | Path | Source | Spec source |
+|---|---|---|---|
+| Scalar | `/` | `server/public/index.html` (Scalar's CDN standalone script) | `/openapi.json` |
+| Swagger UI | `/docs` | `server/public/docs/index.html` + assets copied from `swagger-ui-dist` | `openapi.json` |
+| Redocly | `/docs/redoc` | `server/public/docs/redoc/index.html` (generated) | `openapi.yaml` |
+
+**After any endpoint/schema change**, regenerate the spec first. All three UIs pick it up:
+```bash
+npm run docs:gen      # Zod schemas + src/scripts/openapi/docs/*.doc.ts → public/openapi.yaml + public/openapi.json
+```
+
+#### 1. Scalar docs
+Scalar is not an npm dependency. This project uses the HTML/CSS/JavaScript version: `server/public/index.html` loads the standalone script from jsDelivr, pinned to an exact version with a Subresource Integrity (SRI) hash. Scalar reads `/openapi.json` at runtime, so `npm run docs:gen` is enough to update its content. To upgrade Scalar itself:
+1. Find the latest standalone script version at https://cdn.jsdelivr.net/npm/@scalar/api-reference.
+2. Compare it with the version in the `<script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@<version>/dist/browser/standalone.js">` tag in `server/public/index.html`.
+3. If a newer version exists, update the script URL to the new exact version. Always pin an exact version, never a tag like `@latest`, or the SRI hash will break when the file changes.
+4. Generate a new SRI hash for the full script URL (needs `curl` and `openssl`):
+   ```bash
+   ./scripts/genSriHash.sh https://cdn.jsdelivr.net/npm/@scalar/api-reference@<version>/dist/browser/standalone.js
+   ```
+5. Replace the script's `integrity` attribute with the printed `sha384-...` value. Keep `crossorigin="anonymous"`. If the hash doesn't match the file, the browser will refuse to load the script and the page will be blank.
+6. Load `/` in a browser to confirm the reference renders with no SRI or console errors.
+
+#### 2. Swagger UI
+- **Content:** run `npm run docs:gen`.
+- **Assets:** `npm run docs:swagger` copies `swagger-ui.css`, `swagger-ui-bundle.js`, `swagger-ui-standalone-preset.js`, and `favicon-32x32.png` from `node_modules/swagger-ui-dist` into `server/public/docs/` (or `server/public/` when `DEPLOYMENT_PLATFORM=vercel`). To upgrade Swagger UI, update the `swagger-ui-dist` package (it comes in through `swagger-ui-express`), then run `npm run docs:swagger` again.
+- **Config:** the spec URL and options are set in the `SwaggerUIBundle({...})` call in `server/public/docs/index.html`. It currently points at `http://localhost:3001/openapi.json`.
+
+#### 3. Redocly
+- `npm run docs:build` runs `docs:gen` and then `redocly build-docs ./public/openapi.yaml -o public/docs/redoc/index.html`.
+- `server/public/docs/redoc/index.html` is a build artifact. Regenerate it; don't edit it by hand. To upgrade the renderer, update the `@redocly/cli` devDependency.
+
+`npm run build` regenerates everything: transpile, then `docs:build` (spec + Redocly), then `docs:swagger`. The Scalar script version and SRI hash are the only parts you have to update by hand.
 
 ### Deployment Platform Branching
 The `DEPLOYMENT_PLATFORM` env var (`"regular"` | `"vercel"`) controls:
