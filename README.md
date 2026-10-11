@@ -11,7 +11,7 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 
 ### Online Demo
 
-- REST API Base URL: `https://ph-regions.vercel.app/`
+- REST API Base URL: `https://ph-regions.vercel.app/api`
 - Interactive Architecture Diagram
   - <http://weaponsforge.github.io/ph-regions>
 - API documentation
@@ -259,7 +259,7 @@ Navigate to the `server/` directory.
 
    ```sh
    # Copies the architecture diagram - requires Bash
-   ./scripts/diagram
+   ./scripts/diagram.sh
    ```
 
 2. Run the seeder script only once.<br>
