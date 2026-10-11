@@ -12,11 +12,12 @@ A RESTful API that serves **hierarchical location data** of the Philippines — 
 ### Online Demo
 
 - REST API Base URL: `https://ph-regions.vercel.app/api`
+- Interactive Architecture Diagram
+  - <http://weaponsforge.github.io/ph-regions>
 - API documentation
   - Interactive (Scalar): <https://ph-regions.vercel.app>
   - Interactive (Swagger UI): <https://ph-regions.vercel.app/docs>
   - Static: <https://ph-regions.vercel.app/docs/redoc>
-
 
 <br>
 
@@ -120,8 +121,12 @@ Follow these steps to set up and use the code repository easily. Read the [Insta
 `docker exec -it weaponsforge-ph-regions npm run seed`
 
 5. Access the available resources:
-   - REST API documentation: http://localhost:3001
-   - REST API endpoints: http://localhost:3001/api
+   - Architecture diagram: http://localhost:3001/architecture
+   - REST API documentation
+      - Interactive (Scalar): http://localhost:3001
+      - Interactive (Swagger UI): http://localhost:3001/docs
+      - Static (Redocly CLI): http://localhost:3001/docs/redoc
+   - REST API endpoints: `http://localhost:3001/api`
 
 ## 🛠️ Installation
 
@@ -239,6 +244,8 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
 <summary>👉 View usage instructions</summary>
 <br>
 
+Navigate to the `server/` directory.
+
 1. Build the API documentation.<br>
    ```sh
    # Builds the Redocly API documentation
@@ -248,6 +255,11 @@ See [Docker Hub: weaponsforge/ph-regions](https://hub.docker.com/r/weaponsforge/
    ```sh
    # Builds the Swagger UI API documentation
    npm run docs:swagger
+   ```
+
+   ```sh
+   # Copies the architecture diagram - requires Bash
+   ./scripts/diagram.sh
    ```
 
 2. Run the seeder script only once.<br>
